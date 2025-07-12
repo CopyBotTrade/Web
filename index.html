@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento de Cuentas Auditadas - Copytrading</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark background */
+            color: #d1d5db; /* Lighter text for dark mode */
+        }
+        .card {
+            background-color: #1f2937; /* Slightly lighter dark for cards */
+            border-radius: 0.75rem;
+            border: 1px solid #374151;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #4f46e5;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+        }
+        .profit {
+            color: #22c55e; /* Brighter Green */
+        }
+        .loss {
+            color: #ef4444; /* Brighter Red */
+        }
+        .drawdown {
+            color: #ef4444; /* Brighter Red */
+        }
+        .ranking-badge {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-image: linear-gradient(to bottom right, #4f46e5, #7c3aed);
+            color: white;
+            font-weight: 700;
+            width: 50px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        select {
+            background-color: #374151;
+            border-color: #4b5563;
+            color: #d1d5db;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 py-8 md:py-12">
+
+        <!-- Header Section -->
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-white">Seguimiento de Cuentas Auditadas</h1>
+            <p class="text-md md:text-lg text-gray-400 mt-2">Ranking de estrategias de trading automático.</p>
+        </header>
+
+        <!-- Sorting Controls -->
+        <div class="flex justify-center mb-10">
+            <div class="flex items-center space-x-3 bg-[#1f2937] p-2 rounded-lg border border-[#374151] shadow-sm">
+                <label for="sortOrder" class="text-sm font-medium text-gray-300">Ordenar por:</label>
+                <select id="sortOrder" class="block w-full pl-3 pr-10 py-2 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                    <option value="profitTotal" selected>Profit Total</option>
+                    <option value="drawdown">Menor Drawdown</option>
+                    <option value="profitDrawdownRatio">Mejor Relación Profit/Drawdown</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Strategy Cards Grid -->
+        <main id="strategy-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10">
+            <!-- Cards will be dynamically inserted here by JavaScript -->
+        </main>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 mt-8">
+        <p class="text-gray-500 text-sm">Creado por Xavier Rojas © 2025</p>
+    </footer>
+
+    <script>
+        // --- DATA EXTRACTED FROM NEW IMAGES ---
+        const strategies = [
+            { id: 1, name: 'Eurusd fractales 4h', balance: 12180.11, equity: 12180.11, profitTotalValue: 2158.47, profitTotalPercent: 21.58, drawdown: 9.76, tradingDays: 8, dailyProfitPercent: 0.68, monthlyProfitPercent: 21.58, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-4h/11589917' },
+            { id: 2, name: 'Eurusd Fractales H4 Trailing Stop', balance: 6758.86, equity: 6813.21, profitTotalValue: -3241.14, profitTotalPercent: -32.41, drawdown: 32.41, tradingDays: 3, dailyProfitPercent: -3.50, monthlyProfitPercent: -32.41, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
+            { id: 3, name: 'Oro fractales 4h', balance: 12308.20, equity: 12308.20, profitTotalValue: 2295.93, profitTotalPercent: 22.96, drawdown: 41.28, tradingDays: 7, dailyProfitPercent: 0.72, monthlyProfitPercent: 22.96, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+            { id: 4, name: 'Eurusd fractales 1h', balance: 11915.70, equity: 11915.70, profitTotalValue: 1844.37, profitTotalPercent: 18.39, drawdown: 33.83, tradingDays: 6, dailyProfitPercent: 0.68, monthlyProfitPercent: 18.39, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
+            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', balance: 11485.33, equity: 11485.33, profitTotalValue: 1416.31, profitTotalPercent: 14.13, drawdown: 21.70, tradingDays: 7, dailyProfitPercent: 0.55, monthlyProfitPercent: 14.13, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
+            { id: 6, name: 'Oro fractales 1h', balance: 11771.44, equity: 11771.44, profitTotalValue: 1758.00, profitTotalPercent: 17.58, drawdown: 32.06, tradingDays: 7, dailyProfitPercent: 0.65, monthlyProfitPercent: 17.58, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const grid = document.getElementById('strategy-grid');
+        const sortOrderSelect = document.getElementById('sortOrder');
+
+        // --- FUNCTIONS ---
+
+        /**
+         * Calculates derived metrics for each strategy.
+         */
+        function calculateMetrics(strategies) {
+            return strategies.map(s => {
+                const dailyProfitValue = s.tradingDays > 0 ? s.profitTotalValue / s.tradingDays : 0;
+                const profitDrawdownRatio = s.drawdown > 0 ? s.profitTotalPercent / s.drawdown : 0;
+                return { ...s, dailyProfitValue, profitDrawdownRatio };
+            });
+        }
+        
+        /**
+         * Renders the strategy cards in the grid.
+         * @param {Array} strategiesToRender - The array of strategy objects to display.
+         */
+        function renderCards(strategiesToRender) {
+            grid.innerHTML = ''; 
+            
+            strategiesToRender.forEach((strategy, index) => {
+                const card = document.createElement('div');
+                card.className = 'card pt-8 pb-6 px-6 flex flex-col justify-between';
+                const ranking = index + 1;
+                const profitClass = strategy.profitTotalValue >= 0 ? 'profit' : 'loss';
+                const dailyProfitClass = strategy.dailyProfitValue >= 0 ? 'profit' : 'loss';
+                const monthlyProfitClass = strategy.monthlyProfitPercent >= 0 ? 'profit' : 'loss';
+                
+                card.innerHTML = `
+                    <div class="ranking-badge">
+                        <span>${ranking}</span>
+                    </div>
+                    <div>
+                        <!-- Card Header -->
+                        <div class="mb-6 text-center">
+                            <h2 class="text-xl lg:text-2xl font-bold text-white">${strategy.name}</h2>
+                        </div>
+
+                        <!-- Main Stats -->
+                        <div class="mb-5 space-y-3">
+                            <div class="flex justify-between items-baseline p-3 bg-black bg-opacity-20 rounded-lg">
+                                <span class="text-gray-400 text-sm">Profit Total</span>
+                                <span class="text-2xl font-semibold ${profitClass}">$${strategy.profitTotalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${strategy.profitTotalPercent.toFixed(2)}%)</span>
+                            </div>
+                            <div class="flex justify-between items-baseline p-3 bg-black bg-opacity-20 rounded-lg">
+                                <span class="text-gray-400 text-sm">Drawdown Máximo</span>
+                                <span class="text-lg font-medium drawdown">${strategy.drawdown.toFixed(2)}%</span>
+                            </div>
+                        </div>
+
+                        <!-- Detailed Stats Grid -->
+                        <div class="grid grid-cols-2 gap-4 text-sm mb-6 border-t border-gray-700 pt-5">
+                            <div class="space-y-1"><p class="text-gray-400">Saldo Actual</p><p class="font-semibold text-base text-white">$${strategy.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Equidad Actual</p><p class="font-semibold text-base text-white">$${strategy.equity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Profit Diario</p><p class="font-semibold ${dailyProfitClass}">$${strategy.dailyProfitValue.toFixed(2)} (${strategy.dailyProfitPercent.toFixed(2)}%)</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Profit Mensual</p><p class="font-semibold ${monthlyProfitClass}">${strategy.monthlyProfitPercent.toFixed(2)}%</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Días de Trading</p><p class="font-semibold text-white">${strategy.tradingDays}</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Ratio Profit/DD</p><p class="font-semibold text-white">${strategy.profitDrawdownRatio.toFixed(2)}</p></div>
+                        </div>
+                    </div>
+
+                    <!-- Footer with Myfxbook Link -->
+                    <div>
+                        <a href="${strategy.myfxbookLink}" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-indigo-600 text-white font-semibold py-3 rounded-lg hover:bg-indigo-700 transition-colors duration-200">
+                            Ver Cuenta Auditada
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        
+        /**
+         * Sorts the strategies based on the selected criteria and re-renders the cards.
+         */
+        function sortAndRender() {
+            const sortBy = sortOrderSelect.value;
+            let sortedStrategies = [...strategiesWithMetrics];
+
+            switch (sortBy) {
+                case 'profitTotal':
+                    sortedStrategies.sort((a, b) => b.profitTotalValue - a.profitTotalValue);
+                    break;
+                case 'drawdown':
+                    sortedStrategies.sort((a, b) => a.drawdown - b.drawdown);
+                    break;
+                case 'profitDrawdownRatio':
+                    // For strategies with negative profit, a higher (less negative) ratio is better
+                    sortedStrategies.sort((a, b) => b.profitDrawdownRatio - a.profitDrawdownRatio);
+                    break;
+            }
+            
+            renderCards(sortedStrategies);
+        }
+
+        // --- INITIALIZATION ---
+        const strategiesWithMetrics = calculateMetrics(strategies);
+        sortOrderSelect.addEventListener('change', sortAndRender);
+        sortAndRender(); // Initial render
+
+    </script>
+</body>
+</html>
