@@ -74,7 +74,10 @@
         <header class="text-center mb-8 md:mb-12">
             <h1 class="text-3xl md:text-4xl font-bold text-white">Seguimiento de Cuentas Auditadas</h1>
             <p class="text-md md:text-lg text-gray-400 mt-2">Ranking de estrategias de trading automático.</p>
-            <p class="text-sm text-gray-500 mt-4">Última actualización: 11 de Julio 2025, 5:00 PM</p>
+            <div class="mt-4 bg-gray-800/50 inline-block p-3 rounded-lg">
+                 <p class="text-lg text-gray-300">Profit Total Acumulado: <span id="total-profit" class="font-bold text-2xl profit"></span></p>
+            </div>
+            <p id="update-timestamp" class="text-sm text-gray-500 mt-4"></p>
         </header>
 
         <!-- Sorting Controls -->
@@ -107,17 +110,19 @@
     <script>
         // --- DATA EXTRACTED FROM NEW IMAGES ---
         const strategies = [
-            { id: 1, name: 'Eurusd fractales 4h', balance: 12180.11, equity: 12180.11, profitTotalValue: 2158.47, profitTotalPercent: 21.58, drawdown: 9.76, accountAgeDays: 28, monthlyProfitPercent: 21.58, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-4h/11589917' },
-            { id: 2, name: 'Eurusd Fractales H4 Trailing Stop', balance: 6758.86, equity: 6813.21, profitTotalValue: -3241.14, profitTotalPercent: -32.41, drawdown: 32.41, accountAgeDays: 11, monthlyProfitPercent: -32.41, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
-            { id: 3, name: 'Oro fractales 4h', balance: 12308.20, equity: 12308.20, profitTotalValue: 2295.93, profitTotalPercent: 22.96, drawdown: 41.28, accountAgeDays: 28, monthlyProfitPercent: 22.96, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-            { id: 4, name: 'Eurusd fractales 1h', balance: 11915.70, equity: 11915.70, profitTotalValue: 1844.37, profitTotalPercent: 18.39, drawdown: 33.83, accountAgeDays: 24, monthlyProfitPercent: 18.39, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
-            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', balance: 11485.33, equity: 11485.33, profitTotalValue: 1416.31, profitTotalPercent: 14.13, drawdown: 21.70, accountAgeDays: 23, monthlyProfitPercent: 14.13, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
-            { id: 6, name: 'Oro fractales 1h', balance: 11771.44, equity: 11771.44, profitTotalValue: 1758.00, profitTotalPercent: 17.58, drawdown: 32.06, accountAgeDays: 24, monthlyProfitPercent: 17.58, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' }
+            { id: 1, name: 'Eurusd fractales 4h', balance: 13231.46, equity: 13231.46, profitTotalValue: 3209.82, profitTotalPercent: 32.07, drawdown: 19.38, dailyProfitPercent: 0.85, monthlyProfitPercent: 28.03, initialDeposit: 10021.64, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-4h/11589917' },
+            { id: 2, name: 'Eurusd Fractales H4 Trailing Stop', balance: 10292.18, equity: 10152.10, profitTotalValue: 292.18, profitTotalPercent: 2.92, drawdown: 32.41, dailyProfitPercent: 0.19, monthlyProfitPercent: 2.92, initialDeposit: 10000.00, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
+            { id: 3, name: 'Oro fractales 4h', balance: 12308.20, equity: 12308.20, profitTotalValue: 2295.93, profitTotalPercent: 22.96, drawdown: 41.28, dailyProfitPercent: 0.63, monthlyProfitPercent: 22.96, initialDeposit: 10012.27, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+            { id: 4, name: 'Eurusd fractales 1h', balance: 12174.59, equity: 12174.59, profitTotalValue: 2103.26, profitTotalPercent: 20.96, drawdown: 33.83, dailyProfitPercent: 0.66, monthlyProfitPercent: 20.96, initialDeposit: 10071.33, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
+            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', balance: 11740.98, equity: 11740.98, profitTotalValue: 1671.96, profitTotalPercent: 16.67, drawdown: 21.70, dailyProfitPercent: 0.55, monthlyProfitPercent: 16.67, initialDeposit: 10069.02, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
+            { id: 6, name: 'Oro fractales 1h', balance: 12071.44, equity: 12071.44, profitTotalValue: 2058.00, profitTotalPercent: 20.58, drawdown: 32.06, dailyProfitPercent: 0.65, monthlyProfitPercent: 20.58, initialDeposit: 10013.44, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' }
         ];
 
         // --- DOM ELEMENTS ---
         const grid = document.getElementById('strategy-grid');
         const sortOrderSelect = document.getElementById('sortOrder');
+        const totalProfitEl = document.getElementById('total-profit');
+        const timestampEl = document.getElementById('update-timestamp');
 
         // --- FUNCTIONS ---
 
@@ -126,8 +131,10 @@
          */
         function calculateMetrics(strategies) {
             return strategies.map(s => {
+                const tradingDays = s.monthlyProfitPercent > 0 ? (s.profitTotalPercent / s.monthlyProfitPercent) * 22 : 0;
+                const dailyProfitValue = tradingDays > 0 ? s.profitTotalValue / tradingDays : 0;
                 const profitDrawdownRatio = s.drawdown > 0 ? s.profitTotalPercent / s.drawdown : 0;
-                return { ...s, profitDrawdownRatio };
+                return { ...s, dailyProfitValue, profitDrawdownRatio, tradingDays: Math.round(tradingDays) };
             });
         }
         
@@ -143,6 +150,7 @@
                 card.className = 'card pt-8 pb-6 px-6 flex flex-col justify-between';
                 const ranking = index + 1;
                 const profitClass = strategy.profitTotalValue >= 0 ? 'profit' : 'loss';
+                const dailyProfitClass = strategy.dailyProfitPercent >= 0 ? 'profit' : 'loss';
                 const monthlyProfitClass = strategy.monthlyProfitPercent >= 0 ? 'profit' : 'loss';
                 
                 card.innerHTML = `
@@ -167,13 +175,14 @@
                             </div>
                         </div>
 
-                        <!-- Detailed Stats List -->
-                        <div class="space-y-2 text-sm mb-6 border-t border-gray-700 pt-5">
-                            <div class="flex justify-between"><p class="text-gray-400">Saldo Actual</p><p class="font-semibold text-base text-white">$${strategy.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
-                            <div class="flex justify-between"><p class="text-gray-400">Equidad Actual</p><p class="font-semibold text-base text-white">$${strategy.equity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
-                            <div class="flex justify-between"><p class="text-gray-400">Profit Mensual</p><p class="font-semibold ${monthlyProfitClass}">${strategy.monthlyProfitPercent.toFixed(2)}%</p></div>
-                            <div class="flex justify-between"><p class="text-gray-400">Antigüedad</p><p class="font-semibold text-white">${strategy.accountAgeDays} días</p></div>
-                            <div class="flex justify-between"><p class="text-gray-400">Ratio Profit/DD</p><p class="font-semibold text-white">${strategy.profitDrawdownRatio.toFixed(2)}</p></div>
+                        <!-- Detailed Stats Grid -->
+                        <div class="grid grid-cols-2 gap-4 text-sm mb-6 border-t border-gray-700 pt-5">
+                            <div class="space-y-1"><p class="text-gray-400">Saldo Actual</p><p class="font-semibold text-base text-white">$${strategy.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Equidad Actual</p><p class="font-semibold text-base text-white">$${strategy.equity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Profit Diario</p><p class="font-semibold ${dailyProfitClass}">${strategy.dailyProfitPercent.toFixed(2)}%</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Profit Mensual</p><p class="font-semibold ${monthlyProfitClass}">${strategy.monthlyProfitPercent.toFixed(2)}%</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Días de Trading</p><p class="font-semibold text-white">${strategy.tradingDays}</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Ratio Profit/DD</p><p class="font-semibold text-white">${strategy.profitDrawdownRatio.toFixed(2)}</p></div>
                         </div>
                     </div>
 
@@ -210,9 +219,32 @@
             renderCards(sortedStrategies);
         }
 
+        /**
+         * Calculates and displays the total profit value and percentage.
+         */
+        function displayTotalProfit() {
+            const totalProfitValue = strategies.reduce((acc, s) => acc + s.profitTotalValue, 0);
+            // Sum of individual percentages as requested by the user.
+            const totalProfitPercent = strategies.reduce((acc, s) => acc + s.profitTotalPercent, 0);
+            
+            totalProfitEl.innerHTML = `$${totalProfitValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${totalProfitPercent.toFixed(2)}%)`;
+        }
+
+        /**
+         * Displays the current timestamp.
+         */
+        function displayTimestamp() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            timestampEl.textContent = `Última actualización: ${now.toLocaleDateString('es-ES', options)}`;
+        }
+
         // --- INITIALIZATION ---
         const strategiesWithMetrics = calculateMetrics(strategies);
         sortOrderSelect.addEventListener('change', sortAndRender);
+        
+        displayTotalProfit();
+        displayTimestamp();
         sortAndRender(); // Initial render
 
     </script>
