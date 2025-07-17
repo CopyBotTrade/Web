@@ -110,12 +110,12 @@
     <script>
         // --- DATA EXTRACTED FROM NEW IMAGES ---
         const strategies = [
-            { id: 1, name: 'Eurusd fractales 4h', balance: 13231.46, equity: 13231.46, profitTotalValue: 3209.82, profitTotalPercent: 32.07, drawdown: 19.38, dailyProfitPercent: 0.85, monthlyProfitPercent: 28.03, initialDeposit: 10021.64, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-4h/11589917' },
-            { id: 2, name: 'Eurusd Fractales H4 Trailing Stop', balance: 10292.18, equity: 10152.10, profitTotalValue: 292.18, profitTotalPercent: 2.92, drawdown: 32.41, dailyProfitPercent: 0.19, monthlyProfitPercent: 2.92, initialDeposit: 10000.00, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
-            { id: 3, name: 'Oro fractales 4h', balance: 12308.20, equity: 12308.20, profitTotalValue: 2295.93, profitTotalPercent: 22.96, drawdown: 41.28, dailyProfitPercent: 0.63, monthlyProfitPercent: 22.96, initialDeposit: 10012.27, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-            { id: 4, name: 'Eurusd fractales 1h', balance: 12174.59, equity: 12174.59, profitTotalValue: 2103.26, profitTotalPercent: 20.96, drawdown: 33.83, dailyProfitPercent: 0.66, monthlyProfitPercent: 20.96, initialDeposit: 10071.33, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
-            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', balance: 11740.98, equity: 11740.98, profitTotalValue: 1671.96, profitTotalPercent: 16.67, drawdown: 21.70, dailyProfitPercent: 0.55, monthlyProfitPercent: 16.67, initialDeposit: 10069.02, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
-            { id: 6, name: 'Oro fractales 1h', balance: 12071.44, equity: 12071.44, profitTotalValue: 2058.00, profitTotalPercent: 20.58, drawdown: 32.06, dailyProfitPercent: 0.65, monthlyProfitPercent: 20.58, initialDeposit: 10013.44, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' }
+            { id: 1, name: 'Eurusd fractales 4h', balance: 13231.46, equity: 13231.46, profitTotalValue: 3209.82, profitTotalPercent: 32.07, drawdown: 19.38, dailyProfitPercent: 0.85, monthlyProfitPercent: 28.03, initialDeposit: 10021.64, daysActive: 33, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-4h/11589917' },
+            { id: 2, name: 'Eurusd Fractales H4 Trailing Stop', balance: 10292.18, equity: 10152.10, profitTotalValue: 292.18, profitTotalPercent: 2.92, drawdown: 32.41, dailyProfitPercent: 0.19, monthlyProfitPercent: 2.92, initialDeposit: 10000.00, daysActive: 15, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
+            { id: 3, name: 'Oro fractales 4h', balance: 12308.20, equity: 12308.20, profitTotalValue: 2295.93, profitTotalPercent: 22.96, drawdown: 41.28, dailyProfitPercent: 0.63, monthlyProfitPercent: 22.96, initialDeposit: 10012.27, daysActive: 33, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+            { id: 4, name: 'Eurusd fractales 1h', balance: 12174.59, equity: 12174.59, profitTotalValue: 2103.26, profitTotalPercent: 20.96, drawdown: 33.83, dailyProfitPercent: 0.66, monthlyProfitPercent: 20.96, initialDeposit: 10071.33, daysActive: 29, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
+            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', balance: 11740.98, equity: 11740.98, profitTotalValue: 1671.96, profitTotalPercent: 16.67, drawdown: 21.70, dailyProfitPercent: 0.55, monthlyProfitPercent: 16.67, initialDeposit: 10069.02, daysActive: 28, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
+            { id: 6, name: 'Oro fractales 1h', balance: 12071.44, equity: 12071.44, profitTotalValue: 2058.00, profitTotalPercent: 20.58, drawdown: 32.06, dailyProfitPercent: 0.65, monthlyProfitPercent: 20.58, initialDeposit: 10013.44, daysActive: 29, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' }
         ];
 
         // --- DOM ELEMENTS ---
@@ -131,10 +131,8 @@
          */
         function calculateMetrics(strategies) {
             return strategies.map(s => {
-                const tradingDays = s.monthlyProfitPercent > 0 ? (s.profitTotalPercent / s.monthlyProfitPercent) * 22 : 0;
-                const dailyProfitValue = tradingDays > 0 ? s.profitTotalValue / tradingDays : 0;
                 const profitDrawdownRatio = s.drawdown > 0 ? s.profitTotalPercent / s.drawdown : 0;
-                return { ...s, dailyProfitValue, profitDrawdownRatio, tradingDays: Math.round(tradingDays) };
+                return { ...s, profitDrawdownRatio };
             });
         }
         
@@ -181,7 +179,7 @@
                             <div class="space-y-1"><p class="text-gray-400">Equidad Actual</p><p class="font-semibold text-base text-white">$${strategy.equity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
                             <div class="space-y-1"><p class="text-gray-400">Profit Diario</p><p class="font-semibold ${dailyProfitClass}">${strategy.dailyProfitPercent.toFixed(2)}%</p></div>
                             <div class="space-y-1"><p class="text-gray-400">Profit Mensual</p><p class="font-semibold ${monthlyProfitClass}">${strategy.monthlyProfitPercent.toFixed(2)}%</p></div>
-                            <div class="space-y-1"><p class="text-gray-400">Días de Trading</p><p class="font-semibold text-white">${strategy.tradingDays}</p></div>
+                            <div class="space-y-1"><p class="text-gray-400">Días activa</p><p class="font-semibold text-white">${strategy.daysActive}</p></div>
                             <div class="space-y-1"><p class="text-gray-400">Ratio Profit/DD</p><p class="font-semibold text-white">${strategy.profitDrawdownRatio.toFixed(2)}</p></div>
                         </div>
                     </div>
