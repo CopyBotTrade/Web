@@ -75,8 +75,9 @@
                 <div class="mt-6 bg-white/60 backdrop-blur-sm inline-flex flex-col items-center p-4 rounded-xl border border-slate-200 shadow-sm">
                      <p class="text-sm text-slate-500 uppercase tracking-wider font-medium">Profit Total Acumulado</p>
                      <p id="total-profit" class="font-bold text-3xl profit mt-1"></p>
+                     <p id="oldest-strategy-age" class="text-sm text-slate-600 mt-1"></p>
                 </div>
-                <p class="text-sm text-slate-500 mt-4">Última actualización: 25 de julio de 2025, 08:21 PM</p>
+                <p class="text-sm text-slate-500 mt-4">Última actualización: 27 de julio de 2025, 08:45 PM</p>
             </header>
         </div>
     </div>
@@ -109,20 +110,21 @@
     </footer>
 
     <script>
-        // --- DATA AS OF July 25, 2025 ---
+        // --- DATA AS OF July 27, 2025 ---
         const strategies = [
-            { id: 1, name: 'Eurusd fractales 4h', balance: 14827.08, equity: 14827.08, profitTotalValue: 4805.44, profitTotalPercent: 48.00, drawdown: 51.41, dailyProfitPercent: 0.92, monthlyProfitPercent: 31.65, initialDeposit: 10021.64, daysActive: 42, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-4h/11589917' },
-            { id: 2, name: 'Oro fractales 4h', balance: 13585.20, equity: 13585.20, profitTotalValue: 3572.93, profitTotalPercent: 35.71, drawdown: 41.28, dailyProfitPercent: 0.71, monthlyProfitPercent: 23.90, initialDeposit: 10012.27, daysActive: 42, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-            { id: 3, name: 'Oro fractales 1h', balance: 12839.44, equity: 12839.44, profitTotalValue: 2826.00, profitTotalPercent: 28.26, drawdown: 32.06, dailyProfitPercent: 0.64, monthlyProfitPercent: 21.25, initialDeposit: 10013.44, daysActive: 38, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
-            { id: 4, name: 'Eurusd fractales 1h', balance: 12480.54, equity: 12480.54, profitTotalValue: 2409.21, profitTotalPercent: 23.99, drawdown: 33.83, dailyProfitPercent: 0.55, monthlyProfitPercent: 18.02, initialDeposit: 10071.33, daysActive: 38, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
-            { id: 5, name: 'Eurusd Fractales H4 Trailing Stop', balance: 11631.24, equity: 11631.24, profitTotalValue: 1631.24, profitTotalPercent: 16.31, drawdown: 32.41, dailyProfitPercent: 0.61, monthlyProfitPercent: 16.31, initialDeposit: 10000.00, daysActive: 24, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
-            { id: 6, name: 'Eurusd Fractales H1 Trailing Stop', balance: 11671.38, equity: 11959.50, profitTotalValue: 1602.36, profitTotalPercent: 15.98, drawdown: 21.70, dailyProfitPercent: 0.39, monthlyProfitPercent: 12.49, initialDeposit: 10069.02, daysActive: 37, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' }
+            { id: 1, name: 'Eurusd fractales 4h', balance: 14827.08, equity: 14827.08, profitTotalValue: 4805.44, profitTotalPercent: 48.00, drawdown: 51.41, dailyProfitPercent: 0.88, monthlyProfitPercent: 31.65, initialDeposit: 10021.64, daysActive: 44, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-4h/11589917' },
+            { id: 2, name: 'Oro fractales 4h', balance: 13585.20, equity: 13585.20, profitTotalValue: 3572.93, profitTotalPercent: 35.71, drawdown: 41.28, dailyProfitPercent: 0.68, monthlyProfitPercent: 23.90, initialDeposit: 10012.27, daysActive: 44, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+            { id: 3, name: 'Oro fractales 1h', balance: 12839.44, equity: 12839.44, profitTotalValue: 2826.00, profitTotalPercent: 28.26, drawdown: 32.06, dailyProfitPercent: 0.61, monthlyProfitPercent: 21.25, initialDeposit: 10013.44, daysActive: 40, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
+            { id: 4, name: 'Eurusd fractales 1h', balance: 12480.54, equity: 12480.54, profitTotalValue: 2409.21, profitTotalPercent: 23.99, drawdown: 33.83, dailyProfitPercent: 0.53, monthlyProfitPercent: 18.02, initialDeposit: 10071.33, daysActive: 40, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
+            { id: 5, name: 'Eurusd Fractales H4 Trailing Stop', balance: 11631.24, equity: 11631.24, profitTotalValue: 1631.24, profitTotalPercent: 16.31, drawdown: 32.41, dailyProfitPercent: 0.56, monthlyProfitPercent: 16.31, initialDeposit: 10000.00, daysActive: 27, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
+            { id: 6, name: 'Eurusd Fractales H1 Trailing Stop', balance: 12242.13, equity: 12242.13, profitTotalValue: 2173.11, profitTotalPercent: 21.65, drawdown: 21.70, dailyProfitPercent: 0.49, monthlyProfitPercent: 15.83, initialDeposit: 10069.02, daysActive: 39, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' }
         ];
 
         // --- DOM ELEMENTS ---
         const grid = document.getElementById('strategy-grid');
         const sortOrderSelect = document.getElementById('sortOrder');
         const totalProfitEl = document.getElementById('total-profit');
+        const oldestStrategyAgeEl = document.getElementById('oldest-strategy-age');
         
         // --- FUNCTIONS ---
 
@@ -229,11 +231,22 @@
             totalProfitEl.innerHTML = `$${totalProfitValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${totalProfitPercent.toFixed(2)}%)`;
         }
 
+        /**
+         * Finds the oldest strategy and displays its active days.
+         */
+        function displayOldestStrategyAge() {
+            if (strategies.length > 0) {
+                const maxDays = Math.max(...strategies.map(s => s.daysActive));
+                oldestStrategyAgeEl.textContent = `Estrategias activas desde hace ${maxDays} días`;
+            }
+        }
+
         // --- INITIALIZATION ---
         const strategiesWithMetrics = calculateMetrics(strategies);
         sortOrderSelect.addEventListener('change', sortAndRender);
         
         displayTotalProfit();
+        displayOldestStrategyAge();
         sortAndRender(); // Initial render
 
     </script>
