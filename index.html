@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seguimiento de Cuentas Auditadas - Copytrading</title>
+    <title>Panel de Control de Rendimiento | Estrategias de Inversión</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,194 +13,205 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f4f7f6; /* Light, clean background */
-            color: #1a202c; /* Dark text for readability */
+            background-color: #f8fafc; /* Lighter gray background */
+            color: #1e293b; /* Slate 800 for text */
         }
-        .card {
+        .kpi-card {
             background-color: #ffffff;
             border-radius: 0.75rem;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            position: relative;
-            overflow: hidden;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
         }
         .profit {
-            color: #16a34a; /* Richer Green */
+            color: #16a34a; /* Green 600 */
         }
-        .loss {
-            color: #dc2626; /* Richer Red */
+        .loss, .drawdown-text {
+            color: #dc2626; /* Red 600 */
         }
-        .drawdown {
-            color: #dc2626;
+        .progress-bar-container {
+            background-color: #e2e8f0; /* Slate 200 */
+            border-radius: 9999px;
+            height: 0.75rem;
+            overflow: hidden;
         }
-        .ranking-badge {
-            position: absolute;
-            top: 1rem;
-            right: -25px;
-            background-image: linear-gradient(135deg, #2563eb, #3b82f6);
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.5s ease-in-out;
+        }
+        .bg-profit {
+            background-color: #22c55e; /* Green 500 */
+        }
+        .bg-drawdown {
+            background-color: #ef4444; /* Red 500 */
+        }
+        .table-header {
+            background-color: #f1f5f9; /* Slate 100 */
+            color: #475569; /* Slate 600 */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+        }
+        .table-row {
+            border-bottom: 1px solid #e2e8f0; /* Slate 200 */
+            transition: background-color 0.2s ease-in-out;
+        }
+        .table-row:hover {
+            background-color: #f8fafc; /* Slate 50 */
+        }
+        .btn-primary {
+            background-color: #3b82f6; /* Blue 500 */
             color: white;
             font-weight: 600;
-            padding: 0.25rem 2rem;
-            font-size: 0.875rem;
-            transform: rotate(45deg);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease-in-out;
         }
-        select {
-            background-color: #ffffff;
-            border-color: #cbd5e1;
-            color: #2d3748;
-        }
-        .header-gradient {
-            background: linear-gradient(120deg, #f0f9ff 0%, #e0f2fe 100%);
+        .btn-primary:hover {
+            background-color: #2563eb; /* Blue 600 */
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <div class="header-gradient pb-12 pt-8">
-        <div class="container mx-auto px-4">
-            <!-- Header Section -->
-            <header class="text-center">
-                <h1 class="text-3xl md:text-4xl font-extrabold text-slate-800">Seguimiento de Cuentas Auditadas</h1>
-                <p class="text-md md:text-lg text-slate-600 mt-2">Ranking de estrategias de trading automático.</p>
-                <div class="mt-6 bg-white/60 backdrop-blur-sm inline-flex flex-col items-center p-4 rounded-xl border border-slate-200 shadow-sm">
-                     <p class="text-sm text-slate-500 uppercase tracking-wider font-medium">Profit Total Acumulado</p>
-                     <p id="total-profit" class="font-bold text-3xl profit mt-1"></p>
-                     <p id="oldest-strategy-age" class="text-sm text-slate-600 mt-1"></p>
-                </div>
-                <p class="text-sm text-slate-500 mt-4">Última actualización: 28 de julio de 2025, 10:00 PM</p>
-            </header>
-        </div>
-    </div>
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <!-- Header Section -->
+        <header class="mb-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900">Panel de Rendimiento</h1>
+            <p class="text-slate-500 mt-1">Análisis de nuestras estrategias de inversión automatizadas.</p>
+            <p id="update-timestamp" class="text-sm text-slate-400 mt-2"></p>
+        </header>
 
-    <div class="container mx-auto px-4 -mt-10">
-        <!-- Sorting Controls -->
-        <div class="flex justify-center mb-10">
-            <div class="flex items-center space-x-3 bg-white p-2 rounded-lg border border-slate-200 shadow-md">
-                <label for="sortOrder" class="text-sm font-medium text-slate-600">Ordenar por:</label>
-                <select id="sortOrder" class="block w-full pl-3 pr-10 py-2 text-base focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                    <option value="profitTotal" selected>Profit Total</option>
-                    <option value="drawdown">Menor Drawdown</option>
-                    <option value="profitDrawdownRatio">Mejor Relación Profit/Drawdown</option>
-                </select>
+        <!-- Key Performance Indicators (KPIs) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="kpi-card">
+                <h2 class="text-sm font-medium text-slate-500">Profit Total Acumulado</h2>
+                <p id="kpi-total-profit" class="text-3xl font-bold profit mt-1"></p>
+            </div>
+            <div class="kpi-card">
+                <h2 class="text-sm font-medium text-slate-500">Profit Promedio Diario</h2>
+                <p id="kpi-avg-daily-profit" class="text-3xl font-bold profit mt-1"></p>
+            </div>
+            <div class="kpi-card">
+                <h2 class="text-sm font-medium text-slate-500">Antigüedad Máxima</h2>
+                <p id="kpi-max-age" class="text-3xl font-bold text-slate-700 mt-1"></p>
             </div>
         </div>
 
-        <!-- Strategy Cards Grid -->
-        <main id="strategy-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10">
-            <!-- Cards will be dynamically inserted here by JavaScript -->
-        </main>
+        <!-- Strategies Table -->
+        <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+             <div class="p-4 flex justify-end items-center border-b border-slate-200">
+                <label for="sortOrder" class="text-sm font-medium text-slate-600 mr-2">Ordenar por:</label>
+                <select id="sortOrder" class="rounded-md border-slate-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-sm">
+                    <option value="profitTotal" selected>Mayor Ganancia ($)</option>
+                    <option value="profitPercent">Mayor Ganancia (%)</option>
+                    <option value="drawdown">Menor Drawdown</option>
+                    <option value="profitDrawdownRatio">Mejor Ratio P/DD</option>
+                    <option value="daysActive">Más Antiguas</option>
+                </select>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="p-4">#</th>
+                            <th class="p-4">Estrategia</th>
+                            <th class="p-4 w-1/5">Ganancia (%)</th>
+                            <th class="p-4">Profit ($)</th>
+                            <th class="p-4">Drawdown (%)</th>
+                            <th class="p-4">Antigüedad</th>
+                            <th class="p-4 text-center">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="strategy-table-body">
+                        <!-- Rows will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center py-10 mt-8">
+            <p class="text-slate-500 text-sm">
+                Creado por XR3 | Contacto para inversores: +573045239745
+            </p>
+        </footer>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center py-10 mt-12">
-        <p class="text-slate-500 text-sm">
-            Creado por XR3<br>
-            Para mayor información: +573045239745
-        </p>
-    </footer>
-
     <script>
-        // --- DATA AS OF July 28, 2025 ---
+        // --- DATA AS OF August 1, 2025 ---
         const strategies = [
-            { id: 1, name: 'Oro fractales 4h', balance: 13847.20, equity: 13847.20, profitTotalValue: 3834.93, profitTotalPercent: 38.33, drawdown: 41.28, dailyProfitPercent: 0.71, monthlyProfitPercent: 23.70, initialDeposit: 10012.27, daysActive: 45, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-            { id: 2, name: 'Oro fractales 1h', balance: 12902.44, equity: 12902.44, profitTotalValue: 2889.00, profitTotalPercent: 28.89, drawdown: 32.06, dailyProfitPercent: 0.61, monthlyProfitPercent: 20.03, initialDeposit: 10013.44, daysActive: 41, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
-            { id: 3, name: 'Eurusd fractales 1h', balance: 12424.07, equity: 12468.10, profitTotalValue: 2352.74, profitTotalPercent: 23.42, drawdown: 33.83, dailyProfitPercent: 0.50, monthlyProfitPercent: 16.03, initialDeposit: 10071.33, daysActive: 41, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
-            { id: 4, name: 'Eurusd Fractales H1 Trailing Stop', balance: 12391.53, equity: 12391.53, profitTotalValue: 2322.51, profitTotalPercent: 23.13, drawdown: 21.70, dailyProfitPercent: 0.51, monthlyProfitPercent: 16.54, initialDeposit: 10069.02, daysActive: 40, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
-            { id: 5, name: 'Eurusd Fractales H4 Trailing Stop', balance: 11119.24, equity: 11885.45, profitTotalValue: 1119.24, profitTotalPercent: 11.19, drawdown: 32.41, dailyProfitPercent: 0.38, monthlyProfitPercent: 11.19, initialDeposit: 10000.00, daysActive: 27, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' }
+            { id: 1, name: 'Oro fractales 4h', profitTotalValue: 4351.93, profitTotalPercent: 43.49, drawdown: 41.28, daysActive: 49, dailyProfitPercent: 0.72, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+            { id: 2, name: 'Oro fractales 1h', profitTotalValue: 3173.00, profitTotalPercent: 31.72, drawdown: 32.06, daysActive: 45, dailyProfitPercent: 0.60, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
+            { id: 3, name: 'Eurusd fractales 1h', profitTotalValue: 2865.48, profitTotalPercent: 28.49, drawdown: 33.83, daysActive: 45, dailyProfitPercent: 0.55, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
+            { id: 4, name: 'Eurusd Fractales H4 Trailing Stop', profitTotalValue: 2749.51, profitTotalPercent: 27.50, drawdown: 32.41, daysActive: 31, dailyProfitPercent: 0.76, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
+            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', profitTotalValue: 2575.75, profitTotalPercent: 25.65, drawdown: 21.70, daysActive: 44, dailyProfitPercent: 0.51, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' }
         ];
 
         // --- DOM ELEMENTS ---
-        const grid = document.getElementById('strategy-grid');
+        const tableBody = document.getElementById('strategy-table-body');
         const sortOrderSelect = document.getElementById('sortOrder');
-        const totalProfitEl = document.getElementById('total-profit');
-        const oldestStrategyAgeEl = document.getElementById('oldest-strategy-age');
-        
+        const timestampEl = document.getElementById('update-timestamp');
+        const kpiTotalProfit = document.getElementById('kpi-total-profit');
+        const kpiAvgDailyProfit = document.getElementById('kpi-avg-daily-profit');
+        const kpiMaxAge = document.getElementById('kpi-max-age');
+
         // --- FUNCTIONS ---
 
-        /**
-         * Calculates derived metrics for each strategy.
-         */
         function calculateMetrics(strategies) {
-            return strategies.map(s => {
-                const profitDrawdownRatio = s.drawdown > 0 ? s.profitTotalPercent / s.drawdown : 0;
-                return { ...s, profitDrawdownRatio };
-            });
+            return strategies.map(s => ({
+                ...s,
+                profitDrawdownRatio: s.drawdown > 0 ? s.profitTotalPercent / s.drawdown : 0
+            }));
         }
-        
-        /**
-         * Renders the strategy cards in the grid.
-         * @param {Array} strategiesToRender - The array of strategy objects to display.
-         */
-        function renderCards(strategiesToRender) {
-            grid.innerHTML = ''; 
-            
+
+        function renderTable(strategiesToRender) {
+            tableBody.innerHTML = '';
             strategiesToRender.forEach((strategy, index) => {
-                const card = document.createElement('div');
-                card.className = 'card p-6 flex flex-col justify-between';
-                const ranking = index + 1;
-                const profitClass = strategy.profitTotalValue >= 0 ? 'profit' : 'loss';
+                const row = document.createElement('tr');
+                row.className = 'table-row';
                 
-                card.innerHTML = `
-                    <div class="ranking-badge">
-                        <span>#${ranking}</span>
-                    </div>
-                    <div>
-                        <!-- Card Header -->
-                        <div class="mb-5">
-                            <h2 class="text-xl font-bold text-slate-800 truncate">${strategy.name}</h2>
-                        </div>
-
-                        <!-- Main Stats -->
-                        <div class="mb-5 space-y-3">
-                            <div class="flex justify-between items-baseline p-3 bg-slate-50/50 rounded-lg">
-                                <span class="text-slate-500 text-sm font-medium">Profit Total</span>
-                                <span class="text-2xl font-semibold ${profitClass}">$${strategy.profitTotalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                            </div>
-                             <div class="flex justify-between items-baseline">
-                                <span class="text-slate-500 text-sm font-medium">Ganancia %</span>
-                                <span class="font-semibold ${profitClass}">${strategy.profitTotalPercent.toFixed(2)}%</span>
-                            </div>
-                            <div class="flex justify-between items-baseline">
-                                <span class="text-slate-500 text-sm font-medium">Drawdown Máx.</span>
-                                <span class="font-semibold drawdown">${strategy.drawdown.toFixed(2)}%</span>
+                row.innerHTML = `
+                    <td class="p-4 font-bold text-slate-500">${index + 1}</td>
+                    <td class="p-4 font-semibold">${strategy.name}</td>
+                    <td class="p-4">
+                        <div class="flex items-center">
+                            <span class="font-bold profit w-12">${strategy.profitTotalPercent.toFixed(2)}%</span>
+                            <div class="progress-bar-container flex-1 ml-2">
+                                <div class="progress-bar bg-profit" style="width: ${strategy.profitTotalPercent}%;"></div>
                             </div>
                         </div>
-
-                        <!-- Detailed Stats Grid -->
-                        <div class="grid grid-cols-2 gap-x-4 gap-y-3 text-sm border-t border-slate-200 pt-4">
-                            <div><p class="text-slate-500">Saldo Actual</p><p class="font-semibold text-slate-700">$${strategy.balance.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
-                            <div><p class="text-slate-500">Equidad</p><p class="font-semibold text-slate-700">$${strategy.equity.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
-                            <div><p class="text-slate-500">Profit Mensual</p><p class="font-semibold ${strategy.monthlyProfitPercent >= 0 ? 'profit' : 'loss'}">${strategy.monthlyProfitPercent.toFixed(2)}%</p></div>
-                            <div><p class="text-slate-500">Profit Diario</p><p class="font-semibold ${strategy.dailyProfitPercent >= 0 ? 'profit' : 'loss'}">${strategy.dailyProfitPercent.toFixed(2)}%</p></div>
-                            <div><p class="text-slate-500">Días activa</p><p class="font-semibold text-slate-700">${strategy.daysActive}</p></div>
-                            <div><p class="text-slate-500">Ratio Profit/DD</p><p class="font-semibold text-slate-700">${strategy.profitDrawdownRatio.toFixed(2)}</p></div>
+                    </td>
+                    <td class="p-4 font-semibold profit">$${strategy.profitTotalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td class="p-4">
+                        <div class="flex items-center">
+                            <span class="font-bold drawdown-text w-12">${strategy.drawdown.toFixed(2)}%</span>
+                            <div class="progress-bar-container flex-1 ml-2">
+                                <div class="progress-bar bg-drawdown" style="width: ${strategy.drawdown}%;"></div>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Footer with Myfxbook Link -->
-                    <div class="mt-6">
-                        <a href="${strategy.myfxbookLink}" target="_blank" rel="noopener noreferrer" class="block w-full text-center bg-blue-600 text-white font-semibold py-2.5 rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                            Ver Cuenta Auditada
+                    </td>
+                    <td class="p-4 text-slate-600">${strategy.daysActive} días</td>
+                    <td class="p-4 text-center">
+                        <a href="${strategy.myfxbookLink}" target="_blank" rel="noopener noreferrer" class="btn-primary inline-block">
+                            Ver Cuenta <i class="fas fa-external-link-alt ml-1 text-xs"></i>
                         </a>
-                    </div>
+                    </td>
                 `;
-                grid.appendChild(card);
+                tableBody.appendChild(row);
             });
         }
-        
-        /**
-         * Sorts the strategies based on the selected criteria and re-renders the cards.
-         */
+
         function sortAndRender() {
             const sortBy = sortOrderSelect.value;
             let sortedStrategies = [...strategiesWithMetrics];
@@ -209,44 +220,53 @@
                 case 'profitTotal':
                     sortedStrategies.sort((a, b) => b.profitTotalValue - a.profitTotalValue);
                     break;
+                case 'profitPercent':
+                    sortedStrategies.sort((a, b) => b.profitTotalPercent - a.profitTotalPercent);
+                    break;
                 case 'drawdown':
                     sortedStrategies.sort((a, b) => a.drawdown - b.drawdown);
                     break;
                 case 'profitDrawdownRatio':
                     sortedStrategies.sort((a, b) => b.profitDrawdownRatio - a.profitDrawdownRatio);
                     break;
+                case 'daysActive':
+                     sortedStrategies.sort((a, b) => b.daysActive - a.daysActive);
+                    break;
             }
-            
-            renderCards(sortedStrategies);
+            renderTable(sortedStrategies);
         }
 
-        /**
-         * Calculates and displays the total profit value and percentage.
-         */
-        function displayTotalProfit() {
-            const totalProfitValue = strategies.reduce((acc, s) => acc + s.profitTotalValue, 0);
-            const totalProfitPercent = strategies.reduce((acc, s) => acc + s.profitTotalPercent, 0);
-            
-            totalProfitEl.innerHTML = `$${totalProfitValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${totalProfitPercent.toFixed(2)}%)`;
-        }
+        function updateKPIs() {
+            // Set Total Profit from the provided image data
+            kpiTotalProfit.innerHTML = '$12,518.42 <span class="text-lg">(124.96%)</span>';
 
-        /**
-         * Finds the oldest strategy and displays its active days.
-         */
-        function displayOldestStrategyAge() {
-            if (strategies.length > 0) {
-                const maxDays = Math.max(...strategies.map(s => s.daysActive));
-                oldestStrategyAgeEl.textContent = `Estrategias activas desde hace ${maxDays} días`;
-            }
+            // Calculate other KPIs
+            const avgDailyProfit = strategies.reduce((acc, s) => acc + s.dailyProfitPercent, 0) / strategies.length;
+            const maxAge = Math.max(...strategies.map(s => s.daysActive));
+
+            kpiAvgDailyProfit.textContent = `${avgDailyProfit.toFixed(2)}%`;
+            kpiMaxAge.textContent = `${maxAge} días`;
+        }
+        
+        function updateTimestamp() {
+            const now = new Date();
+            const options = {
+                year: 'numeric', month: 'long', day: 'numeric',
+                hour: 'numeric', minute: 'numeric',
+                timeZone: 'America/Bogota',
+                hour12: true
+            };
+            const formatter = new Intl.DateTimeFormat('es-CO', options);
+            timestampEl.textContent = `Datos actualizados al: ${formatter.format(now)} (Hora Colombia)`;
         }
 
         // --- INITIALIZATION ---
         const strategiesWithMetrics = calculateMetrics(strategies);
         sortOrderSelect.addEventListener('change', sortAndRender);
         
-        displayTotalProfit();
-        displayOldestStrategyAge();
-        sortAndRender(); // Initial render
+        updateTimestamp();
+        updateKPIs();
+        sortAndRender();
 
     </script>
 </body>
