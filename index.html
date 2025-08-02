@@ -237,8 +237,10 @@
         }
 
         function updateKPIs() {
-            // Set Total Profit from the provided image data
-            kpiTotalProfit.innerHTML = '$12,518.42 <span class="text-lg">(124.96%)</span>';
+            // Calculate Total Profit dynamically
+            const totalProfitValue = strategies.reduce((acc, s) => acc + s.profitTotalValue, 0);
+            const totalProfitPercent = strategies.reduce((acc, s) => acc + s.profitTotalPercent, 0);
+            kpiTotalProfit.innerHTML = `$${totalProfitValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span class="text-lg">(${totalProfitPercent.toFixed(2)}%)</span>`;
 
             // Calculate other KPIs
             const avgDailyProfit = strategies.reduce((acc, s) => acc + s.dailyProfitPercent, 0) / strategies.length;
