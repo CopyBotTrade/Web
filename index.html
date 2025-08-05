@@ -99,7 +99,7 @@
                 <p id="kpi-total-profit" class="text-3xl font-bold profit mt-1"></p>
             </div>
             <div class="kpi-card">
-                <h2 class="text-sm font-medium text-slate-500">Profit Promedio Diario</h2>
+                <h2 class="text-sm font-medium text-slate-500">Profit Promedio Diario (Portafolio)</h2>
                 <p id="kpi-avg-daily-profit" class="text-3xl font-bold profit mt-1"></p>
             </div>
             <div class="kpi-card">
@@ -151,11 +151,11 @@
     <script>
         // --- DATA AS OF August 5, 2025 ---
         const strategies = [
-            { id: 1, name: 'Oro fractales 4h', profitTotalValue: 4613.93, profitTotalPercent: 46.10, drawdown: 41.28, daysActive: 52, dailyProfitPercent: 0.72, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-            { id: 2, name: 'Oro fractales 1h', profitTotalValue: 3334.00, profitTotalPercent: 33.33, drawdown: 32.06, daysActive: 49, dailyProfitPercent: 0.59, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
-            { id: 3, name: 'Eurusd fractales 1h', profitTotalValue: 3015.98, profitTotalPercent: 29.97, drawdown: 33.83, daysActive: 49, dailyProfitPercent: 0.54, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
-            { id: 4, name: 'Eurusd Fractales H4 Trailing Stop', profitTotalValue: 2749.51, profitTotalPercent: 27.50, drawdown: 32.41, daysActive: 35, dailyProfitPercent: 0.70, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
-            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', profitTotalValue: 2727.75, profitTotalPercent: 27.15, drawdown: 21.70, daysActive: 48, dailyProfitPercent: 0.50, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' }
+            { id: 1, name: 'Oro fractales 4h', profitTotalValue: 4613.93, profitTotalPercent: 46.10, drawdown: 41.28, daysActive: 52, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+            { id: 2, name: 'Oro fractales 1h', profitTotalValue: 3334.00, profitTotalPercent: 33.33, drawdown: 32.06, daysActive: 49, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
+            { id: 3, name: 'Eurusd fractales 1h', profitTotalValue: 3015.98, profitTotalPercent: 29.97, drawdown: 33.83, daysActive: 49, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
+            { id: 4, name: 'Eurusd Fractales H4 Trailing Stop', profitTotalValue: 2749.51, profitTotalPercent: 27.50, drawdown: 32.41, daysActive: 35, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
+            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', profitTotalValue: 2727.75, profitTotalPercent: 27.15, drawdown: 21.70, daysActive: 48, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' }
         ];
 
         // --- DOM ELEMENTS ---
@@ -243,10 +243,12 @@
             kpiTotalProfit.innerHTML = `$${totalProfitValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span class="text-lg">(${totalProfitPercent.toFixed(2)}%)</span>`;
 
             // Calculate other KPIs
-            const avgDailyProfit = strategies.reduce((acc, s) => acc + s.dailyProfitPercent, 0) / strategies.length;
             const maxAge = Math.max(...strategies.map(s => s.daysActive));
+            
+            // CORRECTED CALCULATION: Total profit percentage divided by the max age of the portfolio.
+            const portfolioDailyProfit = maxAge > 0 ? totalProfitPercent / maxAge : 0;
 
-            kpiAvgDailyProfit.textContent = `${avgDailyProfit.toFixed(2)}%`;
+            kpiAvgDailyProfit.textContent = `${portfolioDailyProfit.toFixed(2)}%`;
             kpiMaxAge.textContent = `${maxAge} días`;
         }
         
