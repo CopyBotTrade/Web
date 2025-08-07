@@ -89,7 +89,7 @@
         <header class="mb-8">
             <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900">Panel de Rendimiento</h1>
             <p class="text-slate-500 mt-1">Análisis de nuestras estrategias de inversión automatizadas.</p>
-            <p id="update-timestamp" class="text-sm text-slate-400 mt-2"></p>
+            <p class="text-sm text-slate-400 mt-2">Datos actualizados al: 7 de agosto de 2025, 03:52 PM (Hora Colombia)</p>
         </header>
 
         <!-- Key Performance Indicators (KPIs) -->
@@ -149,19 +149,18 @@
     </div>
 
     <script>
-        // --- DATA AS OF August 5, 2025 ---
+        // --- DATA AS OF August 7, 2025 ---
         const strategies = [
-            { id: 1, name: 'Oro fractales 4h', profitTotalValue: 4613.93, profitTotalPercent: 46.10, drawdown: 41.28, daysActive: 52, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-            { id: 2, name: 'Oro fractales 1h', profitTotalValue: 3334.00, profitTotalPercent: 33.33, drawdown: 32.06, daysActive: 49, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
-            { id: 3, name: 'Eurusd fractales 1h', profitTotalValue: 3015.98, profitTotalPercent: 29.97, drawdown: 33.83, daysActive: 49, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
-            { id: 4, name: 'Eurusd Fractales H4 Trailing Stop', profitTotalValue: 2749.51, profitTotalPercent: 27.50, drawdown: 32.41, daysActive: 35, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
-            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', profitTotalValue: 2727.75, profitTotalPercent: 27.15, drawdown: 21.70, daysActive: 48, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' }
+            { id: 1, name: 'Oro fractales 4h', profitTotalValue: 4613.93, profitTotalPercent: 46.10, drawdown: 41.28, daysActive: 55, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+            { id: 2, name: 'Oro fractales 1h', profitTotalValue: 3448.00, profitTotalPercent: 34.47, drawdown: 32.06, daysActive: 51, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
+            { id: 3, name: 'Eurusd fractales 1h', profitTotalValue: 3067.15, profitTotalPercent: 30.48, drawdown: 33.83, daysActive: 51, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
+            { id: 4, name: 'Eurusd Fractales H4 Trailing Stop', profitTotalValue: 3151.17, profitTotalPercent: 31.51, drawdown: 32.41, daysActive: 37, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
+            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', profitTotalValue: 2779.07, profitTotalPercent: 27.66, drawdown: 21.70, daysActive: 50, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' }
         ];
 
         // --- DOM ELEMENTS ---
         const tableBody = document.getElementById('strategy-table-body');
         const sortOrderSelect = document.getElementById('sortOrder');
-        const timestampEl = document.getElementById('update-timestamp');
         const kpiTotalProfit = document.getElementById('kpi-total-profit');
         const kpiAvgDailyProfit = document.getElementById('kpi-avg-daily-profit');
         const kpiMaxAge = document.getElementById('kpi-max-age');
@@ -252,23 +251,10 @@
             kpiMaxAge.textContent = `${maxAge} días`;
         }
         
-        function updateTimestamp() {
-            const now = new Date();
-            const options = {
-                year: 'numeric', month: 'long', day: 'numeric',
-                hour: 'numeric', minute: 'numeric',
-                timeZone: 'America/Bogota',
-                hour12: true
-            };
-            const formatter = new Intl.DateTimeFormat('es-CO', options);
-            timestampEl.textContent = `Datos actualizados al: ${formatter.format(now)} (Hora Colombia)`;
-        }
-
         // --- INITIALIZATION ---
         const strategiesWithMetrics = calculateMetrics(strategies);
         sortOrderSelect.addEventListener('change', sortAndRender);
         
-        updateTimestamp();
         updateKPIs();
         sortAndRender();
 
