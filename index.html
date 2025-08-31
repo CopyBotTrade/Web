@@ -22,7 +22,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #0d1117; /* GitHub Dark Dimmed */
             color: #c9d1d9; /* Light Grey Text */
-            background-image: url('https://placehold.co/1920x1080/0d1117/c9d1d9.png?text=Abstract+Background'); /* Placeholder for actual background */
+            background-image: url('https://placehold.co/1920x1080/0d1117/c9d1d9.png?text=Financial+Data'); /* Placeholder for actual background */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -34,12 +34,18 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(13, 17, 23, 0.85); /* Dark overlay for readability */
+            background: rgba(13, 17, 23, 0.9); /* Dark overlay for readability */
             backdrop-filter: blur(8px);
             z-index: -1;
         }
+        .portfolio-section-wrapper {
+            background-color: rgba(22, 27, 34, 0.6);
+            border: 1px solid #30363d;
+            border-radius: 1rem;
+            padding: 2rem;
+        }
         .kpi-card {
-            background-color: rgba(22, 27, 34, 0.7); /* Translucent Card */
+            background-color: rgba(33, 38, 45, 0.7); /* Translucent Card */
             border-radius: 0.75rem;
             border: 1px solid #30363d;
             padding: 1.5rem;
@@ -133,76 +139,89 @@
         <header class="mb-12 text-center">
             <h1 class="text-4xl md:text-5xl font-black text-white">BotTrade</h1>
             <p class="text-slate-400 mt-2 text-lg">Rendimiento Consolidado de Trading Algorítmico</p>
-            <p class="text-sm text-slate-500 mt-2">Datos actualizados al: 30 de agosto de 2025, 10:25 PM (Hora Colombia)</p>
+            <p class="text-sm text-slate-500 mt-2">Datos actualizados al: 30 de agosto de 2025, 10:36 PM (Hora Colombia)</p>
         </header>
 
-        <!-- DEMO PORTFOLIO SECTION -->
-        <section id="demo-portfolio" class="mb-12">
-            <div class="mb-8 p-4 rounded-lg section-header">
-                <h2 class="font-bold text-xl text-white">Portafolio Histórico (DEMO)</h2>
-                <p class="text-sm text-slate-400">Resultados que validan la efectividad a largo plazo de nuestras estrategias.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="kpi-card">
-                    <div class="flex items-center justify-between text-slate-400">
-                        <h2 class="text-sm font-medium">Profit Total (DEMO)</h2>
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <p id="kpi-total-profit-demo" class="text-3xl font-bold profit mt-2"></p>
+        <!-- DEMO PORTFOLIO WRAPPER -->
+        <div class="portfolio-section-wrapper mb-12">
+            <section id="demo-portfolio">
+                <div class="mb-8 p-4 rounded-lg section-header">
+                    <h2 class="font-bold text-xl text-white">Portafolio Histórico (DEMO)</h2>
+                    <p class="text-sm text-slate-400">Resultados que validan la efectividad a largo plazo de nuestras estrategias.</p>
                 </div>
-                <div class="kpi-card">
-                     <div class="flex items-center justify-between text-slate-400">
-                        <h2 class="text-sm font-medium">Profit Diario Promedio (DEMO)</h2>
-                        <i class="fas fa-tachometer-alt"></i>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="kpi-card">
+                        <div class="flex items-center justify-between text-slate-400">
+                            <h2 class="text-sm font-medium">Profit Total (DEMO)</h2>
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <p id="kpi-total-profit-demo" class="text-3xl font-bold profit mt-2"></p>
                     </div>
-                    <p id="kpi-avg-daily-profit-demo" class="text-3xl font-bold profit mt-2"></p>
-                </div>
-                 <div class="kpi-card">
-                     <div class="flex items-center justify-between text-slate-400">
-                        <h2 class="text-sm font-medium">Antigüedad (DEMO)</h2>
-                        <i class="fas fa-calendar-alt"></i>
+                    <div class="kpi-card">
+                         <div class="flex items-center justify-between text-slate-400">
+                            <h2 class="text-sm font-medium">Profit Diario Promedio (DEMO)</h2>
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <p id="kpi-avg-daily-profit-demo" class="text-3xl font-bold profit mt-2"></p>
                     </div>
-                    <p id="kpi-max-age-demo" class="text-3xl font-bold text-white mt-2"></p>
+                     <div class="kpi-card">
+                         <div class="flex items-center justify-between text-slate-400">
+                            <h2 class="text-sm font-medium">Antigüedad (DEMO)</h2>
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <p id="kpi-max-age-demo" class="text-3xl font-bold text-white mt-2"></p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <!-- REAL PORTFOLIO SECTION -->
-        <section id="real-portfolio" class="mb-12">
-            <div class="mb-8 p-4 rounded-lg section-header">
-                <h2 class="font-bold text-xl text-white">Portafolio en Vivo (REAL)</h2>
-                <p class="text-sm text-slate-400">Resultados con dinero real, disponibles para copy trading.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="kpi-card">
-                    <div class="flex items-center justify-between text-slate-400">
-                        <h2 class="text-sm font-medium">Profit Total (REAL)</h2>
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <p id="kpi-total-profit-real" class="text-3xl font-bold profit mt-2">$2,951.82 <span class="text-lg">(29.52%)</span></p>
+        <!-- REAL PORTFOLIO WRAPPER -->
+        <div class="portfolio-section-wrapper mb-12">
+            <section id="real-portfolio">
+                <div class="mb-8 p-4 rounded-lg section-header">
+                    <h2 class="font-bold text-xl text-white">Portafolio en Vivo (REAL)</h2>
+                    <p class="text-sm text-slate-400">Resultados con dinero real, disponibles para copy trading.</p>
                 </div>
-                <div class="kpi-card">
-                     <div class="flex items-center justify-between text-slate-400">
-                        <h2 class="text-sm font-medium">Profit Diario Promedio (REAL)</h2>
-                        <i class="fas fa-percent"></i>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="kpi-card">
+                        <div class="flex items-center justify-between text-slate-400">
+                            <h2 class="text-sm font-medium">Profit Total (REAL)</h2>
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <p id="kpi-total-profit-real" class="text-3xl font-bold profit mt-2">$2,951.82 <span class="text-lg">(29.52%)</span></p>
                     </div>
-                    <p id="kpi-avg-daily-profit-real" class="text-3xl font-bold profit mt-2">1.97%</p>
-                </div>
-                 <div class="kpi-card">
-                     <div class="flex items-center justify-between text-slate-400">
-                        <h2 class="text-sm font-medium">Antigüedad (REAL)</h2>
-                         <i class="fas fa-hourglass-start"></i>
+                    <div class="kpi-card">
+                         <div class="flex items-center justify-between text-slate-400">
+                            <h2 class="text-sm font-medium">Profit Diario Promedio (REAL)</h2>
+                            <i class="fas fa-percent"></i>
+                        </div>
+                        <p id="kpi-avg-daily-profit-real" class="text-3xl font-bold profit mt-2">1.97%</p>
                     </div>
-                    <p id="kpi-max-age-real" class="text-3xl font-bold text-white mt-2">15 días</p>
+                     <div class="kpi-card">
+                         <div class="flex items-center justify-between text-slate-400">
+                            <h2 class="text-sm font-medium">Antigüedad (REAL)</h2>
+                             <i class="fas fa-hourglass-start"></i>
+                        </div>
+                        <p id="kpi-max-age-real" class="text-3xl font-bold text-white mt-2">15 días</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
         <!-- CALL TO ACTION SECTION -->
         <section class="my-12 cta-section text-center">
-            <h2 class="text-2xl font-bold text-white mb-2">¿Listo para poner nuestros algoritmos a trabajar para usted?</h2>
-            <p class="text-slate-400 max-w-3xl mx-auto mb-6">
-                La transparencia y los resultados consistentes son el núcleo de BotTrade. Únase a nuestra comunidad de inversores y diversifique su capital con trading algorítmico de alto rendimiento. Para cualquier duda, nuestro equipo de soporte está disponible para ayudarle.
+            <h2 class="text-2xl font-bold text-white mb-2">Transparencia y Resultados Verificables</h2>
+            <p class="text-slate-400 max-w-4xl mx-auto mb-6">
+                En BotTrade, la confianza es nuestra máxima prioridad. Todos los resultados que ve en esta página son 100% reales y pueden ser verificados de forma independiente. Le invitamos a validar cada dato a través de los enlaces de **"Cuenta Auditada"** (Myfxbook) y los perfiles de proveedor en nuestro bróker asociado.
+            </p>
+            <div class="max-w-4xl mx-auto p-6 rounded-lg border border-slate-700 bg-slate-900/50 mb-6">
+                <h3 class="font-bold text-white text-lg mb-2">Sobre Nuestro Bróker Asociado: RoboForex</h3>
+                <p class="text-sm text-slate-400">
+                    Un bróker es el intermediario que ejecuta las operaciones en el mercado financiero. Trabajamos con <a href="https://roboforex.com" target="_blank" class="footer-link">RoboForex</a>, una firma con más de 15 años de trayectoria y reconocimiento internacional, lo que garantiza un entorno de trading seguro, regulado y confiable para nuestros inversores.
+                </p>
+            </div>
+             <p class="text-slate-400 max-w-3xl mx-auto mb-6">
+                Para cualquier duda o para iniciar su proceso de inversión, nuestro equipo de soporte está listo para asistirle.
             </p>
             <div class="flex flex-wrap justify-center items-center gap-4 mb-6">
                 <a href="https://wa.me/573045239745" target="_blank" class="btn-social btn-whatsapp">
@@ -372,8 +391,7 @@
 
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
-            // I'll replace the placeholder background with a more fitting one
-            document.body.style.backgroundImage = `url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`;
+            document.body.style.backgroundImage = `url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%D%D')`;
             
             strategies = calculateMetrics(strategies);
             document.getElementById('sortOrder').addEventListener('change', sortAndRender);
