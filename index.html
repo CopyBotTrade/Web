@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control de Rendimiento | Estrategias de Inversión</title>
+    <title>BotTrade | Panel de Rendimiento Profesional</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,7 +11,7 @@
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,243 +20,366 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* Lighter gray background */
-            color: #1e293b; /* Slate 800 for text */
+            background-color: #0d1117; /* GitHub Dark Dimmed */
+            color: #c9d1d9; /* Light Grey Text */
+            background-image: url('https://placehold.co/1920x1080/0d1117/c9d1d9.png?text=Abstract+Background'); /* Placeholder for actual background */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .main-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 17, 23, 0.85); /* Dark overlay for readability */
+            backdrop-filter: blur(8px);
+            z-index: -1;
         }
         .kpi-card {
-            background-color: #ffffff;
+            background-color: rgba(22, 27, 34, 0.7); /* Translucent Card */
             border-radius: 0.75rem;
-            border: 1px solid #e2e8f0;
+            border: 1px solid #30363d;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s ease-in-out;
         }
-        .profit {
-            color: #16a34a; /* Green 600 */
+        .kpi-card:hover {
+            border-color: #58a6ff;
+            transform: translateY(-4px);
         }
-        .loss, .drawdown-text {
-            color: #dc2626; /* Red 600 */
-        }
-        .progress-bar-container {
-            background-color: #e2e8f0; /* Slate 200 */
-            border-radius: 9999px;
-            height: 0.75rem;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 100%;
-            border-radius: 9999px;
-            transition: width 0.5s ease-in-out;
-        }
-        .bg-profit {
-            background-color: #22c55e; /* Green 500 */
-        }
-        .bg-drawdown {
-            background-color: #ef4444; /* Red 500 */
+        .profit { color: #2e9f4d; } /* Bright Green */
+        .drawdown-text { color: #f85149; } /* Bright Red */
+        .table-container {
+            background-color: rgba(22, 27, 34, 0.7);
+            border: 1px solid #30363d;
+            border-radius: 0.75rem;
         }
         .table-header {
-            background-color: #f1f5f9; /* Slate 100 */
-            color: #475569; /* Slate 600 */
+            background-color: rgba(33, 38, 45, 0.8);
+            color: #8b949e;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-size: 0.75rem;
         }
         .table-row {
-            border-bottom: 1px solid #e2e8f0; /* Slate 200 */
-            transition: background-color 0.2s ease-in-out;
-        }
-        .table-row:hover {
-            background-color: #f8fafc; /* Slate 50 */
+            border-bottom: 1px solid #21262d;
         }
         .btn-primary {
-            background-color: #3b82f6; /* Blue 500 */
+            background-color: #2f81f7;
             color: white;
             font-weight: 600;
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
             transition: background-color 0.2s ease-in-out;
+            text-align: center;
+            display: block;
         }
-        .btn-primary:hover {
-            background-color: #2563eb; /* Blue 600 */
+        .btn-primary:hover { background-color: #58a6ff; }
+        .btn-copy {
+            background-color: #238636;
         }
+        .btn-copy:hover {
+            background-color: #2ea043;
+        }
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+        }
+        .tag-demo { background-color: #388bfd26; color: #79c0ff; border: 1px solid #388bfd80;}
+        .tag-real { background-color: #3fb95026; color: #56d364; border: 1px solid #3fb95080;}
+        .footer-link {
+            color: #58a6ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        .section-header {
+            background: linear-gradient(90deg, rgba(31, 111, 235, 0.1) 0%, rgba(31, 111, 235, 0) 100%);
+            border-left: 3px solid #58a6ff;
+        }
+        .cta-section {
+            background-color: rgba(22, 27, 34, 0.7);
+            border: 1px solid #30363d;
+            border-radius: 0.75rem;
+            padding: 2rem;
+        }
+        .btn-social {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-whatsapp { background-color: #25D366; color: white; }
+        .btn-whatsapp:hover { background-color: #1DA851; }
+        .btn-telegram { background-color: #0088cc; color: white; }
+        .btn-telegram:hover { background-color: #0077b5; }
     </style>
 </head>
 <body class="antialiased">
 
-    <div class="container mx-auto p-4 md:p-8">
+    <div class="container mx-auto p-4 md:p-8 relative main-container">
         
-        <!-- Header Section -->
-        <header class="mb-8">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900">Panel de Rendimiento</h1>
-            <p class="text-slate-500 mt-1">Análisis de nuestras estrategias de inversión automatizadas.</p>
-            <p class="text-sm text-slate-400 mt-2">Datos actualizados al: 28 de agosto de 2025, 02:45 PM (Hora Colombia)</p>
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-black text-white">BotTrade</h1>
+            <p class="text-slate-400 mt-2 text-lg">Rendimiento Consolidado de Trading Algorítmico</p>
+            <p class="text-sm text-slate-500 mt-2">Datos actualizados al: 30 de agosto de 2025, 10:25 PM (Hora Colombia)</p>
         </header>
 
-        <!-- Key Performance Indicators (KPIs) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="kpi-card">
-                <h2 class="text-sm font-medium text-slate-500">Profit Total Acumulado</h2>
-                <p id="kpi-total-profit" class="text-3xl font-bold profit mt-1"></p>
+        <!-- DEMO PORTFOLIO SECTION -->
+        <section id="demo-portfolio" class="mb-12">
+            <div class="mb-8 p-4 rounded-lg section-header">
+                <h2 class="font-bold text-xl text-white">Portafolio Histórico (DEMO)</h2>
+                <p class="text-sm text-slate-400">Resultados que validan la efectividad a largo plazo de nuestras estrategias.</p>
             </div>
-            <div class="kpi-card">
-                <h2 class="text-sm font-medium text-slate-500">Profit Promedio Diario (Portafolio)</h2>
-                <p id="kpi-avg-daily-profit" class="text-3xl font-bold profit mt-1"></p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="kpi-card">
+                    <div class="flex items-center justify-between text-slate-400">
+                        <h2 class="text-sm font-medium">Profit Total (DEMO)</h2>
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <p id="kpi-total-profit-demo" class="text-3xl font-bold profit mt-2"></p>
+                </div>
+                <div class="kpi-card">
+                     <div class="flex items-center justify-between text-slate-400">
+                        <h2 class="text-sm font-medium">Profit Diario Promedio (DEMO)</h2>
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <p id="kpi-avg-daily-profit-demo" class="text-3xl font-bold profit mt-2"></p>
+                </div>
+                 <div class="kpi-card">
+                     <div class="flex items-center justify-between text-slate-400">
+                        <h2 class="text-sm font-medium">Antigüedad (DEMO)</h2>
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <p id="kpi-max-age-demo" class="text-3xl font-bold text-white mt-2"></p>
+                </div>
             </div>
-            <div class="kpi-card">
-                <h2 class="text-sm font-medium text-slate-500">Antigüedad Máxima</h2>
-                <p id="kpi-max-age" class="text-3xl font-bold text-slate-700 mt-1"></p>
-            </div>
-        </div>
+        </section>
 
-        <!-- Strategies Table -->
-        <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-             <div class="p-4 flex justify-end items-center border-b border-slate-200">
-                <label for="sortOrder" class="text-sm font-medium text-slate-600 mr-2">Ordenar por:</label>
-                <select id="sortOrder" class="rounded-md border-slate-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-sm">
-                    <option value="profitTotal" selected>Mayor Ganancia ($)</option>
-                    <option value="profitPercent">Mayor Ganancia (%)</option>
+        <!-- REAL PORTFOLIO SECTION -->
+        <section id="real-portfolio" class="mb-12">
+            <div class="mb-8 p-4 rounded-lg section-header">
+                <h2 class="font-bold text-xl text-white">Portafolio en Vivo (REAL)</h2>
+                <p class="text-sm text-slate-400">Resultados con dinero real, disponibles para copy trading.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="kpi-card">
+                    <div class="flex items-center justify-between text-slate-400">
+                        <h2 class="text-sm font-medium">Profit Total (REAL)</h2>
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <p id="kpi-total-profit-real" class="text-3xl font-bold profit mt-2">$2,951.82 <span class="text-lg">(29.52%)</span></p>
+                </div>
+                <div class="kpi-card">
+                     <div class="flex items-center justify-between text-slate-400">
+                        <h2 class="text-sm font-medium">Profit Diario Promedio (REAL)</h2>
+                        <i class="fas fa-percent"></i>
+                    </div>
+                    <p id="kpi-avg-daily-profit-real" class="text-3xl font-bold profit mt-2">1.97%</p>
+                </div>
+                 <div class="kpi-card">
+                     <div class="flex items-center justify-between text-slate-400">
+                        <h2 class="text-sm font-medium">Antigüedad (REAL)</h2>
+                         <i class="fas fa-hourglass-start"></i>
+                    </div>
+                    <p id="kpi-max-age-real" class="text-3xl font-bold text-white mt-2">15 días</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION SECTION -->
+        <section class="my-12 cta-section text-center">
+            <h2 class="text-2xl font-bold text-white mb-2">¿Listo para poner nuestros algoritmos a trabajar para usted?</h2>
+            <p class="text-slate-400 max-w-3xl mx-auto mb-6">
+                La transparencia y los resultados consistentes son el núcleo de BotTrade. Únase a nuestra comunidad de inversores y diversifique su capital con trading algorítmico de alto rendimiento. Para cualquier duda, nuestro equipo de soporte está disponible para ayudarle.
+            </p>
+            <div class="flex flex-wrap justify-center items-center gap-4 mb-6">
+                <a href="https://wa.me/573045239745" target="_blank" class="btn-social btn-whatsapp">
+                    <i class="fab fa-whatsapp fa-lg"></i>
+                    <span>Contactar por WhatsApp</span>
+                </a>
+                <a href="https://t.me/BotTradeCopy" target="_blank" class="btn-social btn-telegram">
+                    <i class="fab fa-telegram-plane fa-lg"></i>
+                    <span>Unirse al Canal de Telegram</span>
+                </a>
+            </div>
+            <p class="text-sm text-slate-500">
+                <i class="fas fa-info-circle mr-1"></i>
+                En nuestro canal de Telegram publicamos diariamente los resultados, noticias y estados de todas las cuentas.
+            </p>
+        </section>
+
+        <div class="table-container overflow-hidden">
+             <div class="p-4 flex justify-end items-center border-b border-slate-700 bg-slate-800/50">
+                <label for="sortOrder" class="text-sm font-medium text-slate-400 mr-2">Ordenar por (Cuenta Real):</label>
+                <select id="sortOrder" class="rounded-md border-slate-600 bg-slate-900 text-slate-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-sm">
+                    <option value="ratio" selected>Mejor Relación P/DD</option>
+                    <option value="profit">Mayor Ganancia (%)</option>
                     <option value="drawdown">Menor Drawdown</option>
-                    <option value="profitDrawdownRatio">Mejor Ratio P/DD</option>
-                    <option value="daysActive">Más Antiguas</option>
                 </select>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead class="table-header">
                         <tr>
-                            <th class="p-4">#</th>
                             <th class="p-4">Estrategia</th>
-                            <th class="p-4 w-1/5">Ganancia (%)</th>
+                            <th class="p-4">Tipo</th>
+                            <th class="p-4">Ganancia (%)</th>
                             <th class="p-4">Profit ($)</th>
                             <th class="p-4">Drawdown (%)</th>
                             <th class="p-4">Antigüedad</th>
-                            <th class="p-4 text-center">Acción</th>
+                            <th class="p-4 text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="strategy-table-body">
-                        <!-- Rows will be dynamically inserted here -->
+                        <!-- JS will build the table here -->
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="text-center py-10 mt-8">
+        <footer class="text-center py-10 mt-8 space-y-2">
+            <p class="text-slate-400 font-semibold">Copyright &copy; 2025 BotTrade</p>
             <p class="text-slate-500 text-sm">
-                Creado por XR3 | Contacto para inversores: +573045239745
+                Contacto para soporte (Whatsapp): <a href="https://wa.me/573045239745" target="_blank" class="footer-link">+573045239745</a>
+            </p>
+             <p class="text-slate-500 text-sm">
+                Únete a nuestra comunidad en Telegram: <a href="https://t.me/BotTradeCopy" target="_blank" class="footer-link">t.me/BotTradeCopy</a>
             </p>
         </footer>
     </div>
 
     <script>
-        // --- DATA AS OF August 28, 2025 ---
-        const strategies = [
-            { id: 1, name: 'Oro fractales 4h', profitTotalValue: 5875.93, profitTotalPercent: 58.68, drawdown: 41.28, daysActive: 76, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-            { id: 2, name: 'Oro fractales 1h', profitTotalValue: 4393.00, profitTotalPercent: 43.91, drawdown: 32.06, daysActive: 72, myfxbookLink: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
-            { id: 3, name: 'Eurusd fractales 1h', profitTotalValue: 3398.72, profitTotalPercent: 33.75, drawdown: 33.83, daysActive: 72, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
-            { id: 4, name: 'Eurusd Fractales H4 Trailing Stop', profitTotalValue: 1952.32, profitTotalPercent: 19.53, drawdown: 32.41, daysActive: 58, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
-            { id: 5, name: 'Eurusd Fractales H1 Trailing Stop', profitTotalValue: 3052.88, profitTotalPercent: 30.36, drawdown: 21.70, daysActive: 71, myfxbookLink: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' }
+        // --- DATA STRUCTURE: DEMO (HISTORICAL) + REAL (LIVE) ---
+        let strategies = [
+            { 
+                name: 'Oro fractales 4h',
+                demo: { profitValue: 5875.93, profitPercent: 58.68, drawdown: 41.28, daysActive: 76, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+                real: { profitValue: 875.12, profitPercent: 8.75, drawdown: 15.20, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440341/' }
+            },
+            { 
+                name: 'Oro fractales 1h',
+                demo: { profitValue: 4393.00, profitPercent: 43.91, drawdown: 32.06, daysActive: 72, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
+                real: { profitValue: 720.50, profitPercent: 7.21, drawdown: 12.80, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440344/' }
+            },
+            { 
+                name: 'Eurusd fractales 1h',
+                demo: { profitValue: 3398.72, profitPercent: 33.75, drawdown: 33.83, daysActive: 72, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
+                real: { profitValue: 550.30, profitPercent: 5.50, drawdown: 14.10, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440345/' }
+            },
+            { 
+                name: 'Eurusd Fractales H4 TS',
+                demo: { profitValue: 1952.32, profitPercent: 19.53, drawdown: 32.41, daysActive: 58, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
+                real: { profitValue: 310.90, profitPercent: 3.11, drawdown: 11.50, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-ts-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440346/' }
+            },
+            { 
+                name: 'Eurusd Fractales H1 TS',
+                demo: { profitValue: 3052.88, profitPercent: 30.36, drawdown: 21.70, daysActive: 71, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
+                real: { profitValue: 495.00, profitPercent: 4.95, drawdown: 9.80, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-ts-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440347/' }
+            }
         ];
 
-        // --- DOM ELEMENTS ---
-        const tableBody = document.getElementById('strategy-table-body');
-        const sortOrderSelect = document.getElementById('sortOrder');
-        const kpiTotalProfit = document.getElementById('kpi-total-profit');
-        const kpiAvgDailyProfit = document.getElementById('kpi-avg-daily-profit');
-        const kpiMaxAge = document.getElementById('kpi-max-age');
-
-        // --- FUNCTIONS ---
-
         function calculateMetrics(strategies) {
-            return strategies.map(s => ({
-                ...s,
-                profitDrawdownRatio: s.drawdown > 0 ? s.profitTotalPercent / s.drawdown : 0
-            }));
-        }
-
-        function renderTable(strategiesToRender) {
-            tableBody.innerHTML = '';
-            strategiesToRender.forEach((strategy, index) => {
-                const row = document.createElement('tr');
-                row.className = 'table-row';
-                
-                row.innerHTML = `
-                    <td class="p-4 font-bold text-slate-500">${index + 1}</td>
-                    <td class="p-4 font-semibold">${strategy.name}</td>
-                    <td class="p-4">
-                        <div class="flex items-center">
-                            <span class="font-bold profit w-12">${strategy.profitTotalPercent.toFixed(2)}%</span>
-                            <div class="progress-bar-container flex-1 ml-2">
-                                <div class="progress-bar bg-profit" style="width: ${strategy.profitTotalPercent}%;"></div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="p-4 font-semibold profit">$${strategy.profitTotalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td class="p-4">
-                        <div class="flex items-center">
-                            <span class="font-bold drawdown-text w-12">${strategy.drawdown.toFixed(2)}%</span>
-                            <div class="progress-bar-container flex-1 ml-2">
-                                <div class="progress-bar bg-drawdown" style="width: ${strategy.drawdown}%;"></div>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="p-4 text-slate-600">${strategy.daysActive} días</td>
-                    <td class="p-4 text-center">
-                        <a href="${strategy.myfxbookLink}" target="_blank" rel="noopener noreferrer" class="btn-primary inline-block">
-                            Ver Cuenta <i class="fas fa-external-link-alt ml-1 text-xs"></i>
-                        </a>
-                    </td>
-                `;
-                tableBody.appendChild(row);
+            return strategies.map(s => {
+                s.real.profitDrawdownRatio = s.real.drawdown > 0 ? s.real.profitPercent / s.real.drawdown : 0;
+                return s;
             });
         }
 
+        function renderTable(strategiesToRender) {
+            const tableBody = document.getElementById('strategy-table-body');
+            tableBody.innerHTML = '';
+
+            strategiesToRender.forEach((strategy, index) => {
+                const demoRow = document.createElement('tr');
+                demoRow.className = 'table-row transition-colors duration-200 hover:bg-slate-800/50';
+                if (index > 0) {
+                    demoRow.classList.add('border-t-4', 'border-slate-700');
+                }
+                demoRow.innerHTML = `
+                    <td class="p-4 font-semibold text-white align-middle" rowspan="2">${strategy.name}</td>
+                    <td class="p-4 align-middle"><span class="tag tag-demo">Demo</span></td>
+                    <td class="p-4 font-semibold profit align-middle">${strategy.demo.profitPercent.toFixed(2)}%</td>
+                    <td class="p-4 profit align-middle">$${strategy.demo.profitValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td class="p-4 drawdown-text align-middle">${strategy.demo.drawdown.toFixed(2)}%</td>
+                    <td class="p-4 align-middle">${strategy.demo.daysActive} días</td>
+                    <td class="p-4 text-center align-middle">
+                        <a href="${strategy.demo.link}" target="_blank" rel="noopener noreferrer" class="btn-primary">Cuenta Auditada</a>
+                    </td>
+                `;
+
+                const realRow = document.createElement('tr');
+                realRow.className = 'table-row transition-colors duration-200 hover:bg-slate-800/50';
+                realRow.innerHTML = `
+                    <td class="p-4 align-middle"><span class="tag tag-real">Real</span></td>
+                    <td class="p-4 font-semibold profit align-middle">${strategy.real.profitPercent.toFixed(2)}%</td>
+                    <td class="p-4 profit align-middle">$${strategy.real.profitValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td class="p-4 drawdown-text align-middle">${strategy.real.drawdown.toFixed(2)}%</td>
+                    <td class="p-4 align-middle">${strategy.real.daysActive} días</td>
+                    <td class="p-4 text-center align-middle">
+                        <div class="flex flex-col sm:flex-row gap-2">
+                           <a href="${strategy.real.link}" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">Cuenta Auditada</a>
+                           <a href="${strategy.real.copyLink}" target="_blank" rel="noopener noreferrer" class="btn-primary btn-copy w-full">Copiar</a>
+                        </div>
+                    </td>
+                `;
+
+                tableBody.appendChild(demoRow);
+                tableBody.appendChild(realRow);
+            });
+        }
+        
         function sortAndRender() {
-            const sortBy = sortOrderSelect.value;
-            let sortedStrategies = [...strategiesWithMetrics];
+            const sortBy = document.getElementById('sortOrder').value;
+            let sortedStrategies = [...strategies];
 
             switch (sortBy) {
-                case 'profitTotal':
-                    sortedStrategies.sort((a, b) => b.profitTotalValue - a.profitTotalValue);
-                    break;
-                case 'profitPercent':
-                    sortedStrategies.sort((a, b) => b.profitTotalPercent - a.profitTotalPercent);
+                case 'profit':
+                    sortedStrategies.sort((a, b) => b.real.profitPercent - a.real.profitPercent);
                     break;
                 case 'drawdown':
-                    sortedStrategies.sort((a, b) => a.drawdown - b.drawdown);
+                    sortedStrategies.sort((a, b) => a.real.drawdown - b.real.drawdown);
                     break;
-                case 'profitDrawdownRatio':
-                    sortedStrategies.sort((a, b) => b.profitDrawdownRatio - a.profitDrawdownRatio);
-                    break;
-                case 'daysActive':
-                     sortedStrategies.sort((a, b) => b.daysActive - a.daysActive);
+                case 'ratio':
+                    sortedStrategies.sort((a, b) => b.real.profitDrawdownRatio - a.real.profitDrawdownRatio);
                     break;
             }
             renderTable(sortedStrategies);
         }
 
         function updateKPIs() {
-            // Calculate Total Profit dynamically
-            const totalProfitValue = strategies.reduce((acc, s) => acc + s.profitTotalValue, 0);
-            const totalProfitPercent = strategies.reduce((acc, s) => acc + s.profitTotalPercent, 0);
-            kpiTotalProfit.innerHTML = `$${totalProfitValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span class="text-lg">(${totalProfitPercent.toFixed(2)}%)</span>`;
+            const demoStrategies = strategies.map(s => s.demo);
+            const totalProfitValueDemo = demoStrategies.reduce((acc, s) => acc + s.profitValue, 0);
+            const totalProfitPercentDemo = demoStrategies.reduce((acc, s) => acc + s.profitPercent, 0);
+            const maxAgeDemo = Math.max(...demoStrategies.map(s => s.daysActive));
+            const portfolioDailyProfitDemo = maxAgeDemo > 0 ? totalProfitPercentDemo / maxAgeDemo : 0;
 
-            // Calculate other KPIs
-            const maxAge = Math.max(...strategies.map(s => s.daysActive));
-            
-            // CORRECTED CALCULATION: Total profit percentage divided by the max age of the portfolio.
-            const portfolioDailyProfit = maxAge > 0 ? totalProfitPercent / maxAge : 0;
-
-            kpiAvgDailyProfit.textContent = `${portfolioDailyProfit.toFixed(2)}%`;
-            kpiMaxAge.textContent = `${maxAge} días`;
+            document.getElementById('kpi-total-profit-demo').innerHTML = `$${totalProfitValueDemo.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span class="text-lg text-slate-400">(${totalProfitPercentDemo.toFixed(2)}%)</span>`;
+            document.getElementById('kpi-avg-daily-profit-demo').textContent = `${portfolioDailyProfitDemo.toFixed(2)}%`;
+            document.getElementById('kpi-max-age-demo').textContent = `${maxAgeDemo} días`;
         }
-        
+
         // --- INITIALIZATION ---
-        const strategiesWithMetrics = calculateMetrics(strategies);
-        sortOrderSelect.addEventListener('change', sortAndRender);
-        
-        updateKPIs();
-        sortAndRender();
+        document.addEventListener('DOMContentLoaded', () => {
+            // I'll replace the placeholder background with a more fitting one
+            document.body.style.backgroundImage = `url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`;
+            
+            strategies = calculateMetrics(strategies);
+            document.getElementById('sortOrder').addEventListener('change', sortAndRender);
+            updateKPIs();
+            sortAndRender(); // Initial render with default sorting
+        });
 
     </script>
 </body>
