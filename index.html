@@ -59,6 +59,7 @@
             transform: translateY(-4px);
         }
         .profit { color: #2e9f4d; } /* Bright Green */
+        .loss { color: #f85149; } /* Bright Red */
         .drawdown-text { color: #f85149; } /* Bright Red */
         .table-container {
             background-color: rgba(22, 27, 34, 0.7);
@@ -142,7 +143,7 @@
         <header class="mb-12 text-center">
             <h1 class="text-4xl md:text-5xl font-black text-white">BotTrade</h1>
             <p class="text-slate-400 mt-2 text-lg">Rendimiento Consolidado de Trading Algorítmico</p>
-            <p class="text-sm text-slate-500 mt-2">Datos actualizados al: 30 de agosto de 2025, 10:59 PM (Hora Colombia)</p>
+            <p id="last-updated" class="text-sm text-slate-500 mt-2"></p>
         </header>
 
         <!-- DEMO PORTFOLIO WRAPPER -->
@@ -191,21 +192,21 @@
                             <h2 class="text-sm font-medium">Profit Total (REAL)</h2>
                             <i class="fas fa-dollar-sign"></i>
                         </div>
-                        <p id="kpi-total-profit-real" class="text-3xl font-bold profit mt-2">$2,951.82 <span class="text-lg">(29.52%)</span></p>
+                        <p id="kpi-total-profit-real" class="text-3xl font-bold mt-2"></p>
                     </div>
                     <div class="kpi-card">
                          <div class="flex items-center justify-between text-slate-400">
                             <h2 class="text-sm font-medium">Profit Diario Promedio (REAL)</h2>
                             <i class="fas fa-percent"></i>
                         </div>
-                        <p id="kpi-avg-daily-profit-real" class="text-3xl font-bold profit mt-2">1.97%</p>
+                        <p id="kpi-avg-daily-profit-real" class="text-3xl font-bold mt-2"></p>
                     </div>
                      <div class="kpi-card">
                          <div class="flex items-center justify-between text-slate-400">
                             <h2 class="text-sm font-medium">Antigüedad (REAL)</h2>
                              <i class="fas fa-hourglass-start"></i>
                         </div>
-                        <p id="kpi-max-age-real" class="text-3xl font-bold text-white mt-2">15 días</p>
+                        <p id="kpi-max-age-real" class="text-3xl font-bold text-white mt-2"></p>
                     </div>
                 </div>
             </section>
@@ -288,27 +289,27 @@
             { 
                 name: 'Oro fractales 4h',
                 demo: { profitValue: 5875.93, profitPercent: 58.68, drawdown: 41.28, daysActive: 76, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-                real: { profitValue: 875.12, profitPercent: 8.75, drawdown: 15.20, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440341/' }
+                real: { profitValue: 195.78, profitPercent: 9.79, drawdown: 13.59, daysActive: 10, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h-real/11683967', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440341/' }
             },
             { 
                 name: 'Oro fractales 1h',
                 demo: { profitValue: 4393.00, profitPercent: 43.91, drawdown: 32.06, daysActive: 72, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
-                real: { profitValue: 720.50, profitPercent: 7.21, drawdown: 12.80, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440344/' }
+                real: { profitValue: 72.60, profitPercent: 3.63, drawdown: 0.00, daysActive: 10, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h-real/11683970', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440344/' }
             },
             { 
                 name: 'Eurusd fractales 1h',
                 demo: { profitValue: 3398.72, profitPercent: 33.75, drawdown: 33.83, daysActive: 72, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
-                real: { profitValue: 550.30, profitPercent: 5.50, drawdown: 14.10, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440345/' }
+                real: { profitValue: 62.76, profitPercent: 3.14, drawdown: 7.37, daysActive: 7, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h-real/11683974', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440345/' }
             },
             { 
                 name: 'Eurusd Fractales H4 TS',
                 demo: { profitValue: 1952.32, profitPercent: 19.53, drawdown: 32.41, daysActive: 58, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
-                real: { profitValue: 310.90, profitPercent: 3.11, drawdown: 11.50, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-ts-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440346/' }
+                real: { profitValue: -310.99, profitPercent: -15.55, drawdown: 15.55, daysActive: 8, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11683979', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440346/' }
             },
             { 
                 name: 'Eurusd Fractales H1 TS',
                 demo: { profitValue: 3052.88, profitPercent: 30.36, drawdown: 21.70, daysActive: 71, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
-                real: { profitValue: 495.00, profitPercent: 4.95, drawdown: 9.80, daysActive: 15, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-ts-real/EXAMPLE', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440347/' }
+                real: { profitValue: 52.62, profitPercent: 2.63, drawdown: 3.12, daysActive: 7, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11683981', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440347/' }
             }
         ];
 
@@ -343,10 +344,12 @@
 
                 const realRow = document.createElement('tr');
                 realRow.className = 'table-row transition-colors duration-200 hover:bg-slate-800/50';
+                const realProfitClass = strategy.real.profitValue >= 0 ? 'profit' : 'loss';
+                
                 realRow.innerHTML = `
                     <td class="p-4 align-middle"><span class="tag tag-real">Real</span></td>
-                    <td class="p-4 font-semibold profit align-middle">${strategy.real.profitPercent.toFixed(2)}%</td>
-                    <td class="p-4 profit align-middle">$${strategy.real.profitValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                    <td class="p-4 font-semibold ${realProfitClass} align-middle">${strategy.real.profitPercent.toFixed(2)}%</td>
+                    <td class="p-4 ${realProfitClass} align-middle">$${strategy.real.profitValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                     <td class="p-4 drawdown-text align-middle">${strategy.real.drawdown.toFixed(2)}%</td>
                     <td class="p-4 align-middle">${strategy.real.daysActive} días</td>
                     <td class="p-4 text-center align-middle">
@@ -381,6 +384,7 @@
         }
 
         function updateKPIs() {
+            // DEMO KPIs
             const demoStrategies = strategies.map(s => s.demo);
             const totalProfitValueDemo = demoStrategies.reduce((acc, s) => acc + s.profitValue, 0);
             const totalProfitPercentDemo = demoStrategies.reduce((acc, s) => acc + s.profitPercent, 0);
@@ -390,10 +394,32 @@
             document.getElementById('kpi-total-profit-demo').innerHTML = `$${totalProfitValueDemo.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span class="text-lg text-slate-400">(${totalProfitPercentDemo.toFixed(2)}%)</span>`;
             document.getElementById('kpi-avg-daily-profit-demo').textContent = `${portfolioDailyProfitDemo.toFixed(2)}%`;
             document.getElementById('kpi-max-age-demo').textContent = `${maxAgeDemo} días`;
+
+            // REAL KPIs
+            const realStrategies = strategies.map(s => s.real);
+            const totalProfitValueReal = realStrategies.reduce((acc, s) => acc + s.profitValue, 0);
+            const totalProfitPercentReal = realStrategies.reduce((acc, s) => acc + s.profitPercent, 0);
+            const maxAgeReal = Math.max(...realStrategies.map(s => s.daysActive));
+            const portfolioDailyProfitReal = maxAgeReal > 0 ? totalProfitPercentReal / maxAgeReal : 0;
+            
+            const kpiProfitRealEl = document.getElementById('kpi-total-profit-real');
+            kpiProfitRealEl.innerHTML = `$${totalProfitValueReal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span class="text-lg text-slate-400">(${totalProfitPercentReal.toFixed(2)}%)</span>`;
+            kpiProfitRealEl.className = `text-3xl font-bold mt-2 ${totalProfitValueReal >= 0 ? 'profit' : 'loss'}`;
+
+            const kpiAvgDailyProfitRealEl = document.getElementById('kpi-avg-daily-profit-real');
+            kpiAvgDailyProfitRealEl.textContent = `${portfolioDailyProfitReal.toFixed(2)}%`;
+             kpiAvgDailyProfitRealEl.className = `text-3xl font-bold mt-2 ${portfolioDailyProfitReal >= 0 ? 'profit' : 'loss'}`;
+
+            document.getElementById('kpi-max-age-real').textContent = `${maxAgeReal} días`;
         }
 
         // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'America/Bogota', hour12: true };
+            const colombiaTime = new Intl.DateTimeFormat('es-CO', options).format(now);
+            document.getElementById('last-updated').textContent = `Datos actualizados al: ${colombiaTime} (Hora Colombia)`;
+            
             document.body.style.backgroundImage = `url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto-format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`;
             
             strategies = calculateMetrics(strategies);
