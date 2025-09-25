@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BotTrade | Panel de Rendimiento Profesional</title>
+    <title>BotTrade | Panel de Rendimiento Vanguardista</title>
     
     <!-- Custom Favicon -->
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%232f81f7;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2358a6ff;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23grad)' d='M50,0 L93.3,25 v50 L50,100 L6.7,75 v-50 Z' /%3E%3Ctext x='50' y='70' font-family='Inter, sans-serif' font-size='60' font-weight='900' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238A2BE2;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%234A00E0;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23grad)' d='M50,0 L93.3,25 v50 L50,100 L6.7,75 v-50 Z' /%3E%3Ctext x='50' y='70' font-family='Inter, sans-serif' font-size='60' font-weight='900' fill='white' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,14 +18,17 @@
     
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js for interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Custom Styles -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0d1117; /* GitHub Dark Dimmed */
-            color: #c9d1d9; /* Light Grey Text */
-            background-image: url('https://placehold.co/1920x1080/0d1117/c9d1d9.png?text=Financial+Data'); /* Placeholder for actual background */
+            background-color: #1a1b26; /* Dark Blue/Purple Background */
+            color: #a9b1d6; /* Light text color */
+            background-image: url('https://images.unsplash.com/photo-1634712282210-2b7a3a989e0e?q=80&w=2670&auto-format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -33,120 +36,62 @@
         .main-container::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(13, 17, 23, 0.9); /* Dark overlay for readability */
-            backdrop-filter: blur(8px);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(26, 27, 38, 0.9);
+            backdrop-filter: blur(10px);
             z-index: -1;
         }
-        .portfolio-section-wrapper {
-            background-color: rgba(22, 27, 34, 0.6);
-            border: 1px solid #30363d;
-            border-radius: 1rem;
-            padding: 2rem;
-        }
-        .kpi-card {
-            background-color: rgba(33, 38, 45, 0.7); /* Translucent Card */
-            border-radius: 0.75rem;
-            border: 1px solid #30363d;
+        .neumorphic-card {
+            background: #1a1b26;
+            border-radius: 20px;
+            box-shadow: 8px 8px 16px #14151e, -8px -8px 16px #20212e;
             padding: 1.5rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .neumorphic-card-inset {
+             background: #1a1b26;
+            border-radius: 20px;
+            box-shadow: inset 8px 8px 16px #14151e, inset -8px -8px 16px #20212e;
+            padding: 1.5rem;
+        }
+        .stat-card {
+            background: linear-gradient(145deg, #1e1f2a, #171821);
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 4px 4px 8px #14151e, -4px -4px 8px #20212e;
+        }
+        .profit { color: #73daca; } /* Teal for profit */
+        .loss { color: #f7768e; } /* Red/Pink for loss */
+        .drawdown-text { color: #f7768e; }
+        .btn-primary {
+            background: linear-gradient(145deg, #1e1f2a, #171821);
+            color: #bb9af7;
+            border: 1px solid #bb9af7;
+            box-shadow: 4px 4px 8px #14151e, -4px -4px 8px #20212e;
             transition: all 0.2s ease-in-out;
         }
-        .kpi-card:hover {
-            border-color: #58a6ff;
-            transform: translateY(-4px);
+        .btn-primary:hover {
+            color: #fff;
+            background: #bb9af7;
+            box-shadow: inset 2px 2px 4px #8c73b8, inset -2px -2px 4px #eabfff;
         }
-        .profit { color: #2e9f4d; } /* Bright Green */
-        .loss { color: #f85149; } /* Bright Red */
-        .drawdown-text { color: #f85149; } /* Bright Red */
-        .table-container {
-            background-color: rgba(22, 27, 34, 0.7);
-            border: 1px solid #30363d;
-            border-radius: 0.75rem;
-        }
-        .table-header {
-            background-color: rgba(33, 38, 45, 0.8);
-            color: #8b949e;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-size: 0.75rem;
-        }
-        .table-row {
-            border-bottom: 1px solid #21262d;
-        }
-        .btn-primary {
-            background-color: #2f81f7;
-            color: white;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.2s ease-in-out;
-            text-align: center;
-            display: block;
-        }
-        .btn-primary:hover { background-color: #58a6ff; }
         .btn-copy {
-            background-color: #238636;
+            background: linear-gradient(145deg, #1e1f2a, #171821);
+            color: #73daca;
+            border: 1px solid #73daca;
         }
         .btn-copy:hover {
-            background-color: #2ea043;
+            color: #1a1b26;
+            background: #73daca;
         }
         .tag {
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 0.15rem 0.5rem;
-            border-radius: 9999px;
-            text-transform: uppercase;
+            font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.5rem;
+            border-radius: 9999px; text-transform: uppercase;
         }
-        .tag-demo { background-color: #388bfd26; color: #79c0ff; border: 1px solid #388bfd80;}
-        .tag-real { background-color: #3fb95026; color: #56d364; border: 1px solid #3fb95080;}
-        .footer-link {
-            color: #58a6ff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .footer-link:hover {
-            text-decoration: underline;
-        }
-        .section-header {
-            background: linear-gradient(90deg, rgba(31, 111, 235, 0.1) 0%, rgba(31, 111, 235, 0) 100%);
-            border-left: 3px solid #58a6ff;
-        }
-        .cta-section {
-            background-color: rgba(22, 27, 34, 0.7);
-            border: 1px solid #30363d;
-            border-radius: 0.75rem;
-            padding: 2rem;
-        }
-        .btn-social {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: all 0.2s ease-in-out;
-        }
-        .btn-whatsapp { background-color: #25D366; color: white; }
-        .btn-whatsapp:hover { background-color: #1DA851; }
-        .btn-telegram { background-color: #0088cc; color: white; }
-        .btn-telegram:hover { background-color: #0077b5; }
-        .visitor-counter-wrapper {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            background-color: rgba(33, 38, 45, 0.7);
-            border: 1px solid #30363d;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            color: #8b949e;
-            font-weight: 500;
-        }
+        .tag-demo { background-color: #bb9af720; color: #bb9af7; border: 1px solid #bb9af780;}
+        .tag-real { background-color: #73daca20; color: #73daca; border: 1px solid #73daca80;}
+        .footer-link { color: #7aa2f7; text-decoration: none; }
+        .footer-link:hover { text-decoration: underline; }
     </style>
 </head>
 <body class="antialiased">
@@ -155,117 +100,76 @@
         
         <header class="mb-12 text-center">
             <h1 class="text-4xl md:text-5xl font-black text-white">BotTrade</h1>
-            <p class="text-slate-400 mt-2 text-lg">Rendimiento Consolidado de Trading Algorítmico</p>
+            <p class="text-slate-400 mt-2 text-lg">Panel de Rendimiento Interactivo</p>
             <p id="last-updated" class="text-sm text-slate-500 mt-2"></p>
-            <!-- Stable, LocalStorage-based Visitor Counter -->
-            <div class="visitor-counter-wrapper">
-                <i class="fas fa-eye mr-2"></i>
-                <span>Visitantes:</span>
-                <span id="visitor-count" class="font-bold text-white ml-2">Cargando...</span>
-            </div>
         </header>
 
-        <!-- DEMO PORTFOLIO WRAPPER -->
-        <div class="portfolio-section-wrapper mb-12">
-            <section id="demo-portfolio">
-                <div class="mb-8 p-4 rounded-lg section-header">
-                    <h2 class="font-bold text-xl text-white">Portafolio Histórico (DEMO)</h2>
-                    <p class="text-sm text-slate-400">Resultados que validan la efectividad a largo plazo de nuestras estrategias.</p>
+        <!-- PORTFOLIO CHARTS SECTION -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <!-- DEMO Chart -->
+            <div class="neumorphic-card">
+                <h2 class="font-bold text-xl text-center text-white mb-4">Portafolio Histórico (DEMO)</h2>
+                <div class="relative h-64 md:h-72">
+                    <canvas id="demoProfitChart"></canvas>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="kpi-card">
-                        <div class="flex items-center justify-between text-slate-400">
-                            <h2 class="text-sm font-medium">Profit Total (DEMO)</h2>
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <p id="kpi-total-profit-demo" class="text-3xl font-bold profit mt-2"></p>
+                 <div class="text-center mt-6">
+                    <p class="text-slate-400 text-sm">Profit Total ($)</p>
+                    <p id="chart-total-profit-demo" class="text-3xl font-bold"></p>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div class="stat-card text-center">
+                        <p class="text-slate-400 text-xs">Profit Total (%)</p>
+                        <p id="chart-total-percent-demo" class="text-2xl font-bold"></p>
                     </div>
-                    <div class="kpi-card">
-                         <div class="flex items-center justify-between text-slate-400">
-                            <h2 class="text-sm font-medium">Profit Diario Promedio (DEMO)</h2>
-                            <i class="fas fa-tachometer-alt"></i>
-                        </div>
-                        <p id="kpi-avg-daily-profit-demo" class="text-3xl font-bold profit mt-2"></p>
-                    </div>
-                     <div class="kpi-card">
-                         <div class="flex items-center justify-between text-slate-400">
-                            <h2 class="text-sm font-medium">Antigüedad (DEMO)</h2>
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <p id="kpi-max-age-demo" class="text-3xl font-bold text-white mt-2"></p>
+                    <div class="stat-card text-center">
+                        <p class="text-slate-400 text-xs">Antigüedad</p>
+                        <p id="chart-max-age-demo" class="text-2xl font-bold text-white"></p>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+            <!-- REAL Chart -->
+            <div class="neumorphic-card">
+                <h2 class="font-bold text-xl text-center text-white mb-4">Portafolio en Vivo (REAL)</h2>
+                <div class="relative h-64 md:h-72">
+                    <canvas id="realProfitChart"></canvas>
+                </div>
+                <div class="text-center mt-6">
+                    <p class="text-slate-400 text-sm">Profit Total ($)</p>
+                    <p id="chart-total-profit-real" class="text-3xl font-bold"></p>
+                </div>
+                 <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div class="stat-card text-center">
+                        <p class="text-slate-400 text-xs">Profit Total (%)</p>
+                        <p id="chart-total-percent-real" class="text-2xl font-bold"></p>
+                    </div>
+                    <div class="stat-card text-center">
+                        <p class="text-slate-400 text-xs">Antigüedad</p>
+                        <p id="chart-max-age-real" class="text-2xl font-bold text-white"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <!-- REAL PORTFOLIO WRAPPER -->
-        <div class="portfolio-section-wrapper mb-12">
-            <section id="real-portfolio">
-                <div class="mb-8 p-4 rounded-lg section-header">
-                    <h2 class="font-bold text-xl text-white">Portafolio en Vivo (REAL)</h2>
-                    <p class="text-sm text-slate-400">Resultados con dinero real, disponibles para copy trading.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="kpi-card">
-                        <div class="flex items-center justify-between text-slate-400">
-                            <h2 class="text-sm font-medium">Profit Total (REAL)</h2>
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <p id="kpi-total-profit-real" class="text-3xl font-bold mt-2"></p>
-                    </div>
-                    <div class="kpi-card">
-                         <div class="flex items-center justify-between text-slate-400">
-                            <h2 class="text-sm font-medium">Profit Diario Promedio (REAL)</h2>
-                            <i class="fas fa-percent"></i>
-                        </div>
-                        <p id="kpi-avg-daily-profit-real" class="text-3xl font-bold mt-2"></p>
-                    </div>
-                     <div class="kpi-card">
-                         <div class="flex items-center justify-between text-slate-400">
-                            <h2 class="text-sm font-medium">Antigüedad (REAL)</h2>
-                             <i class="fas fa-hourglass-start"></i>
-                        </div>
-                        <p id="kpi-max-age-real" class="text-3xl font-bold text-white mt-2"></p>
-                    </div>
-                </div>
-            </section>
-        </div>
 
         <!-- CALL TO ACTION SECTION -->
-        <section class="my-12 cta-section text-center">
+         <section class="my-12 neumorphic-card text-center">
             <h2 class="text-2xl font-bold text-white mb-2">Transparencia y Resultados Verificables</h2>
             <p class="text-slate-400 max-w-4xl mx-auto mb-6">
                 En BotTrade, la confianza es nuestra máxima prioridad. Todos los resultados que ve en esta página son 100% reales y pueden ser verificados de forma independiente. Le invitamos a validar cada dato a través de los enlaces de <strong class="font-semibold text-blue-400">"Cuenta Auditada"</strong> (Myfxbook) y los perfiles de proveedor en nuestro bróker asociado.
             </p>
-            <div class="max-w-4xl mx-auto p-6 rounded-lg border border-slate-700 bg-slate-900/50 mb-6">
+            <div class="max-w-4xl mx-auto p-4 rounded-lg neumorphic-card-inset mb-6">
                 <h3 class="font-bold text-white text-lg mb-2">Sobre Nuestro Bróker Asociado: RoboForex</h3>
                 <p class="text-sm text-slate-400">
                     Un bróker es el intermediario que ejecuta las operaciones en el mercado financiero. Trabajamos con <a href="https://roboforex.com" target="_blank" class="footer-link">RoboForex</a>, una firma con más de 15 años de trayectoria y reconocimiento internacional, lo que garantiza un entorno de trading seguro, regulado y confiable para nuestros inversores.
                 </p>
             </div>
-             <p class="text-slate-400 max-w-3xl mx-auto mb-6">
-                Para cualquier duda o para iniciar su proceso de inversión, nuestro equipo de soporte está listo para asistirle.
-            </p>
-            <div class="flex flex-wrap justify-center items-center gap-4 mb-6">
-                <a href="https://wa.me/573215347128" target="_blank" class="btn-social btn-whatsapp">
-                    <i class="fab fa-whatsapp fa-lg"></i>
-                    <span>Contactar por WhatsApp</span>
-                </a>
-                <a href="https://t.me/BotTradeCopy" target="_blank" class="btn-social btn-telegram">
-                    <i class="fab fa-telegram-plane fa-lg"></i>
-                    <span>Unirse al Canal de Telegram</span>
-                </a>
-            </div>
-            <p class="text-sm text-slate-500">
-                <i class="fas fa-info-circle mr-1"></i>
-                En nuestro canal de Telegram publicamos diariamente los resultados, noticias y estados de todas las cuentas.
-            </p>
         </section>
 
-        <div class="table-container overflow-hidden">
-             <div class="p-4 flex justify-end items-center border-b border-slate-700 bg-slate-800/50">
-                <label for="sortOrder" class="text-sm font-medium text-slate-400 mr-2">Ordenar por (Cuenta Real):</label>
-                <select id="sortOrder" class="rounded-md border-slate-600 bg-slate-900 text-slate-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-sm">
+        <!-- STRATEGIES TABLE -->
+        <div class="neumorphic-card overflow-hidden">
+            <div class="p-4 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-white">Detalle de Estrategias</h3>
+                 <select id="sortOrder" class="rounded-md border-slate-600 bg-slate-900 text-slate-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-sm">
                     <option value="ratio" selected>Mejor Relación P/DD</option>
                     <option value="profit">Mayor Ganancia (%)</option>
                     <option value="drawdown">Menor Drawdown</option>
@@ -273,15 +177,13 @@
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
-                    <thead class="table-header">
+                    <thead class="border-b-2 border-slate-700">
                         <tr>
-                            <th class="p-4">Estrategia</th>
-                            <th class="p-4">Tipo</th>
-                            <th class="p-4">Ganancia (%)</th>
-                            <th class="p-4">Profit ($)</th>
-                            <th class="p-4">Drawdown (%)</th>
-                            <th class="p-4">Antigüedad</th>
-                            <th class="p-4 text-center">Acciones</th>
+                            <th class="p-4 text-slate-400">Estrategia</th>
+                            <th class="p-4 text-slate-400">Tipo</th>
+                            <th class="p-4 text-slate-400">Ganancia (%)</th>
+                            <th class="p-4 text-slate-400">Drawdown (%)</th>
+                            <th class="p-4 text-center text-slate-400">Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="strategy-table-body">
@@ -293,12 +195,14 @@
 
         <footer class="text-center py-10 mt-8 space-y-2">
             <p class="text-slate-400 font-semibold">Copyright &copy; 2025 BotTrade</p>
-            <p class="text-slate-500 text-sm">
-                Contacto para soporte (Whatsapp): <a href="https://wa.me/573215347128" target="_blank" class="footer-link">+573215347128</a>
-            </p>
-             <p class="text-slate-500 text-sm">
-                Únete a nuestra comunidad en Telegram: <a href="https://t.me/BotTradeCopy" target="_blank" class="footer-link">t.me/BotTradeCopy</a>
-            </p>
+             <div class="flex flex-wrap justify-center items-center gap-4 mt-4">
+                <a href="https://wa.me/573215347128" target="_blank" class="footer-link">
+                    <i class="fab fa-whatsapp fa-lg"></i> WhatsApp
+                </a>
+                <a href="https://t.me/BotTradeCopy" target="_blank" class="footer-link">
+                    <i class="fab fa-telegram-plane fa-lg"></i> Telegram
+                </a>
+            </div>
         </footer>
     </div>
 
@@ -308,34 +212,94 @@
              // Pair 1: Oro fractales 4h
             { 
                 name: 'Oro fractales 4h',
-                demo: { profitValue: 14824.93, profitPercent: 185.92, drawdown: 41.28, daysActive: 97, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-                real: { profitValue: 2238.64, profitPercent: 98.60, drawdown: 17.23, daysActive: 29, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h-real/11683967', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440341/' }
+                demo: { profitValue: 18227.93, profitPercent: 283.23, drawdown: 41.28, daysActive: 104, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+                real: { profitValue: 5041.72, profitPercent: 155.13, drawdown: 24.30, daysActive: 36, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h-real/11683967', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440341/' }
             },
             // Pair 2: Oro fractales 1h
             { 
                 name: 'Oro fractales 1h',
-                demo: { profitValue: 7886.00, profitPercent: 87.31, drawdown: 32.95, daysActive: 93, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
-                real: { profitValue: 761.18, profitPercent: 31.21, drawdown: 34.52, daysActive: 29, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h-real/11683970', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440344/' }
+                demo: { profitValue: 8895.00, profitPercent: 105.97, drawdown: 35.57, daysActive: 100, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
+                real: { profitValue: 1752.43, profitPercent: 44.36, drawdown: 36.65, daysActive: 36, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h-real/11683970', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440344/' }
             },
             // Pair 3: Eurusd fractales 1h
             { 
                 name: 'Eurusd fractales 1h',
-                demo: { profitValue: 4207.85, profitPercent: 43.80, drawdown: 73.54, daysActive: 93, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
-                real: { profitValue: 72.60, profitPercent: 3.61, drawdown: 77.11, daysActive: 27, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h-real/11683974', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440345/' }
+                demo: { profitValue: 4583.12, profitPercent: 48.34, drawdown: 73.54, daysActive: 100, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h/11589935' },
+                real: { profitValue: 384.47, profitPercent: 19.22, drawdown: 77.11, daysActive: 34, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-1h-real/11683974', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440345/' }
             },
             // Pair 4: Eurusd Fractales H4 TS
             { 
                 name: 'Eurusd Fractales H4 TS',
-                demo: { profitValue: 3033.03, profitPercent: 30.32, drawdown: 37.69, daysActive: 79, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
-                real: { profitValue: 54.98, profitPercent: 2.75, drawdown: 37.07, daysActive: 27, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11683979', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440346/' }
+                demo: { profitValue: -465.51, profitPercent: -17.44, drawdown: 37.69, daysActive: 86, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11592914' },
+                real: { profitValue: 54.98, profitPercent: 2.75, drawdown: 37.07, daysActive: 34, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h4-trailing-stop/11683979', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440346/' }
             },
             // Pair 5: Eurusd Fractales H1 TS
             { 
                 name: 'Eurusd Fractales H1 TS',
-                demo: { profitValue: 4068.60, profitPercent: 42.36, drawdown: 23.37, daysActive: 92, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
-                real: { profitValue: -13.65, profitPercent: -0.68, drawdown: 28.76, daysActive: 27, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11683981', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440347/' }
+                demo: { profitValue: 4068.60, profitPercent: 42.36, drawdown: 23.37, daysActive: 99, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11592905' },
+                real: { profitValue: -13.65, profitPercent: -0.68, drawdown: 28.76, daysActive: 34, link: 'https://www.myfxbook.com/portfolio/eurusd-fractales-h1-trailing-stop/11683981', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440347/' }
             }
         ];
+        
+        const chartColors = ['#bb9af7', '#7aa2f7', '#73daca', '#b2ce90', '#ff9e64'];
+
+        function createDoughnutChart(canvasId, strategies, type) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const chartData = strategies.map(s => s[type].profitValue > 0 ? s[type].profitValue : 0);
+            const chartLabels = strategies.map(s => s.name);
+            
+            return new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        data: chartData,
+                        backgroundColor: chartColors,
+                        borderColor: '#1a1b26',
+                        borderWidth: 4,
+                        hoverBorderColor: '#fff',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#a9b1d6',
+                                padding: 15,
+                                font: {
+                                    size: 12,
+                                    family: "'Inter', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        const percentage = total > 0 ? (context.parsed / total * 100).toFixed(2) : 0;
+                                        label += `$${context.parsed.toLocaleString('en-US', {minimumFractionDigits: 2})} (${percentage}%)`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                    }
+                }
+            });
+        }
+
 
         function calculateMetrics(strategies) {
             return strategies.map(s => {
@@ -350,38 +314,30 @@
 
             strategiesToRender.forEach((strategy, index) => {
                 const demoRow = document.createElement('tr');
-                demoRow.className = 'table-row transition-colors duration-200 hover:bg-slate-800/50';
-                if (index > 0) {
-                    demoRow.classList.add('border-t-4', 'border-slate-700');
-                }
                 const demoProfitClass = strategy.demo.profitValue >= 0 ? 'profit' : 'loss';
                 
                 demoRow.innerHTML = `
                     <td class="p-4 font-semibold text-white align-middle" rowspan="2">${strategy.name}</td>
                     <td class="p-4 align-middle"><span class="tag tag-demo">Demo</span></td>
                     <td class="p-4 font-semibold ${demoProfitClass} align-middle">${strategy.demo.profitPercent.toFixed(2)}%</td>
-                    <td class="p-4 ${demoProfitClass} align-middle">$${strategy.demo.profitValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                     <td class="p-4 drawdown-text align-middle">${strategy.demo.drawdown.toFixed(2)}%</td>
-                    <td class="p-4 align-middle">${strategy.demo.daysActive} días</td>
                     <td class="p-4 text-center align-middle">
-                        <a href="${strategy.demo.link}" target="_blank" rel="noopener noreferrer" class="btn-primary">Cuenta Auditada</a>
+                        <a href="${strategy.demo.link}" target="_blank" rel="noopener noreferrer" class="font-semibold py-2 px-4 rounded-lg btn-primary">Cuenta Auditada</a>
                     </td>
                 `;
 
                 const realRow = document.createElement('tr');
-                realRow.className = 'table-row transition-colors duration-200 hover:bg-slate-800/50';
+                realRow.className = 'border-b-4 border-gray-800';
                 const realProfitClass = strategy.real.profitValue >= 0 ? 'profit' : 'loss';
                 
                 realRow.innerHTML = `
                     <td class="p-4 align-middle"><span class="tag tag-real">Real</span></td>
                     <td class="p-4 font-semibold ${realProfitClass} align-middle">${strategy.real.profitPercent.toFixed(2)}%</td>
-                    <td class="p-4 ${realProfitClass} align-middle">$${strategy.real.profitValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                     <td class="p-4 drawdown-text align-middle">${strategy.real.drawdown.toFixed(2)}%</td>
-                    <td class="p-4 align-middle">${strategy.real.daysActive} días</td>
                     <td class="p-4 text-center align-middle">
                         <div class="flex flex-col sm:flex-row gap-2">
-                           <a href="${strategy.real.link}" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">Cuenta Auditada</a>
-                           <a href="${strategy.real.copyLink}" target="_blank" rel="noopener noreferrer" class="btn-primary btn-copy w-full">Copiar</a>
+                           <a href="${strategy.real.link}" target="_blank" rel="noopener noreferrer" class="font-semibold py-2 px-4 rounded-lg btn-primary w-full">Auditada</a>
+                           <a href="${strategy.real.copyLink}" target="_blank" rel="noopener noreferrer" class="font-semibold py-2 px-4 rounded-lg btn-copy w-full">Copiar</a>
                         </div>
                     </td>
                 `;
@@ -409,55 +365,45 @@
             renderTable(sortedStrategies);
         }
 
-        function updateKPIs() {
-            // DEMO KPIs
+         function updatePortfolioStats() {
+            // --- DEMO STATS ---
             const demoStrategies = strategies.map(s => s.demo);
-            const totalProfitValueDemo = demoStrategies.reduce((acc, s) => acc + s.profitValue, 0);
-            const totalProfitPercentDemo = demoStrategies.reduce((acc, s) => acc + s.profitPercent, 0);
+            const totalProfitDemo = demoStrategies.reduce((acc, val) => acc + val.profitValue, 0);
+            const totalPercentDemo = demoStrategies.reduce((acc, val) => acc + val.profitPercent, 0);
             const maxAgeDemo = Math.max(...demoStrategies.map(s => s.daysActive));
-            const portfolioDailyProfitDemo = maxAgeDemo > 0 ? totalProfitPercentDemo / maxAgeDemo : 0;
 
-            const kpiProfitDemoEl = document.getElementById('kpi-total-profit-demo');
-            kpiProfitDemoEl.innerHTML = `$${totalProfitValueDemo.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span class="text-lg text-slate-400">(${totalProfitPercentDemo.toFixed(2)}%)</span>`;
-            kpiProfitDemoEl.className = `text-3xl font-bold mt-2 ${totalProfitValueDemo >= 0 ? 'profit' : 'loss'}`;
+            // Update Dollar Amount
+            const demoEl = document.getElementById('chart-total-profit-demo');
+            demoEl.textContent = `$${totalProfitDemo.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            demoEl.className = `text-3xl font-bold ${totalProfitDemo >= 0 ? 'profit' : 'loss'}`;
 
-            const kpiAvgDailyProfitDemoEl = document.getElementById('kpi-avg-daily-profit-demo');
-            kpiAvgDailyProfitDemoEl.textContent = `${portfolioDailyProfitDemo.toFixed(2)}%`;
-            kpiAvgDailyProfitDemoEl.className = `text-3xl font-bold mt-2 ${portfolioDailyProfitDemo >= 0 ? 'profit' : 'loss'}`;
+            // Update Percentage
+            const demoPercentEl = document.getElementById('chart-total-percent-demo');
+            demoPercentEl.textContent = `${totalPercentDemo.toFixed(2)}%`;
+             demoPercentEl.className = `text-2xl font-bold ${totalPercentDemo >= 0 ? 'profit' : 'loss'}`;
+            
+            // Update Age
+            document.getElementById('chart-max-age-demo').textContent = `${maxAgeDemo} días`;
 
-            document.getElementById('kpi-max-age-demo').textContent = `${maxAgeDemo} días`;
 
-            // REAL KPIs
+            // --- REAL STATS ---
             const realStrategies = strategies.map(s => s.real);
-            const totalProfitValueReal = realStrategies.reduce((acc, s) => acc + s.profitValue, 0);
-            const totalProfitPercentReal = realStrategies.reduce((acc, s) => acc + s.profitPercent, 0);
+            const totalProfitReal = realStrategies.reduce((acc, val) => acc + val.profitValue, 0);
+            const totalPercentReal = realStrategies.reduce((acc, val) => acc + val.profitPercent, 0);
             const maxAgeReal = Math.max(...realStrategies.map(s => s.daysActive));
-            const portfolioDailyProfitReal = maxAgeReal > 0 ? totalProfitPercentReal / maxAgeReal : 0;
-            
-            const kpiProfitRealEl = document.getElementById('kpi-total-profit-real');
-            kpiProfitRealEl.innerHTML = `$${totalProfitValueReal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span class="text-lg text-slate-400">(${totalProfitPercentReal.toFixed(2)}%)</span>`;
-            kpiProfitRealEl.className = `text-3xl font-bold mt-2 ${totalProfitValueReal >= 0 ? 'profit' : 'loss'}`;
 
-            const kpiAvgDailyProfitRealEl = document.getElementById('kpi-avg-daily-profit-real');
-            kpiAvgDailyProfitRealEl.textContent = `${portfolioDailyProfitReal.toFixed(2)}%`;
-             kpiAvgDailyProfitRealEl.className = `text-3xl font-bold mt-2 ${portfolioDailyProfitReal >= 0 ? 'profit' : 'loss'}`;
+            // Update Dollar Amount
+            const realEl = document.getElementById('chart-total-profit-real');
+            realEl.textContent = `$${totalProfitReal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            realEl.className = `text-3xl font-bold ${totalProfitReal >= 0 ? 'profit' : 'loss'}`;
 
-            document.getElementById('kpi-max-age-real').textContent = `${maxAgeReal} días`;
-        }
-        
-        function updateVisitorCount() {
-            const countElement = document.getElementById('visitor-count');
-            let count = localStorage.getItem('bottrade_page_visits');
+             // Update Percentage
+            const realPercentEl = document.getElementById('chart-total-percent-real');
+            realPercentEl.textContent = `${totalPercentReal.toFixed(2)}%`;
+            realPercentEl.className = `text-2xl font-bold ${totalPercentReal >= 0 ? 'profit' : 'loss'}`;
 
-            if (count === null) {
-                // Initialize with a higher base for a better look
-                count = Math.floor(Math.random() * (250 - 150 + 1) + 150);
-            } else {
-                count = parseInt(count) + 1;
-            }
-            
-            localStorage.setItem('bottrade_page_visits', count);
-            countElement.textContent = count.toLocaleString('en-US');
+            // Update Age
+            document.getElementById('chart-max-age-real').textContent = `${maxAgeReal} días`;
         }
 
 
@@ -468,12 +414,13 @@
             const colombiaTime = new Intl.DateTimeFormat('es-CO', options).format(now);
             document.getElementById('last-updated').textContent = `Datos actualizados al: ${colombiaTime} (Hora Colombia)`;
             
-            document.body.style.backgroundImage = `url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto-format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`;
-            
             strategies = calculateMetrics(strategies);
             document.getElementById('sortOrder').addEventListener('change', sortAndRender);
-            updateKPIs();
-            updateVisitorCount();
+            
+            createDoughnutChart('demoProfitChart', strategies, 'demo');
+            createDoughnutChart('realProfitChart', strategies, 'real');
+            updatePortfolioStats();
+
             sortAndRender(); // Initial render with default sorting
         });
 
