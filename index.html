@@ -168,12 +168,7 @@
         <!-- STRATEGIES TABLE -->
         <div class="neumorphic-card overflow-hidden">
             <div class="p-4 flex justify-between items-center">
-                <h3 class="text-xl font-bold text-white">Detalle de Estrategias</h3>
-                 <select id="sortOrder" class="rounded-md border-slate-600 bg-slate-900 text-slate-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-sm">
-                    <option value="ratio" selected>Mejor Relación P/DD</option>
-                    <option value="profit">Mayor Ganancia (%)</option>
-                    <option value="drawdown">Menor Drawdown</option>
-                </select>
+                <h3 class="text-xl font-bold text-white">Detalle de Estrategia</h3>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
@@ -193,9 +188,13 @@
             </div>
         </div>
 
-        <footer class="text-center py-10 mt-8 space-y-2">
-            <p class="text-slate-400 font-semibold">Copyright &copy; 2025 BotTrade</p>
-             <div class="flex flex-wrap justify-center items-center gap-4 mt-4">
+        <footer class="text-center py-10 mt-8 space-y-4">
+            <div class="text-yellow-500 text-sm font-semibold p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/30 max-w-2xl mx-auto">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                Atención: Invertir conlleva riesgos. Existe el peligro de perder el capital invertido.
+            </div>
+            <p class="text-slate-400 font-semibold pt-4">Copyright &copy; 2025 BotTrade</p>
+             <div class="flex flex-wrap justify-center items-center gap-4">
                 <a href="https://wa.me/573215347128" target="_blank" class="footer-link">
                     <i class="fab fa-whatsapp fa-lg"></i> WhatsApp
                 </a>
@@ -212,18 +211,12 @@
              // Pair 1: Oro fractales 4h
             { 
                 name: 'Oro fractales 4h',
-                demo: { profitValue: 21850.93, profitPercent: 386.71, drawdown: 48.74, daysActive: 111, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-                real: { profitValue: 7558.57, profitPercent: 222.08, drawdown: 49.33, daysActive: 44, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h-real/11683967', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440341/' }
-            },
-            // Pair 2: Oro fractales 1h
-            { 
-                name: 'Oro fractales 1h',
-                demo: { profitValue: 11344.00, profitPercent: 152.04, drawdown: 35.57, daysActive: 107, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
-                real: { profitValue: 3392.25, profitPercent: 69.43, drawdown: 36.65, daysActive: 44, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h-real/11683970', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440344/' }
+                demo: { profitValue: 22732.93, profitPercent: 411.78, drawdown: 48.74, daysActive: 116, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+                real: { profitValue: 8041.29, profitPercent: 237.63, drawdown: 49.33, daysActive: 46, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h-real/11683967', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440341/' }
             }
         ];
         
-        const chartColors = ['#bb9af7', '#7aa2f7'];
+        const chartColors = ['#bb9af7'];
 
         function createDoughnutChart(canvasId, strategies, type) {
             const ctx = document.getElementById(canvasId).getContext('2d');
@@ -248,15 +241,7 @@
                     cutout: '70%',
                     plugins: {
                         legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: '#a9b1d6',
-                                padding: 15,
-                                font: {
-                                    size: 12,
-                                    family: "'Inter', sans-serif"
-                                }
-                            }
+                           display: false
                         },
                         tooltip: {
                             callbacks: {
@@ -266,9 +251,7 @@
                                         label += ': ';
                                     }
                                     if (context.parsed !== null) {
-                                        const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                                        const percentage = total > 0 ? (context.parsed / total * 100).toFixed(2) : 0;
-                                        label += `$${context.parsed.toLocaleString('en-US', {minimumFractionDigits: 2})} (${percentage}%)`;
+                                        label += `$${context.parsed.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
                                     }
                                     return label;
                                 }
@@ -282,13 +265,6 @@
             });
         }
 
-
-        function calculateMetrics(strategies) {
-            return strategies.map(s => {
-                s.real.profitDrawdownRatio = s.real.drawdown > 0 ? s.real.profitPercent / s.real.drawdown : 0;
-                return s;
-            });
-        }
 
         function renderTable(strategiesToRender) {
             const tableBody = document.getElementById('strategy-table-body');
@@ -327,24 +303,6 @@
                 tableBody.appendChild(demoRow);
                 tableBody.appendChild(realRow);
             });
-        }
-        
-        function sortAndRender() {
-            const sortBy = document.getElementById('sortOrder').value;
-            let sortedStrategies = [...strategies];
-
-            switch (sortBy) {
-                case 'profit':
-                    sortedStrategies.sort((a, b) => b.real.profitPercent - a.real.profitPercent);
-                    break;
-                case 'drawdown':
-                    sortedStrategies.sort((a, b) => a.real.drawdown - b.real.drawdown);
-                    break;
-                case 'ratio':
-                    sortedStrategies.sort((a, b) => b.real.profitDrawdownRatio - a.real.profitDrawdownRatio);
-                    break;
-            }
-            renderTable(sortedStrategies);
         }
 
          function updatePortfolioStats() {
@@ -396,14 +354,10 @@
             const colombiaTime = new Intl.DateTimeFormat('es-CO', options).format(now);
             document.getElementById('last-updated').textContent = `Datos actualizados al: ${colombiaTime} (Hora Colombia)`;
             
-            strategies = calculateMetrics(strategies);
-            document.getElementById('sortOrder').addEventListener('change', sortAndRender);
-            
             createDoughnutChart('demoProfitChart', strategies, 'demo');
             createDoughnutChart('realProfitChart', strategies, 'real');
             updatePortfolioStats();
-
-            sortAndRender(); // Initial render with default sorting
+            renderTable(strategies);
         });
 
     </script>
