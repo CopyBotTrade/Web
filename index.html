@@ -148,12 +148,7 @@
         <!-- STRATEGIES TABLE -->
         <div class="glass-card overflow-hidden p-6">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-gray-800">Detalle de Estrategias</h3>
-                 <select id="sortOrder" class="rounded-lg border-gray-300 bg-white/50 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-sm">
-                    <option value="ratio" selected>Mejor Relación P/DD</option>
-                    <option value="profit">Mayor Ganancia (%)</option>
-                    <option value="drawdown">Menor Drawdown</option>
-                </select>
+                <h3 class="text-xl font-bold text-gray-800">Detalle de Estrategia</h3>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
@@ -192,24 +187,11 @@
              // Pair 1: Oro fractales 4h
             { 
                 name: 'Oro fractales 4h',
-                demo: { profitValue: 21850.93, profitPercent: 386.71, drawdown: 48.74, daysActive: 112, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
-                real: { profitValue: 7558.57, profitPercent: 222.08, drawdown: 49.33, daysActive: 44, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h-real/11683967', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440341/' }
-            },
-            // Pair 2: Oro fractales 1h
-            { 
-                name: 'Oro fractales 1h',
-                demo: { profitValue: 11344.00, profitPercent: 152.04, drawdown: 35.57, daysActive: 108, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h/11589941' },
-                real: { profitValue: 3392.25, profitPercent: 69.43, drawdown: 36.65, daysActive: 44, link: 'https://www.myfxbook.com/portfolio/oro-fractales-1h-real/11683970', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440344/' }
+                demo: { profitValue: 24258.93, profitPercent: 480.91, drawdown: 48.74, daysActive: 120, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h/11589933' },
+                real: { profitValue: 9481.54, profitPercent: 287.73, drawdown: 49.33, daysActive: 52, link: 'https://www.myfxbook.com/portfolio/oro-fractales-4h-real/11683967', copyLink: 'https://my.roboforex.com/en/copyfx/providers/show/440341/' }
             }
         ];
         
-        function calculateMetrics(strategies) {
-            return strategies.map(s => {
-                s.real.profitDrawdownRatio = s.real.drawdown > 0 ? s.real.profitPercent / s.real.drawdown : 0;
-                return s;
-            });
-        }
-
         function renderTable(strategiesToRender) {
             const tableBody = document.getElementById('strategy-table-body');
             tableBody.innerHTML = '';
@@ -248,24 +230,6 @@
             });
         }
         
-        function sortAndRender() {
-            const sortBy = document.getElementById('sortOrder').value;
-            let sortedStrategies = [...strategies];
-
-            switch (sortBy) {
-                case 'profit':
-                    sortedStrategies.sort((a, b) => b.real.profitPercent - a.real.profitPercent);
-                    break;
-                case 'drawdown':
-                    sortedStrategies.sort((a, b) => a.real.drawdown - b.real.drawdown);
-                    break;
-                case 'ratio':
-                    sortedStrategies.sort((a, b) => b.real.profitDrawdownRatio - a.real.profitDrawdownRatio);
-                    break;
-            }
-            renderTable(sortedStrategies);
-        }
-
          function updatePortfolioStats() {
             // --- DEMO STATS ---
             const demoStrategies = strategies.map(s => s.demo);
@@ -298,11 +262,8 @@
             const colombiaTime = new Intl.DateTimeFormat('es-CO', options).format(now);
             document.getElementById('last-updated').textContent = `Datos actualizados al: ${colombiaTime} (Hora Colombia)`;
             
-            strategies = calculateMetrics(strategies);
-            document.getElementById('sortOrder').addEventListener('change', sortAndRender);
-            
             updatePortfolioStats();
-            sortAndRender(); // Initial render with default sorting
+            renderTable(strategies);
         });
 
     </script>
