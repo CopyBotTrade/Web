@@ -65,7 +65,7 @@
             background-color: rgba(0, 82, 255, 0.2);
         }
         
-        .table-row-group:hover {
+        #strategy-table-body tr:hover {
             background-color: rgba(240, 242, 245, 0.5);
         }
 
@@ -200,33 +200,35 @@
                 const demoProfitClass = strategy.demo.profitValue >= 0 ? 'profit' : 'loss';
                 const realProfitClass = strategy.real.profitValue >= 0 ? 'profit' : 'loss';
                 
-                const tableRowGroup = document.createElement('tbody');
-                tableRowGroup.className = 'table-row-group';
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-100/50';
                 
-                tableRowGroup.innerHTML = `
-                    <tr class="border-b border-gray-200/50">
-                        <td class="p-4 font-semibold text-gray-800 align-middle" rowspan="2">${strategy.name}</td>
-                        <td class="p-4 align-middle"><span class="tag tag-demo">Demo</span></td>
-                        <td class="p-4 font-semibold ${demoProfitClass} align-middle">${strategy.demo.profitPercent.toFixed(2)}%</td>
-                        <td class="p-4 drawdown-text align-middle">${strategy.demo.drawdown.toFixed(2)}%</td>
-                        <td class="p-4 text-center align-middle">
-                            <a href="${strategy.demo.link}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-sm">Cuenta Auditada</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-4 align-middle"><span class="tag tag-real">Real</span></td>
-                        <td class="p-4 font-semibold ${realProfitClass} align-middle">${strategy.real.profitPercent.toFixed(2)}%</td>
-                        <td class="p-4 drawdown-text align-middle">${strategy.real.drawdown.toFixed(2)}%</td>
-                        <td class="p-4 text-center align-middle">
-                            <div class="flex flex-col sm:flex-row gap-2">
-                               <a href="${strategy.real.link}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-sm w-full">Auditada</a>
-                               <a href="${strategy.real.copyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-primary text-sm w-full">Copiar</a>
-                            </div>
-                        </td>
-                    </tr>
+                row.innerHTML = `
+                    <td class="p-4 font-semibold text-gray-800 align-middle">${strategy.name}</td>
+                    <td class="p-4 align-middle">
+                        <div class="mb-3"><span class="tag tag-demo">Demo</span></div>
+                        <div><span class="tag tag-real">Real</span></div>
+                    </td>
+                    <td class="p-4 align-middle">
+                        <div class="font-semibold ${demoProfitClass} mb-3">${strategy.demo.profitPercent.toFixed(2)}%</div>
+                        <div class="font-semibold ${realProfitClass}">${strategy.real.profitPercent.toFixed(2)}%</div>
+                    </td>
+                    <td class="p-4 align-middle">
+                        <div class="drawdown-text mb-3">${strategy.demo.drawdown.toFixed(2)}%</div>
+                        <div class="drawdown-text">${strategy.real.drawdown.toFixed(2)}%</div>
+                    </td>
+                    <td class="p-4 align-middle">
+                        <div class="text-center mb-2">
+                            <a href="${strategy.demo.link}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-sm w-full sm:w-auto">Cuenta Auditada</a>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                           <a href="${strategy.real.link}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary text-sm w-full">Auditada</a>
+                           <a href="${strategy.real.copyLink}" target="_blank" rel="noopener noreferrer" class="btn btn-primary text-sm w-full">Copiar</a>
+                        </div>
+                    </td>
                 `;
 
-                tableBody.appendChild(tableRowGroup);
+                tableBody.appendChild(row);
             });
         }
         
