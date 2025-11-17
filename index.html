@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡EN VENTA! Chevrolet Aveo 2009 - OPORTUNIDAD ÚNICA</title>
+    <title>¡EN VENTA! Chevrolet Aveo Family 2009 - OPORTUNIDAD ÚNICA</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,14 +17,17 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            /* Aplicamos el fondo degradado que te gustó */
             background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
             min-height: 100vh;
         }
+        /* Estilo de "cristal" (glassmorphism) */
         .glass {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        /* Texto con gradiente */
         .gradient-text {
             background: linear-gradient(to right, #00f5ff, #00d4ff, #0099cc);
             -webkit-background-clip: text;
@@ -32,6 +35,7 @@
             color: transparent;
             font-weight: 900;
         }
+        /* Tarjetas de características con animación */
         .feature-card {
             transition: all 0.3s ease;
             cursor: default;
@@ -42,6 +46,7 @@
             border-color: #00f5ff;
             box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
         }
+        /* Miniaturas de imágenes (thumbnails) */
         .thumbnail {
             transition: all 0.3s ease;
             opacity: 0.7;
@@ -53,6 +58,7 @@
             transform: scale(1.1);
             box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
         }
+        /* Animación de pulso para el botón CTA */
         .pulse {
             animation: pulse 2s infinite;
         }
@@ -66,10 +72,10 @@
 
     <div class="container max-w-6xl mx-auto p-4 sm:p-6 lg:p-10">
 
-        <!-- Título Hero -->
+        <!-- Título Hero (Estilo nuevo) -->
         <header class="text-center mb-12">
             <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold gradient-text mb-4 tracking-tight">
-                CHEVROLET AVEO 2009
+                CHEVROLET AVEO FAMILY 2009
             </h1>
             <p class="text-xl sm:text-2xl text-cyan-300 font-medium">
                 Listo para traspaso • Mecánicamente impecable • ¡Tu próximo auto!
@@ -79,7 +85,7 @@
             </div>
         </header>
 
-        <!-- Carrusel con Thumbnails -->
+        <!-- Carrusel con Thumbnails (Estilo nuevo, con todas las imágenes) -->
         <section class="mb-16">
             <div class="glass rounded-2xl p-6 shadow-2xl">
                 <!-- Imagen Principal -->
@@ -88,25 +94,26 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 </div>
 
-                <!-- Thumbnails -->
+                <!-- Thumbnails (Miniaturas) -->
                 <div class="grid grid-cols-5 sm:grid-cols-10 gap-2" id="thumbnails">
-                    <!-- Generado por JS -->
+                    <!-- Las imágenes se generan aquí por JavaScript -->
                 </div>
             </div>
         </section>
 
-        <!-- Características y Extras -->
+        <!-- Características y Extras (Contenido fusionado, Estilo nuevo) -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
             
-            <!-- Características -->
+            <!-- Características (Lista COMPLETA Y FUSIONADA) -->
             <div class="glass p-8 rounded-2xl shadow-xl">
                 <h2 class="text-3xl font-bold text-cyan-300 mb-6 flex items-center">
                     <i data-lucide="zap" class="w-8 h-8 mr-3 text-cyan-400"></i>
                     Características Destacadas
                 </h2>
                 <div class="grid grid-cols-1 gap-4">
+                    <!-- Aquí está la lista fusionada de AMBOS archivos -->
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
-                        <p class="font-semibold text-lg">Motor 1.5L • 8 Válvulas • Excelente estado</p>
+                        <p class="font-semibold text-lg">Motor 1.5L (8 Válvulas) • Excelente estado</p>
                     </div>
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
                         <p class="font-semibold text-lg">SOAT hasta Julio 2026</p>
@@ -118,10 +125,28 @@
                         <p class="font-semibold text-lg">Llantas NUEVAS + Rines 15" de lujo</p>
                     </div>
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
-                        <p class="font-semibold text-lg">Clutch y Batería NUEVOS (1150amp)</p>
+                        <p class="font-semibold text-lg">Clutch NUEVO</p>
                     </div>
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
-                        <p class="font-semibold text-lg">A/A • Dirección Hidráulica • 240.000 km</p>
+                        <p class="font-semibold text-lg">Batería NUEVA (1150amp) con Garantía</p>
+                    </div>
+                    <div class="feature-card p-5 rounded-xl border border-gray-700">
+                        <p class="font-semibold text-lg">Transmisión Mecánica</p>
+                    </div>
+                    <div class="feature-card p-5 rounded-xl border border-gray-700">
+                        <p class="font-semibold text-lg">Aire Acondicionado • Dirección Hidráulica</p>
+                    </div>
+                    <div class="feature-card p-5 rounded-xl border border-gray-700">
+                        <p class="font-semibold text-lg">Kilometraje: 240.000 km</p>
+                    </div>
+                    <div class="feature-card p-5 rounded-xl border border-gray-700">
+                        <p class="font-semibold text-lg">Kit de Tiempo Cambiado reciente</p>
+                    </div>
+                    <div class="feature-card p-5 rounded-xl border border-gray-700">
+                        <p class="font-semibold text-lg">Cojineria en Tela</p>
+                    </div>
+                    <div class="feature-card p-5 rounded-xl border border-gray-700">
+                        <p class="font-semibold text-lg">Pintura con detalles pero en buen estado</p>
                     </div>
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
                         <p class="font-semibold text-lg">Impuestos al día • Listo para traspaso</p>
@@ -129,42 +154,47 @@
                 </div>
             </div>
 
-            <!-- Extras Premium -->
+            <!-- Extras Premium (Lista COMPLETA Y FUSIONADA) -->
             <div class="glass p-8 rounded-2xl shadow-xl">
                 <h2 class="text-3xl font-bold text-cyan-300 mb-6 flex items-center">
                     <i data-lucide="star" class="w-8 h-8 mr-3 text-yellow-400"></i>
                     Extras de Lujo Incluidos
                 </h2>
                 <div class="grid grid-cols-1 gap-4">
+                    <!-- Aquí está la lista fusionada de AMBOS archivos -->
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
-                        <p class="font-semibold text-lg">Luces Full LED + Exploradoras</p>
+                        <p class="font-semibold text-lg">Luces Full LED + Exploradoras LED</p>
                     </div>
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
-                        <p class="font-semibold text-lg">Luces LED Azules (interior/exterior)</p>
+                        <p class="font-semibold text-lg">Luces LED Azules (Internas y Externas)</p>
                     </div>
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
-                        <p class="font-semibold text-lg">Piso en cuerina negra premium</p>
+                        <p class="font-semibold text-lg">Piso en Cuerina Negra</p>
                     </div>
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
-                        <p class="font-semibold text-lg"><strong>Sonido PRO:</strong> Pantalla Android 9" + Bajo 12" + Planta</p>
+                        <p class="font-semibold text-lg"><strong>Sonido Completo:</strong> Pantalla Android 9”, Bajo 12", Bajo, Medio, Triaxiales, Brillo y Planta</p>
                     </div>
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
-                        <p class="font-semibold text-lg">Alarma, bloqueo y vidrios eléctricos</p>
+                        <p class="font-semibold text-lg">Alarma y Bloqueo</p>
                     </div>
                     <div class="feature-card p-5 rounded-xl border border-gray-700">
-                        <p class="font-semibold text-lg">Polarizado profesional</p>
+                        <p class="font-semibold text-lg">Vidrios Delanteros Eléctricos (Sistema Eleva Vidrio)</p>
+                    </div>
+                    <div class="feature-card p-5 rounded-xl border border-gray-700">
+                        <p class="font-semibold text-lg">Polarizado</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Contacto -->
+        <!-- CTA Contacto (Estilo nuevo) -->
         <section class="text-center">
             <div class="glass p-10 rounded-2xl shadow-2xl inline-block">
                 <h2 class="text-4xl font-bold text-white mb-4">¡No esperes más!</h2>
                 <p class="text-xl text-gray-300 mb-8">Contáctame ahora y aparta tu Aveo antes de que se vaya.</p>
                 <a href="https://wa.me/573004788366" 
                    target="_blank" 
+                   rel="noopener noreferrer"
                    class="inline-flex items-center bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold text-xl py-5 px-10 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl pulse">
                     <i data-lucide="message-circle" class="w-8 h-8 mr-3"></i>
                     Contactar por WhatsApp
@@ -173,19 +203,19 @@
             </div>
         </section>
 
-        <!-- Footer -->
+        <!-- Footer (Estilo nuevo) -->
         <footer class="text-center mt-16 text-gray-500 text-sm">
             <p>© 2025 Chevrolet Aveo 2009 • Venta directa • Precio negociable</p>
         </footer>
     </div>
 
-    <!-- JavaScript -->
+    <!-- JavaScript (Para iconos y carrusel) -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Iconos
+            // Inicializar iconos Lucide
             lucide.createIcons();
 
-            // Imágenes
+            // Lista de todas las imágenes (de ambos archivos, son las mismas)
             const images = [
                 "https://i.imgur.com/gwDtFw7.jpeg",
                 "https://i.imgur.com/9c3MXwO.jpeg",
@@ -203,29 +233,28 @@
             const thumbnailsContainer = document.getElementById('thumbnails');
             let currentIndex = 0;
 
-            // Crear thumbnails
+            // Crear las miniaturas (thumbnails) dinámicamente
             images.forEach((src, index) => {
                 const thumb = document.createElement('img');
                 thumb.src = src;
                 thumb.alt = `Miniatura ${index + 1}`;
                 thumb.className = 'thumbnail w-full h-16 sm:h-20 object-cover rounded-lg cursor-pointer';
+                
+                // Marcar la primera como activa
                 if (index === 0) thumb.classList.add('active');
+                
+                // Añadir evento de clic a cada miniatura
                 thumb.addEventListener('click', () => {
                     currentIndex = index;
-                    mainImage.src = src;
+                    mainImage.src = src; // Cambiar la imagen principal
+                    
+                    // Actualizar la clase 'active' en las miniaturas
                     document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
                     thumb.classList.add('active');
                 });
+                
                 thumbnailsContainer.appendChild(thumb);
             });
-
-            // Auto-rotación opcional
-            // setInterval(() => {
-            //     currentIndex = (currentIndex + 1) % images.length;
-            //     mainImage.src = images[currentIndex];
-            //     document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-            //     document.querySelectorAll('.thumbnail')[currentIndex].classList.add('active');
-            // }, 5000);
         });
     </script>
 </body>
