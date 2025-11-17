@@ -9,7 +9,7 @@
     
     <!-- Fuente Premium: Poppins --><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Iconos Lucide --><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Iconos Lucide (Aunque el de WhatsApp se usará SVG) --><script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
     <style>
         body {
@@ -69,7 +69,7 @@
 
     <div class="container max-w-6xl mx-auto p-4 sm:p-6 lg:p-10">
 
-        <!-- Título Hero (Estilo nuevo) --><header class="text-center mb-12">
+        <!-- Título Hero (Texto actualizado) --><header class="text-center mb-12">
             <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold gradient-text mb-4 tracking-tight">
                 CHEVROLET AVEO FAMILY 2009
             </h1>
@@ -77,21 +77,21 @@
                 ¡21 Millones Negociables!
             </p>
             <p class="text-xl sm:text-2xl text-cyan-300 font-medium">
-                Listo para traspaso • Mecánicamente impecable • ¡Tu próximo auto!
+                Listo para traspaso • ¡Tu próximo auto!
             </p>
             <div class="flex justify-center mt-6">
                 <div class="h-1 w-32 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"></div>
             </div>
         </header>
 
-        <!-- Carrusel con Thumbnails (Estilo nuevo, con todas las imágenes) --><section class="mb-16">
+        <!-- Carrusel con Thumbnails (Imágenes y grid actualizado) --><section class="mb-16">
             <div class="glass rounded-2xl p-6 shadow-2xl">
-                <!-- Imagen Principal --><div class="relative mb-6 overflow-hidden rounded-xl h-[320px] sm:h-[420px] lg:h-[520px] bg-gray-900">
-                    <img id="main-image" src="https://i.imgur.com/7zf7fwd.jpeg" alt="Chevrolet Aveo Principal" class="w-full h-full object-cover transition-all duration-500">
+                <!-- Imagen Principal (Actualizada a la primera de la nueva lista) --><div class="relative mb-6 overflow-hidden rounded-xl h-[320px] sm:h-[420px] lg:h-[520px] bg-gray-900">
+                    <img id="main-image" src="https://i.imgur.com/jc5Ams3.jpeg" alt="Chevrolet Aveo Principal" class="w-full h-full object-cover transition-all duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 </div>
 
-                <!-- Thumbnails (Miniaturas) --><div class="grid grid-cols-5 sm:grid-cols-10 gap-2" id="thumbnails">
+                <!-- Thumbnails (Miniaturas) - Grid actualizado a 6 columnas para 12 fotos --><div class="grid grid-cols-6 gap-2" id="thumbnails">
                     <!-- Las imágenes se generan aquí por JavaScript --></div>
             </div>
         </section>
@@ -195,7 +195,7 @@
             </div>
         </section>
 
-        <!-- CTA Contacto (Estilo nuevo) --><section class="text-center">
+        <!-- CTA Contacto (Botón y texto actualizado) --><section class="text-center">
             <div class="glass p-10 rounded-2xl shadow-2xl inline-block">
                 <h2 class="text-4xl font-bold text-white mb-4">¡No esperes más!</h2>
                 <p class="text-xl text-gray-300 mb-8">Contáctame ahora y aparta tu Aveo antes de que se vaya.</p>
@@ -203,10 +203,14 @@
                    target="_blank" 
                    rel="noopener noreferrer"
                    class="inline-flex items-center bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold text-xl py-5 px-10 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl pulse">
-                    <i data-lucide="message-circle" class="w-8 h-8 mr-3"></i>
-                    Contactar
+                    
+                    <!-- Icono de WhatsApp SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.74.45 3.34 1.22 4.76L2 22l5.42-1.39c1.37.71 2.92 1.12 4.62 1.12h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zM12.04 20.13h-.01c-1.52 0-2.97-.4-4.24-1.12l-.3-.18-3.17.81.83-3.09-.2-.31c-.8-1.33-1.29-2.9-1.29-4.59 0-4.4 3.57-7.97 7.97-7.97s7.97 3.57 7.97 7.97-3.57 7.97-7.97 7.97zm4.53-6.2c-.25-.12-1.47-.73-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.06-.39-2.02-1.23-.75-.66-1.26-1.47-1.41-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.5c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.72 1.03.43 1.84.69 2.47.89.78.25 1.47.21 2.02.13.6-.08 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.08-.12-.29-.19-.54-.31z"/>
+                    </svg>
+                    Contactar solo por WhatsApp
                 </a>
-                <p class="mt-6 text-sm text-gray-400">Solo mensajes de Wasap</p>
+                
             </div>
         </section>
 
@@ -217,21 +221,23 @@
 
     <!-- JavaScript (Para iconos y carrusel) --><script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar iconos Lucide
+            // Inicializar iconos Lucide (si se usan en otro lado)
             lucide.createIcons();
 
-            // Lista de todas las imágenes (ajustada para que la imagen deseada sea la primera)
+            // Lista de todas las imágenes (NUEVA LISTA DE 12 FOTOS)
             const images = [
-                "https://i.imgur.com/7zf7fwd.jpeg", // Esta es la imagen que solicitaste de primera
-                "https://i.imgur.com/gwDtFw7.jpeg",
-                "https://i.imgur.com/9c3MXwO.jpeg",
-                "https://i.imgur.com/KVzJEc6.jpeg",
-                "https://i.imgur.com/i9pAOTp.jpeg",
-                "https://i.imgur.com/Tej0hhO.jpeg",
-                "https://i.imgur.com/GPyMFCI.jpeg",
-                "https://i.imgur.com/kmGTaZT.jpeg",
-                "https://i.imgur.com/0kOc5nj.jpeg",
-                "https://i.imgur.com/mLKwyPp.jpeg"
+                "https://i.imgur.com/jc5Ams3.jpeg",
+                "https://i.imgur.com/bHQMEtb.jpeg",
+                "https://i.imgur.com/liDOH3W.jpeg",
+                "https://i.imgur.com/tsev4ZK.jpeg",
+                "https://i.imgur.com/owryL2V.jpeg",
+                "https://i.imgur.com/FUufMzw.jpeg",
+                "https://i.imgur.com/XMhJJnG.jpeg",
+                "https://i.imgur.com/rJWfpUh.jpeg",
+                "https://i.imgur.com/pwFV2Mb.jpeg",
+                "https://i.imgur.com/VMhi8ff.jpeg",
+                "https://i.imgur.com/QBST4sq.jpeg",
+                "https://i.imgur.com/BsXaQMN.jpeg"
             ];
 
             const mainImage = document.getElementById('main-image');
