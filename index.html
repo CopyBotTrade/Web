@@ -54,10 +54,15 @@
         .thumbnail {
             transition: all 0.3s ease;
             border: 2px solid transparent;
+            opacity: 0.7;
+        }
+        .thumbnail:hover {
+            opacity: 1;
         }
         .thumbnail.active {
             border-color: #0ea5e9;
             transform: scale(1.05);
+            opacity: 1;
             box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
         }
 
@@ -79,6 +84,21 @@
         /* Estilos Tabla Especificaciones */
         .spec-row:nth-child(odd) {
             background-color: rgba(241, 245, 249, 0.5);
+        }
+
+        /* LIGHTBOX STYLES */
+        #lightbox {
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s;
+        }
+        .lightbox-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -118,16 +138,25 @@
             <!-- Columna Izquierda: Galería Principal -->
             <div class="lg:col-span-2">
                 <div class="glass rounded-3xl p-4 shadow-xl">
-                    <div class="relative mb-4 overflow-hidden rounded-2xl h-[300px] sm:h-[450px] bg-slate-100 group">
+                    <div class="relative mb-4 overflow-hidden rounded-2xl h-[300px] sm:h-[450px] bg-slate-100 group cursor-zoom-in" onclick="openLightbox()">
                         <img id="main-image" src="https://i.imgur.com/LzlAZiF.jpeg" alt="DJI Drone Principal" class="w-full h-full object-contain mix-blend-multiply p-2 transition-transform duration-500 group-hover:scale-105">
-                        <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                        
+                        <!-- Overlay hint -->
+                        <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                            <span class="bg-black/50 text-white px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm">
+                                <i data-lucide="maximize-2" class="inline w-4 h-4 mr-1"></i> Ver Pantalla Completa
+                            </span>
+                        </div>
+
+                        <div class="absolute top-4 right-4 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md z-10">
                             Estado: 10/10
                         </div>
                     </div>
                     <!-- Thumbnails Scrollable -->
-                    <div class="grid grid-cols-4 sm:grid-cols-7 gap-2 overflow-x-auto pb-2" id="thumbnails">
+                    <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 overflow-x-auto pb-2 scrollbar-hide" id="thumbnails">
                         <!-- Las imágenes se generan vía JS -->
                     </div>
+                    <p class="text-xs text-slate-400 text-center mt-2 italic">Click en la imagen para ampliar</p>
                 </div>
             </div>
 
@@ -330,6 +359,77 @@
             </div>
         </section>
 
+        <!-- SECCIÓN DE BATERÍAS (NUEVO AGREGADO) -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4 text-center">Estado de Baterías: <span class="text-green-600">Como Nuevo</span></h2>
+            <p class="text-slate-500 text-center mb-8 max-w-2xl mx-auto">
+                Menos de 10 ciclos de carga. Esto garantiza una vida útil del 99%. Evidencia real de la salud de cada batería incluida.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Batería 3 (7 Ciclos) -->
+                <div class="glass p-4 rounded-2xl border border-green-100 hover-card relative overflow-hidden group">
+                    <div class="absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded shadow-md z-10">Mejor Estado</div>
+                    <div class="h-48 overflow-hidden rounded-xl mb-4 bg-slate-100 cursor-pointer" onclick="openLightboxToImage('https://i.imgur.com/msRbqbn.jpeg')">
+                         <img src="https://i.imgur.com/msRbqbn.jpeg" alt="7 Ciclos" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <h4 class="font-bold text-slate-700">Batería #3</h4>
+                            <p class="text-xs text-slate-400">Vida útil restante</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-3xl font-black text-green-500">7</span>
+                            <span class="text-xs font-bold text-slate-400 uppercase">Ciclos</span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2 mt-3">
+                        <div class="bg-green-500 h-2 rounded-full" style="width: 99%"></div>
+                    </div>
+                </div>
+
+                <!-- Batería 2 (8 Ciclos) -->
+                <div class="glass p-4 rounded-2xl border border-sky-100 hover-card group">
+                    <div class="h-48 overflow-hidden rounded-xl mb-4 bg-slate-100 cursor-pointer" onclick="openLightboxToImage('https://i.imgur.com/YkBGf0S.jpeg')">
+                         <img src="https://i.imgur.com/YkBGf0S.jpeg" alt="8 Ciclos" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <h4 class="font-bold text-slate-700">Batería #2</h4>
+                            <p class="text-xs text-slate-400">Vida útil restante</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-3xl font-black text-sky-500">8</span>
+                            <span class="text-xs font-bold text-slate-400 uppercase">Ciclos</span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2 mt-3">
+                        <div class="bg-sky-500 h-2 rounded-full" style="width: 98%"></div>
+                    </div>
+                </div>
+
+                <!-- Batería 1 (9 Ciclos) -->
+                <div class="glass p-4 rounded-2xl border border-indigo-100 hover-card group">
+                    <div class="h-48 overflow-hidden rounded-xl mb-4 bg-slate-100 cursor-pointer" onclick="openLightboxToImage('https://i.imgur.com/1DLU3uU.jpeg')">
+                         <img src="https://i.imgur.com/1DLU3uU.jpeg" alt="9 Ciclos" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <h4 class="font-bold text-slate-700">Batería #1</h4>
+                            <p class="text-xs text-slate-400">Vida útil restante</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-3xl font-black text-indigo-500">9</span>
+                            <span class="text-xs font-bold text-slate-400 uppercase">Ciclos</span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-2 mt-3">
+                        <div class="bg-indigo-500 h-2 rounded-full" style="width: 97%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Tabla de Especificaciones Técnicas -->
         <section class="mb-16">
             <h2 class="text-3xl font-bold text-slate-800 mb-6 text-center">Ficha Técnica Detallada</h2>
@@ -405,13 +505,35 @@
             <p>© 2025 Pagina de Venta DJI Flip. Todos los derechos reservados.</p>
         </footer>
 
+        <!-- Lightbox Overlay -->
+        <div id="lightbox" class="fixed inset-0 z-[60] bg-black/95 hidden flex items-center justify-center backdrop-blur-md opacity-0 transition-opacity duration-300">
+            <!-- Close Button -->
+            <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white hover:text-red-500 z-[70] transition-colors p-2">
+                <i data-lucide="x" class="w-10 h-10"></i>
+            </button>
+
+            <!-- Navigation Buttons -->
+            <button onclick="changeLightboxImage(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 text-white p-4 rounded-full lightbox-nav-btn z-[70] hidden md:block">
+                <i data-lucide="chevron-left" class="w-8 h-8"></i>
+            </button>
+            <button onclick="changeLightboxImage(1)" class="absolute right-4 top-1/2 -translate-y-1/2 text-white p-4 rounded-full lightbox-nav-btn z-[70] hidden md:block">
+                <i data-lucide="chevron-right" class="w-8 h-8"></i>
+            </button>
+
+            <!-- Image Container -->
+            <div class="relative max-w-[90vw] max-h-[90vh]">
+                <img id="lightbox-img" src="" alt="Full Screen View" class="max-w-full max-h-[90vh] object-contain rounded-md shadow-2xl">
+                <div id="lightbox-counter" class="absolute bottom-[-30px] left-1/2 -translate-x-1/2 text-white/70 text-sm font-medium"></div>
+            </div>
+        </div>
+
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
 
-            // Lista de Imágenes Proporcionadas
+            // Lista de Imágenes (incluyendo baterías ahora)
             const images = [
                 "https://i.imgur.com/LzlAZiF.jpeg", // Principal
                 "https://i.imgur.com/TWD8ZL6.jpeg",
@@ -420,11 +542,34 @@
                 "https://i.imgur.com/ENqAghh.jpeg",
                 "https://i.imgur.com/u3jvGf0.jpeg",
                 "https://i.imgur.com/A7eFhGb.jpeg",
-                "https://i.imgur.com/hRiJhWt.jpeg"
+                "https://i.imgur.com/hRiJhWt.jpeg",
+                // Fotos Baterías agregadas
+                "https://i.imgur.com/msRbqbn.jpeg", // 7 ciclos
+                "https://i.imgur.com/YkBGf0S.jpeg", // 8 ciclos
+                "https://i.imgur.com/1DLU3uU.jpeg"  // 9 ciclos
             ];
 
             const mainImage = document.getElementById('main-image');
             const thumbnailsContainer = document.getElementById('thumbnails');
+            let currentImageIndex = 0;
+
+            // Función para actualizar la imagen principal
+            window.updateMainImage = (index) => {
+                currentImageIndex = index;
+                const src = images[index];
+                
+                mainImage.style.opacity = '0';
+                setTimeout(() => {
+                    mainImage.src = src;
+                    mainImage.style.opacity = '1';
+                }, 200);
+
+                // Actualizar miniaturas activas
+                document.querySelectorAll('.thumbnail').forEach((t, i) => {
+                    if(i === index) t.classList.add('active');
+                    else t.classList.remove('active');
+                });
+            };
 
             // Generar Miniaturas
             images.forEach((src, index) => {
@@ -432,21 +577,80 @@
                 thumb.src = src;
                 thumb.alt = `Vista ${index + 1}`;
                 thumb.className = `thumbnail w-20 h-20 object-cover rounded-xl cursor-pointer bg-white ${index === 0 ? 'active' : ''}`;
-                
-                thumb.onclick = () => {
-                    // Animación de cambio
-                    mainImage.style.opacity = '0';
-                    setTimeout(() => {
-                        mainImage.src = src;
-                        mainImage.style.opacity = '1';
-                    }, 200);
-
-                    // Actualizar clase activa
-                    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                    thumb.classList.add('active');
-                };
-                
+                thumb.onclick = () => updateMainImage(index);
                 thumbnailsContainer.appendChild(thumb);
+            });
+
+            /* --- LOGICA DEL LIGHTBOX --- */
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCounter = document.getElementById('lightbox-counter');
+
+            window.openLightbox = () => {
+                lightboxImg.src = images[currentImageIndex];
+                updateLightboxCounter();
+                lightbox.classList.remove('hidden');
+                // Timeout para permitir la transición de opacidad
+                setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
+                document.body.style.overflow = 'hidden'; // Bloquear scroll
+            };
+
+            // Abrir lightbox desde una imagen específica (para sección de baterías)
+            window.openLightboxToImage = (url) => {
+                const index = images.indexOf(url);
+                if (index !== -1) {
+                    currentImageIndex = index;
+                    openLightbox();
+                } else {
+                    // Si no está en la lista principal, abrir solo visualmente
+                    lightboxImg.src = url;
+                    lightbox.classList.remove('hidden');
+                    setTimeout(() => lightbox.classList.remove('opacity-0'), 10);
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            window.closeLightbox = () => {
+                lightbox.classList.add('opacity-0');
+                setTimeout(() => {
+                    lightbox.classList.add('hidden');
+                    document.body.style.overflow = ''; // Restaurar scroll
+                }, 300);
+            };
+
+            window.changeLightboxImage = (direction) => {
+                currentImageIndex += direction;
+                
+                // Loop infinito
+                if (currentImageIndex >= images.length) currentImageIndex = 0;
+                if (currentImageIndex < 0) currentImageIndex = images.length - 1;
+
+                // Animación suave dentro del lightbox
+                lightboxImg.style.opacity = '0.5';
+                setTimeout(() => {
+                    lightboxImg.src = images[currentImageIndex];
+                    lightboxImg.style.opacity = '1';
+                    updateMainImage(currentImageIndex); // Sincronizar con la galería de fondo
+                    updateLightboxCounter();
+                }, 150);
+            };
+
+            function updateLightboxCounter() {
+                lightboxCounter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+            }
+
+            // Cerrar con Escape y navegar con flechas
+            document.addEventListener('keydown', (e) => {
+                if (lightbox.classList.contains('hidden')) return;
+                
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') changeLightboxImage(-1);
+                if (e.key === 'ArrowRight') changeLightboxImage(1);
+            });
+
+            // Cerrar al hacer click fuera de la imagen
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
             });
         });
     </script>
