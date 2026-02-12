@@ -222,14 +222,14 @@
 
     </div>
 
-    <!-- FOOTER (Actualizado 2026) -->
+    <!-- FOOTER (Actualizado 12/02/2026) -->
     <footer class="bg-gray-900 text-gray-400 py-10 text-sm pb-24 md:pb-10 border-t-4 border-orange-600">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
                 <h4 class="text-white font-bold text-xl font-hand mb-2">Las Delicias de Yaya</h4>
                 <p class="mb-1">© 2026 Todos los derechos reservados.</p>
                 <p class="text-xs text-gray-500">Rionegro, Antioquia</p>
-                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 11/02/2026</p>
+                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 12/02/2026 11:24 AM</p>
             </div>
             <div class="flex flex-col items-center md:items-end gap-3 bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg">
                 <div class="flex items-center gap-2 text-orange-400 font-bold uppercase tracking-wider text-xs">
@@ -261,14 +261,37 @@
                 <h2 class="font-bold text-lg flex items-center gap-2"><i class="ph-bold ph-shopping-cart"></i> Tu Pedido</h2>
                 <button onclick="toggleCart()" class="hover:bg-orange-700 p-1 rounded"><i class="ph-bold ph-x text-2xl"></i></button>
             </div>
+            
+            <!-- Items del carrito -->
             <div id="cart-items" class="flex-1 overflow-y-auto p-4 space-y-4">
-                <!-- Items del carrito -->
+                <!-- Se llena con JS -->
             </div>
+
+            <!-- Footer del Carrito con Formulario -->
             <div class="border-t p-6 bg-gray-50">
+                
+                <!-- Formulario de Datos (Solo visible si hay items) -->
+                <div id="cart-form" class="mb-4 space-y-3 hidden">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Tu Nombre:</label>
+                        <input type="text" id="customer-name" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-orange-500 outline-none text-sm" placeholder="Ej. Juan Pérez">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Ubicación / Lugar de entrega:</label>
+                        <input type="text" id="customer-location" class="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-orange-500 outline-none text-sm" placeholder="Ej. Ingeproductos, Rionegro, Marinilla...">
+                    </div>
+                </div>
+
                 <div class="flex justify-between items-center mb-4 text-xl font-bold text-gray-800">
                     <span>Total:</span>
                     <span id="cart-total">$0</span>
                 </div>
+                
+                <!-- Mensaje de Error Visual -->
+                <p id="form-error" class="text-red-500 text-sm font-bold mb-3 hidden text-center animate-pulse flex items-center justify-center gap-1">
+                    <i class="ph-bold ph-warning"></i> Por favor completa tu nombre y ubicación.
+                </p>
+
                 <button onclick="sendOrder()" id="btn-whatsapp-order" class="w-full bg-gray-300 text-gray-500 cursor-not-allowed py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg transition-all" disabled>
                     <i class="ph-bold ph-whatsapp-logo text-xl"></i> Haz tu pedido por WhatsApp
                 </button>
@@ -339,7 +362,7 @@
             { 
                 id: 6, 
                 category: 'Fritos', 
-                name: 'Palitos de Queso', 
+                name: 'Palitos de Queso (Tequeños)', 
                 price: 2800, 
                 desc: 'Dedito de queso, envuelto con masa de harina de trigo. Sabores: queso costeño, queso costeño con bocadillo.',
                 image: 'https://i.imgur.com/NAo46VZ.jpeg'
@@ -411,7 +434,7 @@
             { 
                 id: 14, 
                 category: 'Fritos', 
-                name: 'Palitos de Queso Congelados (x10)', 
+                name: 'Palitos de Queso (Tequeños) Congelados (x10)', 
                 price: 15000, 
                 desc: 'Masa de harina de trigo con: queso costeño o queso costeño y bocadillo.',
                 image: 'https://i.imgur.com/YDFjw3t.jpeg'
@@ -419,7 +442,7 @@
             { 
                 id: 45, 
                 category: 'Fritos', 
-                name: 'Palitos de Queso para Fiesta (Mínimo 20)', 
+                name: 'Palitos de Queso (Tequeños) para Fiesta (Mínimo 20)', 
                 price: 1300, 
                 desc: 'Masa de harina de trigo rellena con queso costeño. (Precio por unidad)', 
                 image: 'https://i.imgur.com/z3hj88g.jpeg' 
@@ -762,6 +785,8 @@
             const container = document.getElementById('cart-items');
             const totalContainer = document.getElementById('cart-total');
             const orderBtn = document.getElementById('btn-whatsapp-order');
+            const cartForm = document.getElementById('cart-form');
+            const formError = document.getElementById('form-error');
             
             // Badges
             const count = cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -770,6 +795,8 @@
             updateBadges(count);
 
             if (cart.length === 0) {
+                cartForm.classList.add('hidden'); 
+                formError.classList.add('hidden'); // Ocultar error si vacio
                 container.innerHTML = `
                     <div class="text-center text-gray-500 mt-10">
                         <i class="ph-duotone ph-shopping-cart text-6xl mb-4 text-orange-200"></i>
@@ -782,9 +809,9 @@
                 orderBtn.classList.add('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
                 orderBtn.classList.remove('bg-green-500', 'text-white', 'hover:bg-green-600', 'hover:shadow-xl');
                 
-                // Ocultar flotante si vacío
                 document.getElementById('floating-cart-btn').classList.add('hidden');
             } else {
+                cartForm.classList.remove('hidden'); 
                 container.innerHTML = cart.map(item => `
                     <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100 shadow-sm">
                         <div>
@@ -807,7 +834,6 @@
                 orderBtn.classList.remove('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
                 orderBtn.classList.add('bg-green-500', 'text-white', 'hover:bg-green-600', 'hover:shadow-xl');
                 
-                // Mostrar flotante si cerrado
                 const modal = document.getElementById('cart-modal');
                 if (modal.classList.contains('hidden')) {
                      document.getElementById('floating-cart-btn').classList.remove('hidden');
@@ -852,8 +878,6 @@
                 cart.push({ ...product, quantity: 1 });
             }
             renderCart();
-            // Feedback visual simple (opcional)
-            // alert('Agregado: ' + product.name);
         }
 
         function removeFromCart(id) {
@@ -875,13 +899,19 @@
         function toggleCart() {
             const modal = document.getElementById('cart-modal');
             const floatBtn = document.getElementById('floating-cart-btn');
+            const formError = document.getElementById('form-error');
             
+            // Limpiar errores al abrir/cerrar
+            if (!modal.classList.contains('hidden')) {
+                formError.classList.add('hidden');
+            }
+
             if (modal.classList.contains('hidden')) {
                 modal.classList.remove('hidden');
-                floatBtn.classList.add('hidden'); // Ocultar botón flotante cuando modal abre
+                floatBtn.classList.add('hidden');
             } else {
                 modal.classList.add('hidden');
-                if (cart.length > 0) floatBtn.classList.remove('hidden'); // Mostrar si hay items
+                if (cart.length > 0) floatBtn.classList.remove('hidden');
             }
         }
 
@@ -929,7 +959,42 @@
         function sendOrder() {
             if (cart.length === 0) return;
 
+            // Obtener valores de los inputs
+            const nameInput = document.getElementById('customer-name');
+            const locationInput = document.getElementById('customer-location');
+            const formError = document.getElementById('form-error');
+            
+            const name = nameInput.value.trim();
+            const location = locationInput.value.trim();
+
+            // Validación visual (SIN ALERT)
+            if (!name || !location) {
+                formError.classList.remove('hidden'); // Mostrar mensaje rojo
+                
+                // Resaltar bordes en rojo si están vacíos
+                if(!name) nameInput.classList.add('border-red-500', 'ring-1', 'ring-red-500');
+                if(!location) locationInput.classList.add('border-red-500', 'ring-1', 'ring-red-500');
+                
+                // Remover estilos de error cuando el usuario escriba
+                nameInput.addEventListener('input', () => {
+                    nameInput.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
+                    if(locationInput.value.trim()) formError.classList.add('hidden');
+                });
+                locationInput.addEventListener('input', () => {
+                    locationInput.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
+                    if(nameInput.value.trim()) formError.classList.add('hidden');
+                });
+
+                return; // Detener envío
+            }
+
             let message = "¡Hola! 👋 Quiero hacer un pedido en Las Delicias de Yaya:\n\n";
+            
+            // Agregar datos del cliente
+            message += `👤 *Cliente:* ${name}\n`;
+            message += `📍 *Ubicación:* ${location}\n\n`;
+            message += "*Pedido:*\n";
+
             let total = 0;
             
             cart.forEach(item => {
