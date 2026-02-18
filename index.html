@@ -116,8 +116,8 @@
                 </div>
             </div>
 
-            <!-- Avisos Importantes (NUEVO) -->
-            <div class="max-w-6xl mx-auto px-4 mt-4 grid grid-cols-1 md:grid-cols-2 gap-3 animate-fade-in">
+            <!-- Avisos Importantes (NUEVO: Grid de 3) -->
+            <div class="max-w-6xl mx-auto px-4 mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 animate-fade-in">
                 <!-- Aviso de Encargo -->
                 <div class="bg-blue-50 text-blue-800 px-4 py-3 rounded-xl flex items-center gap-3 border border-blue-100 shadow-sm">
                     <i class="ph-fill ph-clock-countdown text-2xl text-blue-600"></i>
@@ -125,6 +125,32 @@
                         <p class="text-sm leading-tight">Para garantizar frescura, todos nuestros productos se elaboran <strong>bajo pedido</strong>.</p>
                     </div>
                 </div>
+
+                <!-- Aviso de Pagos (NUEVO) -->
+                <div class="bg-purple-50 text-purple-900 px-3 py-3 rounded-xl flex flex-col justify-center items-center border border-purple-100 shadow-sm">
+                    <p class="text-xs font-bold uppercase tracking-wider mb-2 text-purple-800">Medios de Pago</p>
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="flex flex-col items-center gap-1 group">
+                            <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                                <i class="ph-fill ph-coins text-xl text-green-600"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-gray-600">Efectivo</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1 group">
+                            <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                                <i class="ph-fill ph-device-mobile text-xl text-pink-600"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-gray-600">Nequi</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1 group">
+                            <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                                <i class="ph-fill ph-bank text-xl text-yellow-500"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-gray-600">Bancolombia</span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Aviso de Domicilio Gratis -->
                 <div class="bg-green-50 text-green-800 px-4 py-3 rounded-xl flex items-center gap-3 border border-green-100 shadow-sm">
                     <i class="ph-fill ph-moped text-2xl text-green-600"></i>
@@ -240,14 +266,14 @@
 
     </div>
 
-    <!-- FOOTER (Actualizado 16/02/2026) -->
+    <!-- FOOTER (Actualizado 18/02/2026) -->
     <footer class="bg-gray-900 text-gray-400 py-10 text-sm pb-24 md:pb-10 border-t-4 border-orange-600">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
                 <h4 class="text-white font-bold text-xl font-hand mb-2">Las Delicias de Yaya</h4>
                 <p class="mb-1">© 2026 Todos los derechos reservados.</p>
                 <p class="text-xs text-gray-500">Rionegro, Antioquia</p>
-                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 16/02/2026 08:44 PM</p>
+                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 18/02/2026 06:37 PM</p>
             </div>
             <div class="flex flex-col items-center md:items-end gap-3 bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg">
                 <div class="flex items-center gap-2 text-orange-400 font-bold uppercase tracking-wider text-xs">
@@ -682,7 +708,7 @@
                 category: 'Postres', 
                 name: 'Torta Marquesa (Porción)', 
                 price: 10000, 
-                desc: 'Galleta dulce, con crema pastelera de chocolate decorada con Chantilly de chocolate.', 
+                desc: 'Galletas dulce, con crema pastelera de chocolate decorada con Chantilly de chocolate.', 
                 image: 'https://i.imgur.com/TbX2sSn.jpeg' 
             },
             { 
