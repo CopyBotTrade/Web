@@ -39,7 +39,7 @@
         .hidden-section { display: none; }
     </style>
 </head>
-<body class="bg-orange-50 text-gray-800 flex flex-col min-h-screen">
+<body class="bg-orange-50 text-gray-800 flex flex-col min-h-screen relative">
 
     <!-- HEADER / NAVBAR -->
     <nav class="bg-orange-600 text-white shadow-lg sticky top-0 z-50">
@@ -101,9 +101,18 @@
                         <br>
                         <span class="font-bold text-orange-700 mt-2 block">Hechos con amor por Yaya y Salvador.</span>
                     </p>
-                    <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-md text-sm text-gray-600">
-                        <i class="ph-fill ph-map-pin text-orange-500"></i>
-                        <span>Rionegro, Antioquia (Urbanización Veleros)</span>
+                    
+                    <!-- Ubicación y Contador Integrados -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-md text-sm text-gray-600">
+                            <i class="ph-fill ph-map-pin text-orange-500"></i>
+                            <span>Rionegro, Antioquia (Urbanización Veleros)</span>
+                        </div>
+                        
+                        <!-- Contador de Visitas movido al Top -->
+                        <div class="inline-flex items-center bg-white p-1 rounded-full shadow-md hover:scale-105 transition-transform cursor-default" title="Número de personas que nos han visitado">
+                            <img src="https://api.visitorbadge.io/api/visitors?path=lasdeliciasdeyaya.web&label=Visitas&labelColor=%23ffffff&countColor=%23ea580c" alt="Contador de visitas" class="rounded-full" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,7 +125,7 @@
                 </div>
             </div>
 
-            <!-- Avisos Importantes (NUEVO: Grid de 3) -->
+            <!-- Avisos Importantes (Grid de 3) -->
             <div class="max-w-6xl mx-auto px-4 mt-4 grid grid-cols-1 md:grid-cols-3 gap-3 animate-fade-in">
                 <!-- Aviso de Encargo -->
                 <div class="bg-blue-50 text-blue-800 px-4 py-3 rounded-xl flex items-center gap-3 border border-blue-100 shadow-sm">
@@ -126,23 +135,23 @@
                     </div>
                 </div>
 
-                <!-- Aviso de Pagos (NUEVO) -->
+                <!-- Aviso de Pagos -->
                 <div class="bg-purple-50 text-purple-900 px-3 py-3 rounded-xl flex flex-col justify-center items-center border border-purple-100 shadow-sm">
                     <p class="text-xs font-bold uppercase tracking-wider mb-2 text-purple-800">Medios de Pago</p>
                     <div class="flex items-center justify-center gap-4">
-                        <div class="flex flex-col items-center gap-1 group">
+                        <div class="flex flex-col items-center gap-1 group cursor-default">
                             <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
                                 <i class="ph-fill ph-coins text-xl text-green-600"></i>
                             </div>
                             <span class="text-[10px] font-bold text-gray-600">Efectivo</span>
                         </div>
-                        <div class="flex flex-col items-center gap-1 group">
+                        <div class="flex flex-col items-center gap-1 group cursor-default">
                             <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
                                 <i class="ph-fill ph-device-mobile text-xl text-pink-600"></i>
                             </div>
                             <span class="text-[10px] font-bold text-gray-600">Nequi</span>
                         </div>
-                        <div class="flex flex-col items-center gap-1 group">
+                        <div class="flex flex-col items-center gap-1 group cursor-default">
                             <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
                                 <i class="ph-fill ph-bank text-xl text-yellow-500"></i>
                             </div>
@@ -306,19 +315,14 @@
 
     </div>
 
-    <!-- FOOTER (Actualizado 24/02/2026) -->
+    <!-- FOOTER -->
     <footer class="bg-gray-900 text-gray-400 py-10 text-sm pb-24 md:pb-10 border-t-4 border-orange-600">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
                 <h4 class="text-white font-bold text-xl font-hand mb-2">Las Delicias de Yaya</h4>
                 <p class="mb-1">© 2026 Todos los derechos reservados.</p>
                 <p class="text-xs text-gray-500">Rionegro, Antioquia</p>
-                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 24/02/2026 09:14 PM</p>
-                
-                <!-- Contador de Visitas -->
-                <div class="mt-4 flex justify-center md:justify-start" title="Número de personas que han visitado la página">
-                    <img src="https://api.visitorbadge.io/api/visitors?path=lasdeliciasdeyaya.web&label=Visitas&labelColor=%234b5563&countColor=%23ea580c" alt="Contador de visitas" class="shadow-sm rounded-md" />
-                </div>
+                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 24/02/2026 09:21 PM</p>
             </div>
             <div class="flex flex-col items-center md:items-end gap-3 bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg">
                 <div class="flex items-center gap-2 text-orange-400 font-bold uppercase tracking-wider text-xs">
@@ -359,7 +363,7 @@
             <!-- Footer del Carrito con Formulario -->
             <div class="border-t p-6 bg-gray-50">
                 
-                <!-- Formulario de Datos (Solo visible si hay items) -->
+                <!-- Formulario de Datos -->
                 <div id="cart-form" class="mb-4 space-y-3 hidden">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Tu Nombre:</label>
@@ -395,6 +399,17 @@
             <span class="hidden md:inline font-bold">Contáctanos</span>
         </button>
     </div>
+
+    <!-- SCROLL TO TOP CON PROGRESS (NUEVO) -->
+    <button id="scrollToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-24 right-6 z-30 hidden items-center justify-center w-12 h-12 bg-white rounded-full shadow-xl transition-transform hover:scale-110 group cursor-pointer border border-gray-100">
+        <!-- SVG Ring Progress -->
+        <svg class="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="16" fill="none" class="stroke-gray-200" stroke-width="3"></circle>
+            <!-- Este círculo naranja se llenará con JavaScript -->
+            <circle id="scrollProgress" cx="18" cy="18" r="16" fill="none" class="stroke-orange-500 transition-all duration-150 ease-out" stroke-width="3" stroke-dasharray="100.53" stroke-dashoffset="100.53" stroke-linecap="round"></circle>
+        </svg>
+        <i class="ph-bold ph-caret-double-up text-xl text-gray-700 relative z-10 group-hover:-translate-y-1 transition-transform"></i>
+    </button>
 
     <div id="floating-cart-btn" class="fixed bottom-6 right-6 z-40 animate-bounce hidden">
         <button onclick="toggleCart()" class="bg-orange-600 text-white p-3 md:p-4 rounded-full shadow-2xl flex items-center gap-2 hover:bg-orange-700 transition">
@@ -831,7 +846,6 @@
 
         // --- RENDERIZADO ---
         
-        // 1. Renderizar Pestañas de Categoría (MODIFICADO PARA MÓVIL)
         function renderCategoryTabs() {
             const container = document.getElementById('category-tabs');
             container.innerHTML = categories.map(cat => `
@@ -844,22 +858,18 @@
             `).join('') + '<div class="w-2 md:hidden flex-shrink-0"></div>'; 
         }
 
-        // 2. Renderizar Productos
         function renderProducts() {
             const container = document.getElementById('products-grid');
             const titleContainer = document.getElementById('current-category-title');
             
-            // Actualizar Título
             titleContainer.innerHTML = `<span class="text-3xl animate-bounce">${getCategoryIcon(activeCategory)}</span> ${activeCategory}`;
 
-            // Filtrar y Crear HTML
             const filteredProducts = productsData.filter(p => p.category === activeCategory);
             
             container.innerHTML = filteredProducts.map(product => {
-                // Lógica para mostrar IMAGEN REAL si existe, o ICONO si no
                 let imageContent;
                 if (product.image) {
-                    imageContent = `<img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">`;
+                    imageContent = `<img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">`;
                 } else {
                     imageContent = `<div class="text-5xl opacity-30 select-none group-hover:scale-110 transition-transform duration-500">${getCategoryIcon(product.category)}</div>`;
                 }
@@ -885,7 +895,6 @@
             `}).join('');
         }
 
-        // 3. Renderizar Carrito
         function renderCart() {
             const container = document.getElementById('cart-items');
             const totalContainer = document.getElementById('cart-total');
@@ -893,7 +902,6 @@
             const cartForm = document.getElementById('cart-form');
             const formError = document.getElementById('form-error');
             
-            // Badges
             const count = cart.reduce((acc, item) => acc + item.quantity, 0);
             const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
             
@@ -901,7 +909,7 @@
 
             if (cart.length === 0) {
                 cartForm.classList.add('hidden'); 
-                formError.classList.add('hidden'); // Ocultar error si vacio
+                formError.classList.add('hidden'); 
                 container.innerHTML = `
                     <div class="text-center text-gray-500 mt-10">
                         <i class="ph-duotone ph-shopping-cart text-6xl mb-4 text-orange-200"></i>
@@ -914,7 +922,6 @@
                 orderBtn.classList.add('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
                 orderBtn.classList.remove('bg-green-500', 'text-white', 'hover:bg-green-600', 'hover:shadow-xl');
                 
-                // Ocultar flotante si vacío
                 document.getElementById('floating-cart-btn').classList.add('hidden');
             } else {
                 cartForm.classList.remove('hidden'); 
@@ -940,7 +947,6 @@
                 orderBtn.classList.remove('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
                 orderBtn.classList.add('bg-green-500', 'text-white', 'hover:bg-green-600', 'hover:shadow-xl');
                 
-                // Mostrar flotante si cerrado
                 const modal = document.getElementById('cart-modal');
                 if (modal.classList.contains('hidden')) {
                      document.getElementById('floating-cart-btn').classList.remove('hidden');
@@ -1008,7 +1014,6 @@
             const floatBtn = document.getElementById('floating-cart-btn');
             const formError = document.getElementById('form-error');
             
-            // Limpiar errores al abrir/cerrar
             if (!modal.classList.contains('hidden')) {
                 formError.classList.add('hidden');
             }
@@ -1038,24 +1043,20 @@
         }
 
         function switchView(viewName) {
-            // Ocultar todas las vistas
             ['menu', 'historia', 'ubicacion'].forEach(v => {
                 document.getElementById('view-' + v).classList.add('hidden-section');
-                document.getElementById('nav-' + v)?.classList.remove('text-yellow-200', 'border-yellow-200'); // Reset desktop style
+                document.getElementById('nav-' + v)?.classList.remove('text-yellow-200', 'border-yellow-200'); 
                 document.getElementById('nav-' + v)?.classList.add('border-transparent');
             });
 
-            // Mostrar vista actual
             document.getElementById('view-' + viewName).classList.remove('hidden-section');
             
-            // Estilo nav activo
             const navBtn = document.getElementById('nav-' + viewName);
             if(navBtn) {
                 navBtn.classList.add('text-yellow-200', 'border-yellow-200');
                 navBtn.classList.remove('border-transparent');
             }
 
-            // Cerrar menú móvil si está abierto
             document.getElementById('mobile-menu').classList.add('hidden');
             document.getElementById('mobile-menu-icon').classList.remove('ph-x');
             document.getElementById('mobile-menu-icon').classList.add('ph-list');
@@ -1066,7 +1067,6 @@
         function sendOrder() {
             if (cart.length === 0) return;
 
-            // Obtener valores de los inputs
             const nameInput = document.getElementById('customer-name');
             const locationInput = document.getElementById('customer-location');
             const formError = document.getElementById('form-error');
@@ -1074,15 +1074,11 @@
             const name = nameInput.value.trim();
             const location = locationInput.value.trim();
 
-            // Validación visual (SIN ALERT)
             if (!name || !location) {
-                formError.classList.remove('hidden'); // Mostrar mensaje rojo
-                
-                // Resaltar bordes en rojo si están vacíos
+                formError.classList.remove('hidden');
                 if(!name) nameInput.classList.add('border-red-500', 'ring-1', 'ring-red-500');
                 if(!location) locationInput.classList.add('border-red-500', 'ring-1', 'ring-red-500');
                 
-                // Remover estilos de error cuando el usuario escriba
                 nameInput.addEventListener('input', () => {
                     nameInput.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
                     if(locationInput.value.trim()) formError.classList.add('hidden');
@@ -1091,26 +1087,22 @@
                     locationInput.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
                     if(nameInput.value.trim()) formError.classList.add('hidden');
                 });
-
-                return; // Detener envío
+                return;
             }
 
             let message = "¡Hola! 👋 Quiero hacer un pedido en Las Delicias de Yaya:\n\n";
-            
-            // Agregar datos del cliente
             message += `👤 *Cliente:* ${name}\n`;
             message += `📍 *Ubicación:* ${location}\n\n`;
             message += "*Pedido:*\n";
 
             let total = 0;
-            
             cart.forEach(item => {
                 message += `▪️ ${item.quantity}x ${item.name} - ${formatPrice(item.price * item.quantity)}\n`;
                 total += item.price * item.quantity;
             });
             
             message += `\n*Total a Pagar: ${formatPrice(total)}*`;
-            message += `\n\n📍 Quedo atento para coordinar el envío.`;
+            message += `\n\n📍 Quedo atento para coordinar el pago y el envío.`;
 
             const whatsappUrl = `https://wa.me/573104394742?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
@@ -1121,12 +1113,43 @@
             window.open(whatsappUrl, '_blank');
         }
 
+        // --- LÓGICA SCROLL TO TOP CON PROGRESS RING ---
+        function initScrollToTop() {
+            const scrollBtn = document.getElementById('scrollToTopBtn');
+            const scrollProgress = document.getElementById('scrollProgress');
+            // La circunferencia del círculo r=16 es 2 * pi * 16 ≈ 100.53
+            const circumference = 100.53;
+            
+            window.addEventListener('scroll', () => {
+                // Cuánto hemos bajado
+                const scrollTop = window.scrollY;
+                // Cuánto podemos bajar en total
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                // Porcentaje de scroll
+                const scrollPercent = scrollTop / docHeight;
+                
+                // Mostrar u ocultar el botón (lo mostramos después de 200px)
+                if (scrollTop > 200) {
+                    scrollBtn.classList.remove('hidden');
+                    scrollBtn.classList.add('flex');
+                } else {
+                    scrollBtn.classList.add('hidden');
+                    scrollBtn.classList.remove('flex');
+                }
+                
+                // Actualizar la línea naranja (stroke-dashoffset)
+                const offset = circumference - (scrollPercent * circumference);
+                scrollProgress.style.strokeDashoffset = offset;
+            });
+        }
+
         // --- INICIALIZACIÓN ---
         document.addEventListener('DOMContentLoaded', () => {
             renderCategoryTabs();
             renderProducts();
             renderCart();
             switchView('menu'); // Vista inicial
+            initScrollToTop();  // Inicializar Scroll Progress
         });
 
     </script>
