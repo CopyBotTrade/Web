@@ -57,7 +57,7 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <button onclick="switchView('menu')" id="nav-menu" class="font-bold hover:text-yellow-200 transition border-b-2 border-transparent">Menú</button>
                     <button onclick="switchView('historia')" id="nav-historia" class="font-bold hover:text-yellow-200 transition border-b-2 border-transparent">Historia</button>
-                    <button onclick="switchView('ubicacion')" id="nav-ubicacion" class="font-bold hover:text-yellow-200 transition border-b-2 border-transparent">Ubicación</button>
+                    <button onclick="switchView('ubicacion')" id="nav-ubicacion" class="font-bold hover:text-yellow-200 transition border-b-2 border-transparent">Contacto</button>
                     
                     <button onclick="toggleCart()" class="relative bg-white text-orange-600 px-4 py-2 rounded-full font-bold hover:bg-yellow-100 transition flex items-center gap-2">
                         <i class="ph-bold ph-shopping-cart text-xl"></i>
@@ -83,7 +83,7 @@
         <div id="mobile-menu" class="hidden md:hidden bg-orange-700 p-4 border-t border-orange-500 shadow-xl">
             <button onclick="switchView('menu')" class="block w-full text-left py-3 text-white border-b border-orange-600 font-medium">🍴 Ver Menú</button>
             <button onclick="switchView('historia')" class="block w-full text-left py-3 text-white border-b border-orange-600 font-medium">📖 Nuestra Historia</button>
-            <button onclick="switchView('ubicacion')" class="block w-full text-left py-3 text-white font-medium">📍 Ubicación</button>
+            <button onclick="switchView('ubicacion')" class="block w-full text-left py-3 text-white font-medium">📍 Contacto</button>
         </div>
     </nav>
 
@@ -229,8 +229,8 @@
         <!-- VIEW: UBICACIÓN -->
         <section id="view-ubicacion" class="hidden-section fade-in py-12 mb-20">
             <div class="max-w-5xl mx-auto px-4">
-                <h1 class="font-hand text-5xl text-orange-800 text-center mb-6">Ubicación y Cobertura</h1>
-                <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Estamos ubicados estratégicamente para llevarte el mejor sabor.</p>
+                <h1 class="font-hand text-5xl text-orange-800 text-center mb-6">Contacto y Ubicación</h1>
+                <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Estamos ubicados estratégicamente para llevarte el mejor sabor. ¡Escríbenos o visítanos!</p>
                 <div class="grid md:grid-cols-2 gap-8 items-start">
                     <div class="w-full h-[300px] md:h-[500px] bg-gray-200 rounded-3xl overflow-hidden shadow-xl border-4 border-white">
                         <iframe src="https://maps.google.com/maps?q=Urbanizaci%C3%B3n+Veleros,+Rionegro,+Antioquia&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
@@ -259,6 +259,46 @@
                                 </ul>
                             </div>
                         </div>
+
+                        <!-- Card de Redes Sociales (NUEVO) -->
+                        <div class="p-8 rounded-3xl bg-white shadow-lg border border-orange-100">
+                            <h3 class="font-bold text-2xl text-orange-800 mb-4 flex items-center gap-3">
+                                <i class="ph-fill ph-users-three text-orange-600 text-2xl"></i>
+                                Nuestras Redes
+                            </h3>
+                            <p class="text-gray-600 mb-6 text-sm">¡Síguenos para conocer nuestras promociones, eventos y nuevos productos!</p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <!-- WhatsApp -->
+                                <a href="https://wa.me/573104394742" target="_blank" class="flex flex-col items-center gap-2 group p-3 rounded-xl hover:bg-green-50 transition-colors border border-transparent hover:border-green-100">
+                                    <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 group-hover:bg-green-500 group-hover:text-white transition-all shadow-sm">
+                                        <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
+                                    </div>
+                                    <span class="text-sm font-bold text-gray-700">WhatsApp</span>
+                                </a>
+                                <!-- Instagram -->
+                                <a href="https://www.instagram.com/lasdeliciasdeyaya2026?igsh=MWtkazJuanhrOXg1ZQ==" target="_blank" class="flex flex-col items-center gap-2 group p-3 rounded-xl hover:bg-pink-50 transition-colors border border-transparent hover:border-pink-100">
+                                    <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 group-hover:bg-pink-500 group-hover:text-white transition-all shadow-sm">
+                                        <i class="ph-fill ph-instagram-logo text-3xl"></i>
+                                    </div>
+                                    <span class="text-sm font-bold text-gray-700">Instagram</span>
+                                </a>
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/share/1EEzbQGLox/" target="_blank" class="flex flex-col items-center gap-2 group p-3 rounded-xl hover:bg-blue-50 transition-colors border border-transparent hover:border-blue-100">
+                                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-sm">
+                                        <i class="ph-fill ph-facebook-logo text-3xl"></i>
+                                    </div>
+                                    <span class="text-sm font-bold text-gray-700">Facebook</span>
+                                </a>
+                                <!-- TikTok -->
+                                <a href="https://www.tiktok.com/@lasdeliciasdeyaya" target="_blank" class="flex flex-col items-center gap-2 group p-3 rounded-xl hover:bg-gray-100 transition-colors border border-transparent hover:border-gray-200">
+                                    <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-800 group-hover:bg-gray-900 group-hover:text-white transition-all shadow-sm">
+                                        <i class="ph-fill ph-tiktok-logo text-3xl"></i>
+                                    </div>
+                                    <span class="text-sm font-bold text-gray-700">TikTok</span>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -266,14 +306,14 @@
 
     </div>
 
-    <!-- FOOTER (Actualizado 18/02/2026) -->
+    <!-- FOOTER (Actualizado 24/02/2026) -->
     <footer class="bg-gray-900 text-gray-400 py-10 text-sm pb-24 md:pb-10 border-t-4 border-orange-600">
         <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
                 <h4 class="text-white font-bold text-xl font-hand mb-2">Las Delicias de Yaya</h4>
                 <p class="mb-1">© 2026 Todos los derechos reservados.</p>
                 <p class="text-xs text-gray-500">Rionegro, Antioquia</p>
-                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 18/02/2026 06:37 PM</p>
+                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 24/02/2026 08:57 PM</p>
             </div>
             <div class="flex flex-col items-center md:items-end gap-3 bg-gray-800 p-4 rounded-xl border border-gray-700 shadow-lg">
                 <div class="flex items-center gap-2 text-orange-400 font-bold uppercase tracking-wider text-xs">
