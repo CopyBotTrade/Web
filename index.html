@@ -822,7 +822,7 @@
 
                 <p class="text-xs text-gray-500">Rionegro, Antioquia</p>
 
-                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 24/02/2026 09:21 PM</p>
+                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 7 de abril de 2026, 10:53 a.m.
 
             </div>
 
@@ -1938,7 +1938,7 @@
 
                 if (product.image) {
 
-                    imageContent = `<img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy">`;
+                    imageContent = `<img src="${product.image}" alt="${product.name}" data-lightbox-name="${product.name.replace(/"/g, '&quot;')}" class="w-full h-full object-cover cursor-pointer lightbox-trigger group-hover:scale-110 transition-transform duration-500" loading="lazy">`;
 
                 } else {
 
@@ -2504,6 +2504,78 @@
 
 
 
+    </script>
+
+
+    <!-- ═══════════════════ LIGHTBOX DE PRODUCTO ═══════════════════ -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 z-[9999] hidden items-center justify-center p-4 flex-col" onclick="closeLightbox(event)">
+        <img id="lightbox-img" src="" alt="" class="max-w-[92vw] max-h-[75vh] object-contain rounded-xl shadow-2xl" onclick="event.stopPropagation()">
+        <p id="lightbox-name" class="text-white text-lg font-bold mt-4 text-center max-w-[90vw] drop-shadow-lg"></p>
+        <div class="mt-4 flex gap-3 flex-wrap justify-center">
+            <button onclick="downloadLightbox(event)" class="bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-2 rounded-xl shadow-lg flex items-center gap-2 transition-all active:scale-95">
+                <i class="ph-bold ph-download-simple"></i> Descargar
+            </button>
+            <button onclick="closeLightbox(event)" class="bg-white/10 border border-white/30 hover:bg-white/20 text-white font-bold px-5 py-2 rounded-xl backdrop-blur transition-all active:scale-95 flex items-center gap-2">
+                <i class="ph-bold ph-x"></i> Cerrar
+            </button>
+        </div>
+    </div>
+    <script>
+        // Lightbox: abrir al tocar la imagen de un producto
+        function openLightbox(src, name) {
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-name').textContent = name || '';
+            lb.classList.remove('hidden');
+            lb.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox(e) {
+            if (e) e.stopPropagation();
+            const lb = document.getElementById('lightbox');
+            lb.classList.add('hidden');
+            lb.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+        async function downloadLightbox(e) {
+            e.stopPropagation();
+            const img = document.getElementById('lightbox-img');
+            const name = (document.getElementById('lightbox-name').textContent || 'producto')
+                .replace(/[^\w.-]+/g, '_').toLowerCase();
+            try {
+                // raw.githubusercontent.com soporta CORS, fetch funciona
+                const resp = await fetch(img.src);
+                const blob = await resp.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = name + '.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } catch (err) {
+                // Fallback: abrir en nueva pestaña si el download falla
+                window.open(img.src, '_blank');
+            }
+        }
+        // Event delegation: cualquier img con .lightbox-trigger dentro de #products-grid
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('products-grid');
+            if (grid) {
+                grid.addEventListener('click', e => {
+                    const img = e.target.closest('img.lightbox-trigger');
+                    if (img) openLightbox(img.src, img.dataset.lightboxName || img.alt);
+                });
+            }
+            // Escape cierra
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') {
+                    const lb = document.getElementById('lightbox');
+                    if (!lb.classList.contains('hidden')) closeLightbox();
+                }
+            });
+        });
     </script>
 
 </body>
