@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago - Las Delicias de Yaya</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/bold/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Fredoka', sans-serif; }
+        .font-hand { font-family: 'Pacifico', cursive; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .animate-spin { animation: spin 1s linear infinite; }
+        @keyframes bounce-in { 0% { transform: scale(0.3); opacity: 0; } 60% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+        .bounce-in { animation: bounce-in 0.6s ease-out; }
+    </style>
+</head>
+<body class="bg-orange-50 min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Estado: cargando -->
+    <div id="loading" class="text-center">
+        <div class="w-16 h-16 border-4 border-orange-200 border-t-orange-600 rounded-full animate-spin mx-auto mb-4"></div>
+        <p class="text-gray-600 text-lg">Verificando tu pago...</p>
+    </div>
+
+    <!-- Estado: aprobado -->
+    <div id="approved" class="hidden max-w-lg mx-auto text-center">
+        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-green-100 bounce-in">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="ph-bold ph-check-circle text-green-600 text-5xl"></i>
+            </div>
+            <h1 class="font-hand text-4xl text-green-700 mb-3">¡Gracias!</h1>
+            <p class="text-gray-700 text-lg mb-2">Tu pago fue <strong class="text-green-600">aprobado</strong>.</p>
+            <p class="text-gray-500 text-sm mb-6">Yaya ya fue notificada y pronto prepararemos tu pedido.</p>
+
+            <!-- Resumen del pedido -->
+            <div id="order-summary" class="bg-gray-50 rounded-xl p-4 mb-6 text-left text-sm hidden">
+                <h3 class="font-bold text-gray-700 mb-2 flex items-center gap-2">
+                    <i class="ph-bold ph-receipt text-orange-500"></i> Resumen
+                </h3>
+                <div id="order-items"></div>
+                <div class="border-t border-gray-200 mt-2 pt-2 flex justify-between font-bold text-gray-800">
+                    <span>Total:</span>
+                    <span id="order-total"></span>
+                </div>
+                <p class="text-gray-400 text-xs mt-2">Ref: <span id="order-ref"></span></p>
+            </div>
+
+            <a href="index.html" class="inline-block bg-orange-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-orange-700 transition shadow-lg">
+                <i class="ph-bold ph-arrow-left"></i> Volver al Menú
+            </a>
+        </div>
+    </div>
+
+    <!-- Estado: rechazado / error -->
+    <div id="rejected" class="hidden max-w-lg mx-auto text-center">
+        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-red-100 bounce-in">
+            <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="ph-bold ph-x-circle text-red-500 text-5xl"></i>
+            </div>
+            <h1 class="font-hand text-3xl text-red-600 mb-3">Pago no aprobado</h1>
+            <p class="text-gray-600 mb-2" id="reject-reason">Tu pago fue rechazado o cancelado.</p>
+            <p class="text-gray-500 text-sm mb-6">Puedes intentar de nuevo o coordinar por WhatsApp.</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="index.html" class="bg-orange-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-orange-700 transition shadow-lg inline-flex items-center justify-center gap-2">
+                    <i class="ph-bold ph-arrow-left"></i> Volver al Menú
+                </a>
+                <a href="https://wa.me/573104394742?text=Hola, tuve un problema con el pago en línea. ¿Me ayudas?" target="_blank" class="bg-green-500 text-white font-bold px-6 py-3 rounded-xl hover:bg-green-600 transition shadow-lg inline-flex items-center justify-center gap-2">
+                    <i class="ph-bold ph-whatsapp-logo"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estado: sin transaccion -->
+    <div id="no-transaction" class="hidden max-w-lg mx-auto text-center">
+        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-gray-200 bounce-in">
+            <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="ph-bold ph-question text-orange-500 text-5xl"></i>
+            </div>
+            <h1 class="font-hand text-3xl text-orange-700 mb-3">Sin transacción</h1>
+            <p class="text-gray-600 mb-6">No se encontró información de pago. Si acabas de pagar, espera unos segundos y recarga la página.</p>
+            <a href="index.html" class="inline-block bg-orange-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-orange-700 transition shadow-lg">
+                <i class="ph-bold ph-arrow-left"></i> Volver al Menú
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function formatPrice(n) {
+            return '$' + Number(n).toLocaleString('es-CO', { minimumFractionDigits: 0 });
+        }
+
+        async function checkTransaction() {
+            const params = new URLSearchParams(window.location.search);
+            const txId = params.get('id');
+
+            if (!txId) {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('no-transaction').classList.remove('hidden');
+                return;
+            }
+
+            try {
+                // API publica de Wompi — no requiere llave privada
+                // Sandbox: sandbox.wompi.co/v1 | Produccion: production.wompi.co/v1
+                // Cambiar a 'production' cuando se active la cuenta real
+                const wompiBase = 'https://sandbox.wompi.co/v1';
+                const res = await fetch(`${wompiBase}/transactions/${txId}`);
+                const data = await res.json();
+                const tx = data.data || {};
+                const status = tx.status;
+
+                document.getElementById('loading').classList.add('hidden');
+
+                if (status === 'APPROVED') {
+                    document.getElementById('approved').classList.remove('hidden');
+                    showOrderSummary(tx);
+                } else {
+                    document.getElementById('rejected').classList.remove('hidden');
+                    const reasons = {
+                        'DECLINED': 'La transacción fue declinada por tu banco.',
+                        'VOIDED': 'La transacción fue anulada.',
+                        'ERROR': 'Hubo un error procesando el pago.',
+                        'PENDING': 'El pago está pendiente de confirmación. Revisa tu correo.',
+                    };
+                    const el = document.getElementById('reject-reason');
+                    el.textContent = reasons[status] || `Estado: ${status || 'desconocido'}`;
+
+                    // Si esta pendiente, mostrar diferente
+                    if (status === 'PENDING') {
+                        document.getElementById('rejected').querySelector('.ph-x-circle')
+                            ?.classList.replace('ph-x-circle', 'ph-hourglass');
+                        document.getElementById('rejected').querySelector('.bg-red-100')
+                            ?.classList.replace('bg-red-100', 'bg-yellow-100');
+                    }
+                }
+            } catch (err) {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('rejected').classList.remove('hidden');
+                document.getElementById('reject-reason').textContent =
+                    'No se pudo verificar el estado del pago. Intenta de nuevo o contacta por WhatsApp.';
+            }
+        }
+
+        function showOrderSummary(tx) {
+            // Intentar leer del sessionStorage (guardado al redirigir al checkout)
+            let order = null;
+            try {
+                order = JSON.parse(sessionStorage.getItem('yaya-last-order'));
+                sessionStorage.removeItem('yaya-last-order');
+            } catch {}
+
+            const summary = document.getElementById('order-summary');
+            const items = document.getElementById('order-items');
+            const totalEl = document.getElementById('order-total');
+            const refEl = document.getElementById('order-ref');
+
+            if (order && order.items && order.items.length > 0) {
+                items.innerHTML = order.items.map(i =>
+                    `<div class="flex justify-between py-1">
+                        <span class="text-gray-600">${i.qty}x ${i.name}</span>
+                        <span class="text-gray-800 font-medium">${formatPrice(i.price * i.qty)}</span>
+                    </div>`
+                ).join('');
+                totalEl.textContent = formatPrice(order.total);
+                refEl.textContent = order.reference || tx.reference || '-';
+                summary.classList.remove('hidden');
+            } else if (tx.amount_in_cents) {
+                totalEl.textContent = formatPrice(tx.amount_in_cents / 100);
+                refEl.textContent = tx.reference || '-';
+                summary.classList.remove('hidden');
+            }
+        }
+
+        // Ejecutar al cargar
+        checkTransaction();
+    </script>
+</body>
+</html>
