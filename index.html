@@ -448,51 +448,54 @@
 
 
 
-                <!-- Aviso de Pagos -->
+                <!-- Aviso de Pagos — ahora incluye pago en linea -->
 
                 <div class="bg-purple-50 text-purple-900 px-3 py-3 rounded-xl flex flex-col justify-center items-center border border-purple-100 shadow-sm">
 
                     <p class="text-xs font-bold uppercase tracking-wider mb-2 text-purple-800">Medios de Pago</p>
 
-                    <div class="flex items-center justify-center gap-4">
+                    <div class="flex items-center justify-center gap-3 flex-wrap">
 
                         <div class="flex flex-col items-center gap-1 group cursor-default">
-
                             <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
-
                                 <i class="ph-fill ph-coins text-xl text-green-600"></i>
-
                             </div>
-
                             <span class="text-[10px] font-bold text-gray-600">Efectivo</span>
-
                         </div>
 
                         <div class="flex flex-col items-center gap-1 group cursor-default">
-
                             <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
-
                                 <i class="ph-fill ph-device-mobile text-xl text-pink-600"></i>
-
                             </div>
-
                             <span class="text-[10px] font-bold text-gray-600">Nequi</span>
-
                         </div>
 
                         <div class="flex flex-col items-center gap-1 group cursor-default">
-
                             <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
-
                                 <i class="ph-fill ph-bank text-xl text-yellow-500"></i>
-
                             </div>
-
                             <span class="text-[10px] font-bold text-gray-600">Bancolombia</span>
+                        </div>
 
+                        <div class="flex flex-col items-center gap-1 group cursor-default">
+                            <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                                <i class="ph-fill ph-credit-card text-xl text-blue-600"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-gray-600">Tarjeta</span>
+                        </div>
+
+                        <div class="flex flex-col items-center gap-1 group cursor-default">
+                            <div class="bg-white p-1.5 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+                                <i class="ph-fill ph-buildings text-xl text-indigo-600"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-gray-600">PSE</span>
                         </div>
 
                     </div>
+
+                    <p class="text-[10px] text-purple-600 mt-2 font-medium">
+                        <i class="ph-fill ph-shield-check"></i> Pago en línea seguro con Wompi (Bancolombia)
+                    </p>
 
                 </div>
 
@@ -822,7 +825,7 @@
 
                 <p class="text-xs text-gray-500">Rionegro, Antioquia</p>
 
-                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 11 de abril de 2026, 10:33 p.m.
+                <p class="text-xs text-gray-600 mt-2 italic">Última actualización: 11 de abril de 2026, 11:16 p.m.
 
             </div>
 
@@ -948,11 +951,36 @@
 
 
 
-                <button onclick="sendOrder()" id="btn-whatsapp-order" class="w-full bg-gray-300 text-gray-500 cursor-not-allowed py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-lg transition-all" disabled>
+                <!-- Seccion: Como quieres pagar -->
+                <div class="mb-2">
+                    <p class="text-center text-gray-500 text-sm font-bold mb-3 uppercase tracking-wide">¿Cómo quieres ordenar?</p>
 
-                    <i class="ph-bold ph-whatsapp-logo text-xl"></i> Haz tu pedido por WhatsApp
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 
-                </button>
+                        <!-- Opcion 1: WhatsApp -->
+                        <button onclick="sendOrder()" id="btn-whatsapp-order"
+                            class="bg-gray-200 text-gray-400 cursor-not-allowed py-4 px-4 rounded-2xl font-bold text-base flex flex-col items-center justify-center gap-2 shadow-lg transition-all border-2 border-transparent hover:border-green-400 disabled:hover:border-transparent"
+                            disabled>
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-1">
+                                <i class="ph-fill ph-whatsapp-logo text-green-600 text-2xl"></i>
+                            </div>
+                            <span class="text-sm">Pedir por WhatsApp</span>
+                            <span class="text-xs font-normal text-gray-400">Coordinas pago y envío por chat</span>
+                        </button>
+
+                        <!-- Opcion 2: Pago en linea -->
+                        <button onclick="sendOrder(true)" id="btn-online-pay"
+                            class="bg-gray-200 text-gray-400 cursor-not-allowed py-4 px-4 rounded-2xl font-bold text-base flex flex-col items-center justify-center gap-2 shadow-lg transition-all border-2 border-transparent hover:border-orange-400 disabled:hover:border-transparent"
+                            disabled>
+                            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-1">
+                                <i class="ph-fill ph-credit-card text-orange-600 text-2xl"></i>
+                            </div>
+                            <span class="text-sm">Pagar en línea ahora</span>
+                            <span class="text-xs font-normal text-gray-400">PSE · Nequi · Tarjeta · Bancolombia</span>
+                        </button>
+
+                    </div>
+                </div>
 
             </div>
 
@@ -1998,6 +2026,8 @@
 
             const orderBtn = document.getElementById('btn-whatsapp-order');
 
+            const payOnlineBtn = document.getElementById('btn-online-pay');
+
             const cartForm = document.getElementById('cart-form');
 
             const formError = document.getElementById('form-error');
@@ -2038,9 +2068,15 @@
 
                 orderBtn.disabled = true;
 
-                orderBtn.classList.add('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
+                orderBtn.classList.add('bg-gray-200', 'text-gray-400', 'cursor-not-allowed');
 
-                orderBtn.classList.remove('bg-green-500', 'text-white', 'hover:bg-green-600', 'hover:shadow-xl');
+                orderBtn.classList.remove('bg-green-50', 'text-green-800', 'hover:bg-green-100', 'hover:shadow-xl');
+
+                if (payOnlineBtn) {
+                    payOnlineBtn.disabled = true;
+                    payOnlineBtn.classList.add('bg-gray-200', 'text-gray-400', 'cursor-not-allowed');
+                    payOnlineBtn.classList.remove('bg-orange-50', 'text-orange-800', 'hover:bg-orange-100', 'hover:shadow-xl');
+                }
 
                 
 
@@ -2088,9 +2124,15 @@
 
                 orderBtn.disabled = false;
 
-                orderBtn.classList.remove('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
+                orderBtn.classList.remove('bg-gray-200', 'text-gray-400', 'cursor-not-allowed');
 
-                orderBtn.classList.add('bg-green-500', 'text-white', 'hover:bg-green-600', 'hover:shadow-xl');
+                orderBtn.classList.add('bg-green-50', 'text-green-800', 'hover:bg-green-100', 'hover:shadow-xl');
+
+                if (payOnlineBtn) {
+                    payOnlineBtn.disabled = false;
+                    payOnlineBtn.classList.remove('bg-gray-200', 'text-gray-400', 'cursor-not-allowed');
+                    payOnlineBtn.classList.add('bg-orange-50', 'text-orange-800', 'hover:bg-orange-100', 'hover:shadow-xl');
+                }
 
                 
 
@@ -2328,7 +2370,12 @@
 
 
 
-        function sendOrder() {
+        // URL del Cloudflare Worker que firma transacciones Wompi.
+        // 100% independiente del VPS de ingeportal. Gratis (100k req/dia).
+        // Para produccion real: solo cambiar los secrets del Worker (WOMPI_PUB, WOMPI_INTEGRITY).
+        const CHECKOUT_WORKER_URL = 'https://yaya-checkout.yaya-delicias.workers.dev';
+
+        async function sendOrder(useCheckout = false) {
 
             if (cart.length === 0) return;
 
@@ -2340,7 +2387,7 @@
 
             const formError = document.getElementById('form-error');
 
-            
+
 
             const name = nameInput.value.trim();
 
@@ -2356,7 +2403,7 @@
 
                 if(!location) locationInput.classList.add('border-red-500', 'ring-1', 'ring-red-500');
 
-                
+
 
                 nameInput.addEventListener('input', () => {
 
@@ -2378,8 +2425,49 @@
 
             }
 
+            // Calcular total del carrito
+            let total = 0;
+            cart.forEach(item => { total += item.price * item.quantity; });
 
+            // --- Pago en linea via Wompi ---
+            if (useCheckout) {
+                const payBtn = document.getElementById('btn-online-pay');
+                if (payBtn) {
+                    payBtn.disabled = true;
+                    payBtn.innerHTML = '<i class="ph-bold ph-spinner animate-spin"></i> Conectando con pasarela...';
+                }
+                try {
+                    const res = await fetch(CHECKOUT_WORKER_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            total_cop: total,
+                            customer_name: name,
+                            customer_phone: location,
+                        })
+                    });
+                    const data = await res.json();
+                    if (data.error) throw new Error(data.error);
+                    // Guardar resumen en sessionStorage para mostrar en gracias.html
+                    sessionStorage.setItem('yaya-last-order', JSON.stringify({
+                        items: cart.map(i => ({ name: i.name, qty: i.quantity, price: i.price })),
+                        total,
+                        customer: name,
+                        reference: data.reference,
+                        ts: Date.now(),
+                    }));
+                    window.open(data.checkout_url, '_blank');
+                } catch (err) {
+                    alert('No se pudo conectar con la pasarela de pago. Intenta por WhatsApp.\n\n(' + err.message + ')');
+                    if (payBtn) {
+                        payBtn.disabled = false;
+                        payBtn.innerHTML = '<i class="ph-bold ph-credit-card"></i> O pagar en línea ahora <span class="text-xs font-normal text-gray-500">(PSE / Nequi / Tarjeta)</span>';
+                    }
+                }
+                return;
+            }
 
+            // --- Flujo WhatsApp (predeterminado, no cambia) ---
             let message = "¡Hola! 👋 Quiero hacer un pedido en Las Delicias de Yaya:\n\n";
 
             message += `👤 *Cliente:* ${name}\n`;
@@ -2388,19 +2476,13 @@
 
             message += "*Pedido:*\n";
 
-
-
-            let total = 0;
-
             cart.forEach(item => {
 
                 message += `▪️ ${item.quantity}x ${item.name} - ${formatPrice(item.price * item.quantity)}\n`;
 
-                total += item.price * item.quantity;
-
             });
 
-            
+
 
             message += `\n*Total a Pagar: ${formatPrice(total)}*`;
 
