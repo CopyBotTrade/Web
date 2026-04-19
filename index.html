@@ -1047,8 +1047,10 @@
     <script>
 
         // --- DATOS ---
-
-        const productsData = [
+        // Fuentes en orden: (1) VPS vivo → (2) snapshot GitHub → (3) fallback hardcoded (este array).
+        // `productsData` arranca con el fallback hardcoded y se sobreescribe al vuelo si algún
+        // nivel superior responde. Ver loadProductsWithFallback() al final del script.
+        let productsData = [
 
             // FRITOS
 
@@ -1876,7 +1878,7 @@
 
         let activeCategory = 'Fritos';
 
-        const categories = ['Fritos', 'Panaderia', 'Postres'];
+        const categories = ['Fritos', 'Panaderia', 'Postres', 'Pedidos especiales'];
 
 
 
@@ -1908,11 +1910,16 @@
 
                 case 'Postres': return "🍰";
 
+                case 'Pedidos especiales': return "⭐";
+
                 default: return "🍽️";
 
             }
 
         };
+
+        // Cuenta productos visibles por categoría (para las pestañas y el título)
+        const countByCategory = (cat) => productsData.filter(p => p.category === cat).length;
 
 
 
@@ -1924,21 +1931,18 @@
 
             const container = document.getElementById('category-tabs');
 
-            container.innerHTML = categories.map(cat => `
-
-                <button onclick="setCategory('${cat}')" 
-
+            container.innerHTML = categories.map(cat => {
+                const n = countByCategory(cat);
+                const label = cat === 'Panaderia' ? 'Panadería' : cat;
+                return `
+                <button onclick="setCategory('${cat}')"
                     class="flex items-center gap-1.5 px-4 py-2 rounded-full font-bold text-sm md:text-base whitespace-nowrap transition-all flex-shrink-0 snap-center
-
                     ${activeCategory === cat ? 'bg-orange-600 text-white shadow-lg ring-2 ring-orange-300 transform scale-105' : 'bg-white text-gray-600 border border-gray-200 hover:bg-orange-100'}">
-
                     <span class="text-lg md:text-xl">${getCategoryIcon(cat)}</span>
-
-                    ${cat}
-
-                </button>
-
-            `).join('') + '<div class="w-2 md:hidden flex-shrink-0"></div>'; 
+                    ${label}
+                    <span class="text-xs font-semibold opacity-80 ${activeCategory === cat ? 'text-orange-100' : 'text-gray-400'}">(${n})</span>
+                </button>`;
+            }).join('') + '<div class="w-2 md:hidden flex-shrink-0"></div>';
 
         }
 
@@ -1952,7 +1956,9 @@
 
             
 
-            titleContainer.innerHTML = `<span class="text-3xl animate-bounce">${getCategoryIcon(activeCategory)}</span> ${activeCategory}`;
+            const _catLabel = activeCategory === 'Panaderia' ? 'Panadería' : activeCategory;
+            const _catCount = countByCategory(activeCategory);
+            titleContainer.innerHTML = `<span class="text-3xl animate-bounce">${getCategoryIcon(activeCategory)}</span> ${_catLabel} <span class="text-base font-normal text-gray-400">(${_catCount})</span>`;
 
 
 
@@ -2568,9 +2574,72 @@
 
 
 
+        // --- CARGA DE PRODUCTOS CON FALLBACK DE 3 NIVELES ---
+        // 1) VPS vivo (ingeproductos.app)  →  cambios instantáneos
+        // 2) Snapshot GitHub (data/productos.json)  →  actualizado cada 24h por el backend
+        // 3) Array hardcoded arriba  →  último recurso si todo falla
+        // Si estamos en localhost servida desde python http.server u otro, apunta al backend dev del VPS.
+        // En producción (GitHub Pages) apunta al dominio.
+        const _host = location.hostname;
+        const LIVE_URL = (_host === 'localhost' || _host === '127.0.0.1' || _host === '192.168.20.14')
+          ? 'http://192.168.20.14:8001/api/v1/yaya/web/productos'
+          : 'https://ingeproductos.app/api/v1/yaya/web/productos';
+        const SNAPSHOT_URL = 'https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/data/productos.json';
+
+        async function fetchWithTimeout(url, timeoutMs) {
+            const ctrl = new AbortController();
+            const t = setTimeout(() => ctrl.abort(), timeoutMs);
+            try {
+                const res = await fetch(url, { cache: 'no-store', signal: ctrl.signal });
+                clearTimeout(t);
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.json();
+            } finally {
+                clearTimeout(t);
+            }
+        }
+
+        function showFallbackBanner(meta) {
+            if (document.getElementById('fallback-banner')) return;
+            const date = meta && meta.generated_at ? new Date(meta.generated_at).toLocaleDateString('es-CO', { day:'numeric', month:'long' }) : null;
+            const banner = document.createElement('div');
+            banner.id = 'fallback-banner';
+            banner.className = 'bg-amber-50 border border-amber-200 text-amber-800 text-xs px-4 py-2 text-center';
+            banner.innerHTML = date
+              ? `<i class="ph-bold ph-info"></i> Menú de respaldo — última sincronización: <strong>${date}</strong>`
+              : `<i class="ph-bold ph-info"></i> Menú de respaldo local`;
+            const host = document.querySelector('main') || document.body;
+            host.insertBefore(banner, host.firstChild);
+        }
+
+        async function loadProductsWithFallback() {
+            // Nivel 1 — VPS vivo
+            try {
+                const data = await fetchWithTimeout(LIVE_URL, 3500);
+                if (Array.isArray(data) && data.length > 0) {
+                    productsData = data;
+                    return 'live';
+                }
+            } catch (_) { /* seguimos al nivel 2 */ }
+            // Nivel 2 — Snapshot GitHub
+            try {
+                const snap = await fetchWithTimeout(SNAPSHOT_URL, 4000);
+                if (snap && Array.isArray(snap.products) && snap.products.length > 0) {
+                    productsData = snap.products;
+                    showFallbackBanner(snap);
+                    return 'snapshot';
+                }
+            } catch (_) { /* seguimos al nivel 3 */ }
+            // Nivel 3 — hardcoded (lo que ya está en productsData)
+            showFallbackBanner(null);
+            return 'hardcoded';
+        }
+
         // --- INICIALIZACIÓN ---
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+
+            await loadProductsWithFallback();  // sobreescribe productsData si puede
 
             renderCategoryTabs();
 
