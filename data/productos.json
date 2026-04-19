@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-19T04:10:32.740023+00:00",
-  "source": "ingeproductos.app backend (push manual inicial)",
+  "generated_at": "2026-04-19T04:31:45.808225+00:00",
+  "source": "ingeproductos.app backend (refresh tras mirror)",
   "count": 57,
   "products": [
     {
@@ -17,7 +17,7 @@
       "name": "Arepa Cabimera de Pollo Mechado",
       "price": 13000,
       "desc": "(Arepa frita) Harina de maíz, pollo desmechado, lechuga, tomate, cebolla, aguacate, huevo, queso costeño, mayonesa, salsa de tomate, mostaza y  salsa tártara aparte.",
-      "image": "https://ingeproductos.app/static/yaya/890d1f05.Imagen.011234.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/890d1f05.Imagen.011234.jpg"
     },
     {
       "id": "e9d767a2",
@@ -49,7 +49,7 @@
       "name": "Emapanas de pollo",
       "price": 3000,
       "desc": "Harina de maíz, relleno con pollo desmechado.",
-      "image": "https://ingeproductos.app/static/yaya/8be30493.Imagen.190756.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/8be30493.Imagen.190756.jpg"
     },
     {
       "id": "e2529fc6",
@@ -57,7 +57,7 @@
       "name": "Empanadas de carne mechada",
       "price": 4000,
       "desc": "Harina de maíz, relleno de carne desmechada.",
-      "image": "https://ingeproductos.app/static/yaya/e2529fc6.Imagen.191140.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/e2529fc6.Imagen.191140.jpg"
     },
     {
       "id": "d464b9fe",
@@ -65,7 +65,7 @@
       "name": "Empanadas de pabellón",
       "price": 6000,
       "desc": "Harina de maíz, rellena de: carne desmechada, tajada, caraota y queso costeño.",
-      "image": "https://ingeproductos.app/static/yaya/d464b9fe.Imagen.203439.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/d464b9fe.Imagen.203439.jpg"
     },
     {
       "id": "29958909",
@@ -81,7 +81,7 @@
       "name": "Palitos de queso (fritos x unidad)",
       "price": 3500,
       "desc": "Dedito de queso, envuelto con masa de harina de trigo.  Sabores: queso costeño, queso costeño con bocadillo.",
-      "image": "https://ingeproductos.app/static/yaya/34f0ac30.Imagen.030025.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/34f0ac30.Imagen.030025.jpg"
     },
     {
       "id": "27456b58",
@@ -89,7 +89,7 @@
       "name": "Palitos de queso (tequeños) Congelados bandeja x 10",
       "price": 15000,
       "desc": "Masa de harina de trigo con: queso costeño o queso costeño y bocadillo.",
-      "image": "https://ingeproductos.app/static/yaya/27456b58.Imagen.030356.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/27456b58.Imagen.030356.jpg"
     },
     {
       "id": "1bd1ee6b",
@@ -105,7 +105,7 @@
       "name": "Patacon de carne mechada",
       "price": 15000,
       "desc": "1 plátano pintón o verde, carne desmechada, lechuga, tomate, cebolla, aguacate, huevo, queso costeño, mayonesa, salsa de tomate, mostaza y salsa tártara aparte.",
-      "image": "https://ingeproductos.app/static/yaya/b3038cc6.Imagen.165301.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/b3038cc6.Imagen.165301.jpg"
     },
     {
       "id": "0afcc767",
@@ -113,7 +113,7 @@
       "name": "Patacon de pollo mechado",
       "price": 13000,
       "desc": "1 plátano pintón o verde, pollo desmechado, lechuga, tomate, cebolla, aguacate, huevo, queso costeño, mayonesa, salsa de tomate, mostaza y salsa tártara aparte.",
-      "image": "https://ingeproductos.app/static/yaya/0afcc767.Imagen.165451.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/0afcc767.Imagen.165451.jpg"
     },
     {
       "id": "9d0a9c38",
@@ -121,7 +121,7 @@
       "name": "Patacón mixto (carne mechada y pollo mechado)",
       "price": 18000,
       "desc": "1 plátano pintón o verde, carne desmechada y pollo desmechado, lechuga, tomate, cebolla, aguacate, huevo, queso costeño, mayonesa, salsa de tomate, mostaza y salsa tártara aparte.",
-      "image": "https://ingeproductos.app/static/yaya/9d0a9c38.Imagen.165437.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/9d0a9c38.Imagen.165437.jpg"
     },
     {
       "id": "27e94ca9",
@@ -129,7 +129,7 @@
       "name": "Pollo Relleno",
       "price": 110000,
       "desc": "𝑃𝑜𝑙𝑙𝑜𝑣𝑟𝑒𝑙𝑙𝑒𝑏𝑜 𝑐𝑜𝑛 𝑗𝑎𝑚ó𝑛, 𝑞𝑢𝑒𝑠𝑜 𝑦 tocineta",
-      "image": "https://ingeproductos.app/static/yaya/27e94ca9.Imagen.021551.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/27e94ca9.Imagen.021551.jpg"
     },
     {
       "id": "630b7b18",
@@ -137,7 +137,7 @@
       "name": "Salsa de ajo",
       "price": 13000,
       "desc": "Mayonesa casera; (huevo, aceite, sal y vinagre) aderezada con ajo, cebolla blanca y cilantro\nfrasco de 200 ml",
-      "image": "https://ingeproductos.app/static/yaya/630b7b18.Imagen.010009.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/630b7b18.Imagen.010009.jpg"
     },
     {
       "id": "f8c710bd",
@@ -145,7 +145,7 @@
       "name": "Tequeyoyo",
       "price": 4500,
       "desc": "Masa de harina de trigo,  envuelata con ¼ de plátano maduro, palito de queso costeño y cerdo.",
-      "image": "https://ingeproductos.app/static/yaya/f8c710bd.Imagen.175916.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/f8c710bd.Imagen.175916.jpg"
     },
     {
       "id": "516c5e78",
@@ -153,7 +153,7 @@
       "name": "Cachitos rellenos de jamon y queso x 5",
       "price": 13000,
       "desc": "Masa sde harina de trigo, rellana con jamon y queso.",
-      "image": "https://ingeproductos.app/static/yaya/516c5e78.Imagen.161604.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/516c5e78.Imagen.161604.jpg"
     },
     {
       "id": "ec0a78cc",
@@ -161,7 +161,7 @@
       "name": "Minipizzas  x 10 unidades",
       "price": 15000,
       "desc": "Masa de harina de trigo con salsa de pizza, jamon y queso mozarella",
-      "image": "https://ingeproductos.app/static/yaya/ec0a78cc.Imagen.030240.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/ec0a78cc.Imagen.030240.jpg"
     },
     {
       "id": "0ba87252",
@@ -177,7 +177,7 @@
       "name": "Pan con chispa de chocolate relleno de arequipe",
       "price": 14000,
       "desc": "Masa de pan envuelta con chips de chocolate, relleno con arequipe.",
-      "image": "https://ingeproductos.app/static/yaya/1a812b85.Imagen.191019.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/1a812b85.Imagen.191019.jpg"
     },
     {
       "id": "f10becd7",
@@ -193,7 +193,7 @@
       "name": "Pan de Jamon",
       "price": 40000,
       "desc": "masa de pan, relleno de jamón, tocineta, uvas pasas y aceitunas, aprox. 800 gr.",
-      "image": "https://ingeproductos.app/static/yaya/ad299fd4.Imagen.201626.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/ad299fd4.Imagen.201626.jpg"
     },
     {
       "id": "1ad7380b",
@@ -241,7 +241,7 @@
       "name": "panecillos de guayaba x 5 unidades",
       "price": 10000,
       "desc": "Pan relleno de guayaba aprox. 90 gr. Cada pan.",
-      "image": "https://ingeproductos.app/static/yaya/6f30caee.Imagen.164444.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/6f30caee.Imagen.164444.jpg"
     },
     {
       "id": "6f7a6c33",
@@ -257,7 +257,7 @@
       "name": "Paneton de chocolate o frutas confitadas",
       "price": 13000,
       "desc": "masa de Paneton envuelta con chips de chocolate o frutas confitadas. peso aproximado 300 gramos ",
-      "image": "https://ingeproductos.app/static/yaya/d66ff84f.Imagen.021525.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/d66ff84f.Imagen.021525.jpg"
     },
     {
       "id": "91efb6f3",
@@ -273,7 +273,7 @@
       "name": "Roscon grande de arequipe y queso",
       "price": 24000,
       "desc": "Pan en forma de rosca relleno de arequipe y queso",
-      "image": "https://ingeproductos.app/static/yaya/a0309242.Imagen.185839.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/a0309242.Imagen.185839.jpg"
     },
     {
       "id": "7170d14a",
@@ -281,7 +281,7 @@
       "name": "Roscon grande de guayaba con queso",
       "price": 18000,
       "desc": "Pan en forma de rosca relleno de mermelada de guayaba y queso costeño. Aprox. 800 gr.",
-      "image": "https://ingeproductos.app/static/yaya/7170d14a.Imagen.181210.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/7170d14a.Imagen.181210.jpg"
     },
     {
       "id": "637a48ae",
@@ -289,7 +289,7 @@
       "name": "Roscón grande guayaba",
       "price": 18000,
       "desc": "Pan en forma de rosca relleno de mermelada de guayaba. Aprox. 700 gr.",
-      "image": "https://ingeproductos.app/static/yaya/637a48ae.Imagen.030120.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/637a48ae.Imagen.030120.jpg"
     },
     {
       "id": "cf8c9e18",
@@ -313,7 +313,7 @@
       "name": "roscon mediano guayaba",
       "price": 11000,
       "desc": "arequipe",
-      "image": "https://ingeproductos.app/static/yaya/c5b3854a.Imagen.165746.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/c5b3854a.Imagen.165746.jpg"
     },
     {
       "id": "deb80b2d",
@@ -321,7 +321,7 @@
       "name": "Roscón mediano guayaba y queso",
       "price": 14000,
       "desc": "Relleno guayaba y queso",
-      "image": "https://ingeproductos.app/static/yaya/deb80b2d.Imagen.165756.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/deb80b2d.Imagen.165756.jpg"
     },
     {
       "id": "e680116e",
@@ -385,7 +385,7 @@
       "name": "Cupacake con Chantilly x 4 und",
       "price": 16000,
       "desc": "Biscocho decorado con crema Chantilly.",
-      "image": "https://ingeproductos.app/static/yaya/1e26b598.Imagen.194924.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/1e26b598.Imagen.194924.jpg"
     },
     {
       "id": "df51a306",
@@ -393,7 +393,7 @@
       "name": "Minidonas por unidad empacadas (Minimo 30)",
       "price": 1500,
       "desc": "harina de trigo, huevo, azúcar y leche, decoradas con cobertura de chocolate negro o blanco y lluvia de colores, envueltas en bolsa de polipropileno y lazo",
-      "image": "https://ingeproductos.app/static/yaya/df51a306.Imagen.191440.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/df51a306.Imagen.191440.jpg"
     },
     {
       "id": "28eaf701",
@@ -409,7 +409,7 @@
       "name": "Minidonas x12 Unidades",
       "price": 15000,
       "desc": "masa de harina de trigo, huevo, azúcar y leche, decoradas con cobertura de chocolate negro o blanco y lluvia de colores.",
-      "image": "https://ingeproductos.app/static/yaya/2b6fcef4.Imagen.193727.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/2b6fcef4.Imagen.193727.jpg"
     },
     {
       "id": "43a7e0fd",
@@ -417,7 +417,7 @@
       "name": "Minidonas x6",
       "price": 9000,
       "desc": "Mini donas x6",
-      "image": "https://ingeproductos.app/static/yaya/43a7e0fd.Imagen.174807.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/43a7e0fd.Imagen.174807.jpg"
     },
     {
       "id": "99ae5356",
@@ -425,7 +425,7 @@
       "name": "Quesillo",
       "price": 10000,
       "desc": "Huevo, azúcar, leche en polvo, lecherita, vainilla y ron.",
-      "image": "https://ingeproductos.app/static/yaya/99ae5356.Imagen.192704.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/99ae5356.Imagen.192704.jpg"
     },
     {
       "id": "a1635ada",
@@ -441,7 +441,7 @@
       "name": "Torta 3 leches porcion",
       "price": 10000,
       "desc": "Biscocho con harina de trigo, huevo y azúcar, relleno con, leche condensada, crema de leche, leche evaporada decorada con crema de Chantilly y cereza",
-      "image": "https://ingeproductos.app/static/yaya/0e29f8e8.Imagen.193334.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/0e29f8e8.Imagen.193334.jpg"
     },
     {
       "id": "7741b367",
@@ -449,7 +449,7 @@
       "name": "Torta beso de angel",
       "price": 10000,
       "desc": "Tres leches con quesillo",
-      "image": "https://ingeproductos.app/static/yaya/7741b367.Imagen.205510.jpg"
+      "image": "https://raw.githubusercontent.com/lasdeliciasdeyaya/Web/main/images/yaya/7741b367.Imagen.205510.jpg"
     },
     {
       "id": "486bd0e9",
