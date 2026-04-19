@@ -2008,7 +2008,7 @@
 
                         </div>
 
-                        <button onclick="addToCart(${product.id})" class="w-full bg-orange-100 text-orange-700 font-bold py-2 rounded-xl hover:bg-orange-600 hover:text-white transition-colors flex items-center justify-center gap-2 mt-2 active:scale-95 transform">
+                        <button onclick="addToCart('${product.id}')" class="w-full bg-orange-100 text-orange-700 font-bold py-2 rounded-xl hover:bg-orange-600 hover:text-white transition-colors flex items-center justify-center gap-2 mt-2 active:scale-95 transform">
 
                             <i class="ph-bold ph-plus"></i> Agregar
 
@@ -2108,15 +2108,15 @@
 
                             <div class="flex items-center bg-white rounded-lg border border-gray-200 shadow-sm">
 
-                                <button onclick="updateQuantity(${item.id}, -1)" class="px-2 py-1 hover:bg-gray-100 text-gray-600 rounded-l-lg"><i class="ph-bold ph-minus"></i></button>
+                                <button onclick="updateQuantity('${item.id}', -1)" class="px-2 py-1 hover:bg-gray-100 text-gray-600 rounded-l-lg"><i class="ph-bold ph-minus"></i></button>
 
                                 <span class="w-8 text-center font-bold text-sm select-none">${item.quantity}</span>
 
-                                <button onclick="updateQuantity(${item.id}, 1)" class="px-2 py-1 hover:bg-gray-100 text-gray-600 rounded-r-lg"><i class="ph-bold ph-plus"></i></button>
+                                <button onclick="updateQuantity('${item.id}', 1)" class="px-2 py-1 hover:bg-gray-100 text-gray-600 rounded-r-lg"><i class="ph-bold ph-plus"></i></button>
 
                             </div>
 
-                            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-600 p-1"><i class="ph-bold ph-trash text-lg"></i></button>
+                            <button onclick="removeFromCart('${item.id}')" class="text-red-400 hover:text-red-600 p-1"><i class="ph-bold ph-trash text-lg"></i></button>
 
                         </div>
 
@@ -2212,9 +2212,9 @@
 
         function addToCart(id) {
 
-            const product = productsData.find(p => p.id === id);
+            const product = productsData.find(p => String(p.id) === String(id));
 
-            const existing = cart.find(item => item.id === id);
+            const existing = cart.find(item => String(item.id) === String(id));
 
             
 
@@ -2236,7 +2236,7 @@
 
         function removeFromCart(id) {
 
-            cart = cart.filter(item => item.id !== id);
+            cart = cart.filter(item => String(item.id) !== String(id));
 
             renderCart();
 
@@ -2246,7 +2246,7 @@
 
         function updateQuantity(id, delta) {
 
-            const item = cart.find(i => i.id === id);
+            const item = cart.find(i => String(i.id) === String(id));
 
             if (item) {
 
